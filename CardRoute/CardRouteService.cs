@@ -513,7 +513,7 @@ namespace CardRoute
                 finally
                 {
                     conn?.Close();
-                    timerStart.Interval = (wasProcess) ? 50 : timerInterval;
+                    timerStart.Interval = (wasProcess) ? 50 : timerInterval+1;
                     Interlocked.Decrement(ref threadCount);
                     if (!stopFlag)
                         timerStart.Start();
