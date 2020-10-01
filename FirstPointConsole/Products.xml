@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Products>
+  <!-- Condition Type: Equal, NotEqual, Contain, NotContain, StartsWith, EndsWith -->
+  <Product Name="Avangard" Chain="FirstChain">
+    <Conditions>
+      <Condition Field="ProductCode" Type="Equal" Value="K7"/>
+    </Conditions>
+  </Product>
+  <Hopper>1</Hopper>
+</Products>

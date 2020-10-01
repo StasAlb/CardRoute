@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="67cbb9c4-26f3-4211-b2e8-0adda45ca4a3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Users\perrucl\Documents\Visual Studio 2015\Projects\PrintEngine\Printer.DPCL2\WSDL\DPCL2.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="xmlmime.xsd" MetadataType="Schema" ID="e29af358-2a51-48d4-8c93-bd21fd6215cb" SourceId="1" SourceUrl="file:///C:/Users/perrucl/Documents/Visual Studio 2015/Projects/PrintEngine/Printer.DPCL2/WSDL/xmlmime.xsd" />
+    <MetadataFile FileName="DPCL2.wsdl" MetadataType="Wsdl" ID="69547896-6407-4859-b240-9fa9894b3a40" SourceId="1" SourceUrl="file:///C:/Users/perrucl/Documents/Visual Studio 2015/Projects/PrintEngine/Printer.DPCL2/WSDL/DPCL2.wsdl" />
+    <MetadataFile FileName="xop_include.xsd" MetadataType="Schema" ID="f115a562-411e-40a0-a53f-2d9828e62648" SourceId="1" SourceUrl="file:///C:/Users/perrucl/Documents/Visual Studio 2015/Projects/PrintEngine/Printer.DPCL2/WSDL/xop_include.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

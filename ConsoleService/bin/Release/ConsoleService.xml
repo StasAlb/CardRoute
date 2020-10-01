@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <CardWizard Log="True" Mask="True">
+    <ip>192.168.1.245</ip>
+    <port>8890</port>
+    <login>w</login>
+    <password>w</password>
+    <MaskFields>@PAN@,Track1,chip_data</MaskFields>
+  </CardWizard>
+
+  <Database>
+    <server>127.0.0.1</server>
+    <name>cwhub</name>
+    <uid>root</uid>
+    <password>123</password>
+  </Database>
+
+  <Common>
+    <!-- HubType - тип сервиса (Database) -->
+    <HubType>Database</HubType>
+    <!-- Тimeout  - время опроса директории, базы данных -->
+    <Timeout>5</Timeout>
+  </Common>
+
+  <Embossers>
+    <Embosser HubName="127.0.0.1" CWName="MainPC" Type="Instant"></Embosser>
+    <Embosser HubName="192.168.1.1" Type="Central"></Embosser>
+    <Embosser HubName="MainAlias" Type="Central"></Embosser>
+    <Embosser HubName="Stas-C" Type="Central"></Embosser>
+  </Embossers>
+
+  <PinServices Port="1604">
+    <PinService HubName="127.0.0.1" IP="127.0.0.1"></PinService>  
+    <PinService HubName="SecondService" IP="127.0.0.1" Port="1605"></PinService>  
+  </PinServices>
+
+  <Products>
+    <Product Name="VISA">
+      <DataPreparation Pin1="None">
+        <Console>CDP</Console>
+        <FileIn>..\In\file.txt</FileIn>
+        <CdpIni>..\Classic_Launcher.ini</CdpIni>
+        <FieldsIn Format="Delimiter" Delimiter="#">
+          <Field Type="Database" Value="pan"/>
+          <Field Type="Const" Value="06/17"/>
+          <Field Type="Database" Value="expiryDate" DataType="DateTime" Format="MM/yy"/>
+          <Field Type="Database" Value="firstName"/>
+          <Field Type="Database" Value="secondName"/>
+          <Field Type="Const" Value="123"/>
+          <Field Type="Database" Value="pan"/>
+          <Field Type="Const" Value="MR NOBODY"/>
+        </FieldsIn>
+        <FieldsOut Format="Delimiter" Delimiter="#">
+          <Field Name="pan" CWField="@PAN@"/>
+          <Field Name="ExpDate"/>
+          <Field Name="Name"/>
+          <Field Name="cvv"/>
+          <Field Name="Track1"/>
+          <Field Name="Track2"/>
+          <!-- <Field Name="smart" CWField="chip_data" Format="Base64" Insert="[script=sconed20_visa_pw.000]" InsertIndex="0" /> -->
+        </FieldsOut>      
+      </DataPreparation>
+      <EmbossFile>d:\temp\visa_dc450.txt</EmbossFile>
+      <CardFormat>only_pan</CardFormat>
+      <Personalization Name="@APPID@">askperso_1</Personalization>
+    </Product>
+  </Products>
+
+  <Console Name="CDP" DeleteResult="True">
+    <Directory>d:\work\CwHub\CDPconsole\</Directory>
+    <Path>..\cdp_cn.exe</Path>
+    <Error>..\err.txt</Error>
+    <FileIn>..\In\data.txt</FileIn>
+    <FieldsIn Format="Delimiter" Delimiter="#">
+      <Field Type="Database" Value="pan"/>
+      <Field Type="Database" Value="expiryDate" DataType="DateTime" Format="MM/yy"/>
+      <Field Type="Const" Value="201"/>
+      <Field Type="Database" Value="firstName"/>
+      <Field Type="Database" Value="secondName"/>
+    </FieldsIn>
+    <FieldsPin Format="Delimiter" Delimiter="#">
+      <Field Name="PRPIN" Function="Substring" Start="0" Length="16"/>
+      <Field Name="PAN_MAIL"/>
+    </FieldsPin>
+  </Console>
+</Settings>

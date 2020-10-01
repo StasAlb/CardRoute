@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Common>
+    <Timeout>2</Timeout>
+  </Common>
+  <Database>
+    <providerName>System.Data.SqlClient</providerName>
+    <server>ALBER-10\MSSQL_2019</server>
+    <name>CardRoute</name>
+    <uid>sa</uid>
+    <password>123</password>
+  </Database>
+  <Cdp DeleteResult="false">
+    <IniFolder>c:\ostcard\cdp\Ini\</IniFolder>
+    <Console>c:\ostcard\cdp\cdp_cn.exe</Console>
+    <InFile>..\Input\cubes_cdp.txt</InFile>
+    <CdpIni>..\Dummy.ini</CdpIni>
+  </Cdp>
+  <HS Ip="127.0.0.1" Port="1600"></HS>
+  <HS1 Ip="192.168.1.193" Port="1600"></HS1>
+</Settings>

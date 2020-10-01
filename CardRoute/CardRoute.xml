@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Database>
+    <providerName>System.Data.SqlClient</providerName>
+    <server>localhost</server>
+    <name>CardRoute_2</name>
+    <uid>sa</uid>
+    <password>123</password>
+  </Database>
+</Settings>

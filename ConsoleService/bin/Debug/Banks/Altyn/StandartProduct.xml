@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Chain FirstLink="Issue">
+  <Issue NextLink="Complete">
+    <Step Type="Perso" Script="scriptname.000" Protocol="Contact" Log="On" Field="smart"/>
+    <Step Type="Print" Design="emboss.xml">
+      <MagstripeFields Track1="track1" Track2="track2" />
+    </Step>
+  </Issue>
+</Chain>

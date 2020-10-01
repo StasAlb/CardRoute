@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configurationSnapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:schemas-microsoft-com:xml-wcfconfigurationsnapshot">
+  <behaviors />
+  <bindings>
+    <binding digest="System.ServiceModel.Configuration.CustomBindingElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089:&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data name=&quot;DPCL2Binding&quot;&gt;&lt;httpsTransport /&gt;&lt;textMessageEncoding messageVersion=&quot;Soap12&quot; /&gt;&lt;/Data&gt;" bindingType="customBinding" name="DPCL2Binding" />
+  </bindings>
+  <endpoints>
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:9100&quot; binding=&quot;customBinding&quot; bindingConfiguration=&quot;DPCL2Binding&quot; contract=&quot;DPCL2ServiceReference.DPCL2PortType&quot; name=&quot;DPCL2Port&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;http://localhost:9100&quot; binding=&quot;customBinding&quot; bindingConfiguration=&quot;DPCL2Binding&quot; contract=&quot;DPCL2ServiceReference.DPCL2PortType&quot; name=&quot;DPCL2Port&quot; /&gt;" contractName="DPCL2ServiceReference.DPCL2PortType" name="DPCL2Port" />
+    <endpoint normalizedDigest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;https://localhost:9111&quot; binding=&quot;customBinding&quot; bindingConfiguration=&quot;DPCL2Binding&quot; contract=&quot;DPCL2ServiceReference.DPCL2PortType&quot; name=&quot;DPCL2SecurePort&quot; /&gt;" digest="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;Data address=&quot;https://localhost:9111&quot; binding=&quot;customBinding&quot; bindingConfiguration=&quot;DPCL2Binding&quot; contract=&quot;DPCL2ServiceReference.DPCL2PortType&quot; name=&quot;DPCL2SecurePort&quot; /&gt;" contractName="DPCL2ServiceReference.DPCL2PortType" name="DPCL2SecurePort" />
+  </endpoints>
+</configurationSnapshot>

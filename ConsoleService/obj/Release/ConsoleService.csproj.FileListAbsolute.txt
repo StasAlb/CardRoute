@@ -1,0 +1,15 @@
+D:\Work\CwHub\ConsoleService\bin\Release\ConsoleService.exe.config
+D:\Work\CwHub\ConsoleService\bin\Release\ConsoleService.xml
+D:\Work\CwHub\ConsoleService\bin\Release\ConsoleService.exe
+D:\Work\CwHub\ConsoleService\bin\Release\ConsoleService.pdb
+D:\Work\CwHub\ConsoleService\bin\Release\CwHubService 2.0.exe
+D:\Work\CwHub\ConsoleService\bin\Release\MySql.Data.dll
+D:\Work\CwHub\ConsoleService\bin\Release\HugeLib.dll
+D:\Work\CwHub\ConsoleService\bin\Release\BouncyCastle.Crypto.dll
+D:\Work\CwHub\ConsoleService\bin\Release\dxp01sdk.dll
+D:\Work\CwHub\ConsoleService\bin\Release\CwHubService 2.0.pdb
+D:\Work\CwHub\ConsoleService\bin\Release\MySql.Data.xml
+D:\Work\CwHub\ConsoleService\bin\Release\HugeLib.pdb
+D:\Work\CwHub\ConsoleService\obj\Release\ConsoleService.csprojResolveAssemblyReference.cache
+D:\Work\CwHub\ConsoleService\obj\Release\ConsoleService.exe
+D:\Work\CwHub\ConsoleService\obj\Release\ConsoleService.pdb

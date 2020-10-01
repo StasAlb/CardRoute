@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Chain FirstLink="Cdp">
+  <Cdp NextLink="Issue">
+    <Emulation Duration="1" ErrorChance="0"/>
+    <InputStream Delimiter="|">
+      <Field Default="00001" Description="RecNo"/>
+      <Field Name="Pan"/>
+      <Field Default="1" Description="Pvki"/>
+      <Field Name="Cardholder"/>
+      <Field Name="ExpDate"/>
+      <Field Default="201" Description="ServiceCode"/>
+      <Field Default="||||||||||||||||||||||||||" Description="26 пустых полей + еще один разделитель сам поставит"/>
+      <Field Name="Cardholder" Description="Имя в формате МП, пусть будет просто имя"/>
+    </InputStream>
+    <OutputStream Delimiter="#">
+      <Field Name="Pan"/>
+      <Field Name="ExDateEmb"/>
+      <Field Name="Cardholder"/>
+      <Field Name="Company"/>
+      <Field Name="CVV"/>
+      <Field Name="Track1"/>
+      <Field Name="Track2"/>
+      <Field Name="SmartData"/>
+    </OutputStream>
+    <InFile>C:\ostcard\CDP\Input\upi_dual.txt </InFile>
+    <CdpIni>C:\ostcard\CDP\Ini\UPI_9_17_PIN6.ini</CdpIni>
+  </Cdp>
+  <Issue NextLink="Report">
+    <Emulation Duration="5" ErrorChance="0"/>
+<!--
+    <Step Type="MagRead">
+      <MakeField Name="ReadTrack" Track="1"/>
+      <MakeField Name="PanFromTrack" Track="2" StartPos="0" Length="16"/>
+      <MakeField Name="ExpDateRead">
+        <MakeField Track="2" StartPos="19" Length="2"/>
+        <MakeField Default="/"/>"
+        <MakeField Track="2" StartPos="17" Length="2"/>
+      </MakeField>
+    </Step>
+    <Step Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"></Step>
+    <Step Type="Print" Design="emboss.xml"></Step> 
+-->
+  </Issue>
+  <Report NextLink="Complete">
+    <Emulation Duration="1" ErrorChance="0"/>
+    <Report File="d:\temp\cardroute.txt" Delimiter="|">
+      <Field Name="Pan" Length="20"/>
+      <Field Name="Cardholder"/>  
+    </Report>
+    <Report File="d:\temp\cardroute_3.txt">
+      <Field Name="Pan" Length="20"/>
+      <Field Name="Cardholder" Length="100"/>
+      <Field Name="CVV"/>
+    </Report>
+  </Report>
+  <Central NextLink="Complete">
+    <Emulation Duration="1" ErrorChance="0"/>
+    <PersoFile File="d:\temp\cardroute.txt" Delimiter="|">
+      <Field Name="Data"/>
+    </PersoFile>
+  </Central>
+</Chain>

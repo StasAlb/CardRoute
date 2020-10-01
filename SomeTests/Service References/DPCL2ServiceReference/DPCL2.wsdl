@@ -1,0 +1,1894 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WSDL:definitions xmlns:DPCLEmboss="urn:dpcl:emboss:2011-06-03" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:DPCLUpdate="urn:dpcl:update:2011-10-19" xmlns:tns="urn:dpcl:wsdl:2011-09-02" xmlns:DPCLSensors="urn:dpcl:sensors:2010-01-19" xmlns:DPCLMagStripe="urn:dpcl:magstripe:2010-01-19" xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope" xmlns:DPCL="urn:dpcl:wsdl:2010-01-19" xmlns:xmime5="http://www.w3.org/2005/05/xmlmime" xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:DPCLNetworkAccessList="urn:dpcl:nal:2012-05-30" xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding" xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:DPCLWheel="urn:dpcl:wheel:2011-06-03" xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/" xmlns:DPCLSettings="urn:dpcl:settings:2010-01-19" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:DPCL2="urn:dpcl:wsdl:2011-09-02" xmlns="http://schemas.xmlsoap.org/wsdl/" name="DPCL2" targetNamespace="urn:dpcl:wsdl:2011-09-02" xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/">
+  <WSDL:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:emboss:2011-06-03">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:import schemaLocation="xop_include.xsd" namespace="http://www.w3.org/2004/08/xop/include" />
+      <xsd:import schemaLocation="xmlmime.xsd" namespace="http://www.w3.org/2005/05/xmlmime" />
+      <xsd:element name="Emboss" type="DPCLEmboss:Emboss" />
+      <xsd:complexType name="Line">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="font" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="horz" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="vert" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="stringData" type="xsd:string" />
+        </xsd:sequence>
+        <xsd:attribute name="number" type="xsd:unsignedInt" use="required" />
+      </xsd:complexType>
+      <xsd:complexType name="Emboss">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="20" name="line" nillable="true" type="DPCLEmboss:Line" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:wheel:2011-06-03">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="Wheel" type="DPCLWheel:Wheel" />
+      <xsd:complexType name="Line">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="ascii1" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="ascii2" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="ascii3" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="font" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="upper" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="lower" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+        </xsd:sequence>
+        <xsd:attribute name="number" type="xsd:unsignedInt" use="required" />
+      </xsd:complexType>
+      <xsd:complexType name="Wheel">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="table" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="76" name="finger" nillable="true" type="DPCLWheel:Line" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:magstripe:2010-01-19">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="MagStripe" type="DPCLMagStripe:MagStripe" />
+      <xsd:complexType name="Track">
+        <xsd:sequence>
+          <xsd:choice>
+            <xsd:element minOccurs="1" maxOccurs="1" name="stringData" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="base64Data" nillable="true" type="xsd:base64Binary" />
+          </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="number" type="xsd:unsignedInt" use="required" />
+      </xsd:complexType>
+      <xsd:complexType name="MagStripe">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="3" name="track" nillable="true" type="DPCLMagStripe:Track" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:sensors:2010-01-19">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="Sensors" type="DPCLSensors:Sensors" />
+      <xsd:complexType name="Status">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="currentValue" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="historyValue" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="description" type="xsd:string" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="optional" />
+      </xsd:complexType>
+      <xsd:complexType name="Sensors">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="status" nillable="true" type="DPCLSensors:Status" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:settings:2010-01-19">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="Settings" type="DPCLSettings:Settings" />
+      <xsd:simpleType name="ValueType">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCLSettings:String" />
+          <xsd:enumeration value="DPCLSettings:EnumeratedList" />
+          <xsd:enumeration value="DPCLSettings:Integer" />
+          <xsd:enumeration value="DPCLSettings:UnsignedInteger" />
+          <xsd:enumeration value="DPCLSettings:FloatingPoint" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Category">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCLSettings:PrintJob" />
+          <xsd:enumeration value="DPCLSettings:Calibration" />
+          <xsd:enumeration value="DPCLSettings:Configuration" />
+          <xsd:enumeration value="DPCLSettings:Behavior" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Attributes">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="range" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="valueType" type="DPCLSettings:ValueType" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="category" type="DPCLSettings:Category" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="units" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="description" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="writable" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="authorized" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="defVal" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="accessLevel" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Authorization">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="code" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Element">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="attributes" nillable="true" type="DPCLSettings:Attributes" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="authorization" nillable="true" type="DPCLSettings:Authorization" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="optional" />
+      </xsd:complexType>
+      <xsd:complexType name="Subsystem">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="element" nillable="true" type="DPCLSettings:Element" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="optional" />
+      </xsd:complexType>
+      <xsd:complexType name="Module">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="subsystem" nillable="true" type="DPCLSettings:Subsystem" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="optional" />
+      </xsd:complexType>
+      <xsd:complexType name="Source">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="serialNumber" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsGroup" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Settings">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="module" nillable="true" type="DPCLSettings:Module" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="source" nillable="true" type="DPCLSettings:Source" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:update:2011-10-19">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="Response" type="DPCLUpdate:Response" />
+      <xsd:element name="Initiate" type="DPCLUpdate:Initiate" />
+      <xsd:element name="Transfer" type="DPCLUpdate:Transfer" />
+      <xsd:element name="Update" type="DPCLUpdate:Update" />
+      <xsd:simpleType name="State">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Uninitiated" />
+          <xsd:enumeration value="Initiated" />
+          <xsd:enumeration value="Staged" />
+          <xsd:enumeration value="Finalized" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ImageSegment">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="board" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="category" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="version" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="size" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checksum" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="data" nillable="true" type="xsd:base64Binary" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="ImageSummary">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="label" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="board" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="category" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="version" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="size" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="segmentCount" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="minCurrentVersion" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxCurrentVersion" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="encrypted" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checksum" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="signature" type="xsd:string" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="ImageStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="label" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="board" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="category" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="version" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextVersion" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextSegmentId" type="xsd:unsignedInt" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="Initiate">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="imageSummary" nillable="true" type="DPCLUpdate:ImageSummary" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="forceUpdate" type="xsd:boolean" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="Transfer">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="imageSegment" nillable="true" type="DPCLUpdate:ImageSegment" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="Response">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="imageStatus" nillable="true" type="DPCLUpdate:ImageStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCLUpdate:State" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="detail" type="xsd:string" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="ImageContents">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="segment" nillable="true" type="DPCLUpdate:ImageSegment" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="board" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="category" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="version" type="xsd:unsignedInt" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="Update">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="imageSummary" nillable="true" type="DPCLUpdate:ImageSummary" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="imageContents" nillable="true" type="DPCLUpdate:ImageContents" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="label" type="xsd:string" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:nal:2012-05-30">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:element name="NetworkAccessList" type="DPCLNetworkAccessList:NetworkAccessList" />
+      <xsd:simpleType name="Service">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="ICMP" />
+          <xsd:enumeration value="DPCL" />
+          <xsd:enumeration value="DPCLSecure" />
+          <xsd:enumeration value="DPM" />
+          <xsd:enumeration value="DPMSecure" />
+          <xsd:enumeration value="WebServer" />
+          <xsd:enumeration value="WebServerSecure" />
+          <xsd:enumeration value="SNMP" />
+          <xsd:enumeration value="CPX" />
+          <xsd:enumeration value="PLUGIN" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Entry">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="source" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="service" type="DPCLNetworkAccessList:Service" />
+          <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax" />
+        </xsd:sequence>
+        <xsd:anyAttribute processContents="lax" />
+      </xsd:complexType>
+      <xsd:complexType name="NetworkAccessList">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="entry" nillable="true" type="DPCLNetworkAccessList:Entry" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:wsdl:2010-01-19">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:import schemaLocation="xop_include.xsd" namespace="http://www.w3.org/2004/08/xop/include" />
+      <xsd:import schemaLocation="xmlmime.xsd" namespace="http://www.w3.org/2005/05/xmlmime" />
+      <xsd:simpleType name="ConditionSeverity">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Emergency" />
+          <xsd:enumeration value="Alert" />
+          <xsd:enumeration value="Critical" />
+          <xsd:enumeration value="Error" />
+          <xsd:enumeration value="Warning" />
+          <xsd:enumeration value="Notice" />
+          <xsd:enumeration value="Information" />
+          <xsd:enumeration value="Debug" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="StatusTrigger">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Expired" />
+          <xsd:enumeration value="Triggered" />
+          <xsd:enumeration value="Superseded" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PrinterMode">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Factory" />
+          <xsd:enumeration value="Production" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="JobType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Print" />
+          <xsd:enumeration value="Exception" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ParameterValueType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="String" />
+          <xsd:enumeration value="EnumeratedList" />
+          <xsd:enumeration value="Integer" />
+          <xsd:enumeration value="UnsignedInteger" />
+          <xsd:enumeration value="FloatingPoint" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PrinterState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Idle" />
+          <xsd:enumeration value="Busy" />
+          <xsd:enumeration value="Suspended" />
+          <xsd:enumeration value="Paused" />
+          <xsd:enumeration value="Initialize" />
+          <xsd:enumeration value="Shutdown" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="JobState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Queued" />
+          <xsd:enumeration value="Held" />
+          <xsd:enumeration value="Running" />
+          <xsd:enumeration value="Blocked" />
+          <xsd:enumeration value="Succeeded" />
+          <xsd:enumeration value="Failed" />
+          <xsd:enumeration value="Cancelled" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ActionState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Submitted" />
+          <xsd:enumeration value="Requesting" />
+          <xsd:enumeration value="PrepRequest" />
+          <xsd:enumeration value="Ready" />
+          <xsd:enumeration value="Active" />
+          <xsd:enumeration value="Pending" />
+          <xsd:enumeration value="Responding" />
+          <xsd:enumeration value="PrepResponse" />
+          <xsd:enumeration value="Completed" />
+          <xsd:enumeration value="Terminated" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="DataState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Transferred" />
+          <xsd:enumeration value="Prepared" />
+          <xsd:enumeration value="Released" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ConditionState">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Unresolved" />
+          <xsd:enumeration value="Resolved" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="Attachment">
+        <xsd:sequence>
+          <xsd:choice>
+            <xsd:element minOccurs="1" maxOccurs="1" ref="xop:Include" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="base64" nillable="true" type="xsd:base64Binary" />
+          </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute ref="xmime5:contentType" use="required" />
+      </xsd:complexType>
+      <xsd:complexType name="Counter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Parameter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Option">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Serialization">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Version">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Condition">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="code" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="severity" type="DPCL:ConditionSeverity" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:ConditionState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="module" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="actionId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="dataId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="startMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="endMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="primary" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SupplyStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="actionSequence" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="installed" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="supported" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="supplyCode" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="productCode" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="specialCode" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="regionCode" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="mfgCode" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="module" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="percentRemain" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="percentReady" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxLength" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="partNumber" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="lotCode" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="serialNumber" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DataStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:DataState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActionStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestData" nillable="true" type="DPCL:DataStatus" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondData" nillable="true" type="DPCL:DataStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="module" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:ActionState" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="JobStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="action" nillable="true" type="DPCL:ActionStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:JobState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="DPCL:JobType" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsGroup" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsHash" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="restartCount" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="takingActions" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrinterStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="counter" nillable="true" type="DPCL:Counter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="condition" nillable="true" type="DPCL:Condition" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supply" nillable="true" type="DPCL:SupplyStatus" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="job" nillable="true" type="DPCL:JobStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="mode" type="DPCL:PrinterMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:PrinterState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="secondsOn" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="optionsHash" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ParameterInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="valueList" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="valueType" type="DPCL:ParameterValueType" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="valueDefault" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DataInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:ParameterInfo" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActionInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:ParameterInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestData" nillable="true" type="DPCL:DataInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondData" nillable="true" type="DPCL:DataInfo" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StartJobInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsGroup" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="exceptionJob" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StartJobOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="millisecondsToWait" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="optionsHash" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsHash" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EndJobInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EndJobOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CancelJobInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CancelJobOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResumeJobInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResumeJobOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RestartJobInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RestartJobOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitActionInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="actionId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitActionOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitDataInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="actionId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="dataId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="attachment" type="DPCL:Attachment" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="moreData" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitDataOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RetrieveDataInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="actionId" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RetrieveDataOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="checkStatus" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="attachment" type="DPCL:Attachment" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WaitForStatusInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxSeconds" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="minMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="minSeverity" type="DPCL:ConditionSeverity" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobHistory" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WaitForStatusOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="trigger" type="DPCL:StatusTrigger" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="status" type="DPCL:PrinterStatus" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DiscoverPrinterInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="includeActions" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DiscoverPrinterOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="action" nillable="true" type="DPCL:ActionInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="option" nillable="true" type="DPCL:Option" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="serialization" nillable="true" type="DPCL:Serialization" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="version" nillable="true" type="DPCL:Version" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="manufacturer" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="model" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="agencyModel" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:dpcl:wsdl:2011-09-02">
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-envelope" />
+      <xsd:import namespace="http://www.w3.org/2003/05/soap-encoding" />
+      <xsd:import schemaLocation="xop_include.xsd" namespace="http://www.w3.org/2004/08/xop/include" />
+      <xsd:import schemaLocation="xmlmime.xsd" namespace="http://www.w3.org/2005/05/xmlmime" />
+      <xsd:import namespace="urn:dpcl:wsdl:2010-01-19" />
+      <xsd:element name="PluginProperties" type="DPCL2:PluginProperties" />
+      <xsd:simpleType name="Marker">
+        <xsd:restriction base="xsd:unsignedInt">
+          <xsd:minInclusive value="0" />
+          <xsd:maxInclusive value="2147483647" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="Version">
+        <xsd:restriction base="xsd:unsignedInt">
+          <xsd:minInclusive value="0" />
+          <xsd:maxInclusive value="4294967295" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ProductCode">
+        <xsd:restriction base="xsd:unsignedInt">
+          <xsd:minInclusive value="0" />
+          <xsd:maxInclusive value="4294967295" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SpecialCode">
+        <xsd:restriction base="xsd:unsignedInt">
+          <xsd:minInclusive value="0" />
+          <xsd:maxInclusive value="65535" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="RegionCode">
+        <xsd:restriction base="xsd:unsignedInt">
+          <xsd:minInclusive value="0" />
+          <xsd:maxInclusive value="65535" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="MessageState">
+        <xsd:annotation>
+          <xsd:documentation>If there is an outstanding message this indicates whether it is currently processing or completed. A soap fault will be sent when the message could not be processed.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:MessageRequesting" />
+          <xsd:enumeration value="DPCL2:MessageResponding" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="MessageResult">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:MessageIgnored" />
+          <xsd:enumeration value="DPCL2:MessageRequested" />
+          <xsd:enumeration value="DPCL2:MessageResponded" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="JobQueueState">
+        <xsd:annotation>
+          <xsd:documentation>The state of the job processing queue.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:Online">
+            <xsd:annotation>
+              <xsd:documentation>StartJob will succeed if there is space in the queue.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="DPCL2:Suspended">
+            <xsd:annotation>
+              <xsd:documentation>StartJob will succeed if there is space in the queue and exceptionJob=true.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="DPCL2:Offline">
+            <xsd:annotation>
+              <xsd:documentation>StartJob will not succeed under any circumstances.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LockState">
+        <xsd:annotation>
+          <xsd:documentation>The state of the electro-mechanical locks.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:Locked">
+            <xsd:annotation>
+              <xsd:documentation>System is locked.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="DPCL2:Unlocked">
+            <xsd:annotation>
+              <xsd:documentation>System is unlocked.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="LockResult">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:NotInstalled" />
+          <xsd:enumeration value="DPCL2:PasswordProblem" />
+          <xsd:enumeration value="DPCL2:PrinterIsBusy" />
+          <xsd:enumeration value="DPCL2:CoverStillOpen" />
+          <xsd:enumeration value="DPCL2:HardwareFailure" />
+          <xsd:enumeration value="DPCL2:LockStateSuccess" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PowerState">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:On" />
+          <xsd:enumeration value="DPCL2:Reset" />
+          <xsd:enumeration value="DPCL2:ResetDeferred" />
+          <xsd:enumeration value="DPCL2:Shutdown" />
+          <xsd:enumeration value="DPCL2:ShutdownDeferred" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="JobState">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:Queued" />
+          <xsd:enumeration value="DPCL2:Staging" />
+          <xsd:enumeration value="DPCL2:Prepping" />
+          <xsd:enumeration value="DPCL2:Running" />
+          <xsd:enumeration value="DPCL2:Waiting" />
+          <xsd:enumeration value="DPCL2:Cancelling" />
+          <xsd:enumeration value="DPCL2:Failing" />
+          <xsd:enumeration value="DPCL2:Held" />
+          <xsd:enumeration value="DPCL2:Blocked" />
+          <xsd:enumeration value="DPCL2:Stopped" />
+          <xsd:enumeration value="DPCL2:Inhibited" />
+          <xsd:enumeration value="DPCL2:Cancelled" />
+          <xsd:enumeration value="DPCL2:Failed" />
+          <xsd:enumeration value="DPCL2:Succeeded" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ActionState">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:Submitted" />
+          <xsd:enumeration value="DPCL2:Requesting" />
+          <xsd:enumeration value="DPCL2:PrepRequestReady" />
+          <xsd:enumeration value="DPCL2:Ready" />
+          <xsd:enumeration value="DPCL2:RequestingStaged" />
+          <xsd:enumeration value="DPCL2:PrepRequestStaged" />
+          <xsd:enumeration value="DPCL2:PrepRequest" />
+          <xsd:enumeration value="DPCL2:ActiveStaged" />
+          <xsd:enumeration value="DPCL2:Active" />
+          <xsd:enumeration value="DPCL2:ActivePaused" />
+          <xsd:enumeration value="DPCL2:Pending" />
+          <xsd:enumeration value="DPCL2:Dying" />
+          <xsd:enumeration value="DPCL2:PrepResponseReady" />
+          <xsd:enumeration value="DPCL2:PrepResponse" />
+          <xsd:enumeration value="DPCL2:Responding" />
+          <xsd:enumeration value="DPCL2:Aborted" />
+          <xsd:enumeration value="DPCL2:Terminated" />
+          <xsd:enumeration value="DPCL2:Completed" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PluginState">
+        <xsd:restriction base="xsd:QName">
+          <xsd:enumeration value="DPCL2:Unsupported" />
+          <xsd:enumeration value="DPCL2:Deactivated" />
+          <xsd:enumeration value="DPCL2:Activated" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="NetworkAdapter">
+        <xsd:annotation>
+          <xsd:documentation>A network interface adapter available for external communication.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The name of the network adapter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>The type of the network adapter.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="1" maxOccurs="1" name="macAddress" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="ipAddress" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="netmask" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="gateway" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MessageStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestParameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondParameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="requestAttachmentType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="respondAttachmentType" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:MessageState" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TunnelStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="message" nillable="true" type="DPCL2:MessageStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DataStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:DataState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActionStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestData" nillable="true" type="DPCL:DataStatus" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondData" nillable="true" type="DPCL:DataStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="module" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:ActionState" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="JobStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="action" nillable="true" type="DPCL2:ActionStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="id" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:JobState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="DPCL:JobType" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="queuePosition" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsGroup" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsHash" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="restartCount" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="takingActions" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Sensor">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SettingElement">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SettingSubsystem">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="element" nillable="true" type="DPCL2:SettingElement" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SettingModule">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="subsystem" nillable="true" type="DPCL2:SettingSubsystem" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SettingsGroup">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="module" nillable="true" type="DPCL2:SettingModule" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="hash" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Condition">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="code" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="severity" type="DPCL:ConditionSeverity" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:ConditionState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="module" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="actionId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="dataId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="startMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="endMarker" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="primary" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="notification" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrinterStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="condition" nillable="true" type="DPCL2:Condition" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="counter" nillable="true" type="DPCL:Counter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="job" nillable="true" type="DPCL2:JobStatus" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="tunnel" nillable="true" type="DPCL2:TunnelStatus" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="adapter" nillable="true" type="DPCL2:NetworkAdapter" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="sensor" nillable="true" type="DPCL2:Sensor" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="settingsGroup" nillable="true" type="DPCL2:SettingsGroup" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="supply" nillable="true" type="DPCL:SupplyStatus" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="mode" type="DPCL:PrinterMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL:PrinterState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="powerState" type="DPCL2:PowerState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobQueueState" type="DPCL2:JobQueueState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="lockState" type="DPCL2:LockState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="secondsOn" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="optionsHash" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MessageData">
+        <xsd:sequence>
+          <xsd:choice>
+            <xsd:element minOccurs="1" maxOccurs="1" ref="xop:Include" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="base64" nillable="true" type="xsd:base64Binary" />
+            <xsd:element minOccurs="1" maxOccurs="1" name="hexBinary" nillable="true" type="xsd:hexBinary" />
+          </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute ref="xmime5:contentType" use="required" />
+      </xsd:complexType>
+      <xsd:complexType name="MessageDataInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MessageInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestParameter" nillable="true" type="DPCL:ParameterInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondParameter" nillable="true" type="DPCL:ParameterInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="requestData" nillable="true" type="DPCL2:MessageDataInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="respondData" nillable="true" type="DPCL2:MessageDataInfo" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TunnelInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="message" nillable="true" type="DPCL2:MessageInfo" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PluginProperties">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="version" type="DPCL2:Version" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="productCode" type="DPCL2:ProductCode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="specialCode" type="DPCL2:SpecialCode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="regionCode" type="DPCL2:RegionCode" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PluginInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:PluginState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="properties" type="DPCL2:PluginProperties" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StartJob2Input">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="client" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="Group01" name="settingsGroup" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="false" name="exceptionJob" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="allowRestart" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="600" name="maxSecondsIdle" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StartJob3Output">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="millisecondsToWait" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="optionsHash" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="settingsHash" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="printerState" type="DPCL:PrinterState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="powerState" type="DPCL2:PowerState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="jobQueueState" type="DPCL2:JobQueueState" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="lockState" type="DPCL2:LockState" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeMessageInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="data" nillable="true" type="DPCL2:MessageData" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="tunnel" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxSeconds" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ExchangeMessageOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="data" nillable="true" type="DPCL2:MessageData" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="result" type="DPCL2:MessageResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResumeMessageInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="tunnel" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="maxSeconds" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResumeMessageOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="parameter" nillable="true" type="DPCL:Parameter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="data" nillable="true" type="DPCL2:MessageData" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="result" type="DPCL2:MessageResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetJobQueueStateInput">
+        <xsd:annotation>
+          <xsd:documentation>Input to the SetJobQueueState message.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="currentPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Provide the currently set password. A nil value must be provided if no password was previously set.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" maxOccurs="1" name="nextPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Provide the next required password. A nil value may either transition to no password required or leave the current password unchanged, depending on settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:JobQueueState">
+            <xsd:annotation>
+              <xsd:documentation>Set the requested state. Note that passwords can be rotated by requesting the same state the system is already in.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetJobQueueStateOutput">
+        <xsd:annotation>
+          <xsd:documentation>Output from the SetJobQueueState message.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetLockStateInput">
+        <xsd:annotation>
+          <xsd:documentation>Input to the SetLockState message.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="currentPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Provide the currently set password. A nil value must be provided if no password was previously set.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" maxOccurs="1" name="nextPassword" nillable="true" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>Provide the next required password. A nil value may either transition to no password required or leave the current password unchanged, depending on settings.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:LockState">
+            <xsd:annotation>
+              <xsd:documentation>Set the requested state. Note that passwords can be rotated by requesting the same state the system is already in.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetLockStateOutput">
+        <xsd:annotation>
+          <xsd:documentation>Output to the SetLockState message.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="result" type="DPCL2:LockResult">
+            <xsd:annotation>
+              <xsd:documentation>Indicates the results of the request.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetPowerStateInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="state" type="DPCL2:PowerState" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SetPowerStateOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="success" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WaitForStatus2Input">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeConditions" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeCounters" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeJobQueue" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeNetworkAdapters" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeSensors" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeSettings" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeSupplies" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="true" name="includeTunnels" type="xsd:boolean" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="maxSeconds" type="xsd:int" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="expectedPowerState" nillable="true" type="DPCL2:PowerState" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="expectedJobQueueState" nillable="true" type="DPCL2:JobQueueState" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="expectedLockState" nillable="true" type="DPCL2:LockState" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="minConditionMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="minSettingMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="minSensorMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="minSupplyMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="" name="matchConditionClient" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" default="0" name="matchConditionJobId" type="xsd:unsignedInt" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="minConditionSeverity" type="DPCL:ConditionSeverity" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WaitForStatus2Output">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="trigger" type="DPCL:StatusTrigger" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextConditionMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextSettingMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextSensorMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="nextSupplyMarker" type="DPCL2:Marker" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="status" type="DPCL2:PrinterStatus" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DiscoverPrinter2Input">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="includeActions" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DiscoverPrinter2Output">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="action" nillable="true" type="DPCL:ActionInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="tunnel" nillable="true" type="DPCL2:TunnelInfo" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="option" nillable="true" type="DPCL:Option" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="serialization" nillable="true" type="DPCL:Serialization" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="version" nillable="true" type="DPCL:Version" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="plugin" nillable="true" type="DPCL2:PluginInfo" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="manufacturer" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="model" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="agencyModel" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="optionsHash" type="xsd:unsignedInt" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RetrieveLogInput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="resetLog" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RetrieveLogOutput">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="log" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="StartJob">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="StartJobInput" type="DPCL:StartJobInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="StartJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:StartJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EndJob">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="EndJobInput" type="DPCL:EndJobInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EndJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:EndJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CancelJob">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="CancelJobInput" type="DPCL:CancelJobInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CancelJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:CancelJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResumeJob">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ResumeJobInput" type="DPCL:ResumeJobInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResumeJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:ResumeJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RestartJob">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RestartJobInput" type="DPCL:RestartJobInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RestartJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:RestartJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubmitAction">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SubmitActionInput" type="DPCL:SubmitActionInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubmitActionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:SubmitActionOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubmitData">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SubmitDataInput" type="DPCL:SubmitDataInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SubmitDataResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:SubmitDataOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveData">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RetrieveDataInput" type="DPCL:RetrieveDataInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveDataResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:RetrieveDataOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WaitForStatus">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="WaitForStatusInput" type="DPCL:WaitForStatusInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WaitForStatusResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:WaitForStatusOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DiscoverPrinter">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DiscoverPrinterInput" type="DPCL:DiscoverPrinterInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DiscoverPrinterResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:DiscoverPrinterOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExchangeMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ExchangeMessageInput" type="DPCL2:ExchangeMessageInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExchangeMessageResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:ExchangeMessageOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResumeMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ResumeMessageInput" type="DPCL2:ResumeMessageInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResumeMessageResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:ResumeMessageOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetJobQueueState">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SetJobQueueStateInput" type="DPCL2:SetJobQueueStateInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetJobQueueStateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:SetJobQueueStateOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetLockState">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SetLockStateInput" type="DPCL2:SetLockStateInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetLockStateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:SetLockStateOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetPowerState">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="SetPowerStateInput" type="DPCL2:SetPowerStateInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SetPowerStateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:SetPowerStateOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="StartJob2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="StartJob2Input" type="DPCL2:StartJob2Input" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="StartJob2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL:StartJobOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="StartJob3">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="StartJob2Input" type="DPCL2:StartJob2Input" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="StartJob3Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:StartJob3Output" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WaitForStatus2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="WaitForStatus2Input" type="DPCL2:WaitForStatus2Input" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="WaitForStatus2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:WaitForStatus2Output" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DiscoverPrinter2">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DiscoverPrinter2Input" type="DPCL2:DiscoverPrinter2Input" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DiscoverPrinter2Response">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:DiscoverPrinter2Output" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveLog">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="RetrieveLogInput" type="DPCL2:RetrieveLogInput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RetrieveLogResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="1" maxOccurs="1" name="output" type="DPCL2:RetrieveLogOutput" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </WSDL:types>
+  <WSDL:message name="StartJob">
+    <WSDL:part name="parameters" element="DPCL2:StartJob" />
+  </WSDL:message>
+  <WSDL:message name="StartJobResponse">
+    <WSDL:part name="parameters" element="DPCL2:StartJobResponse" />
+  </WSDL:message>
+  <WSDL:message name="EndJob">
+    <WSDL:part name="parameters" element="DPCL2:EndJob" />
+  </WSDL:message>
+  <WSDL:message name="EndJobResponse">
+    <WSDL:part name="parameters" element="DPCL2:EndJobResponse" />
+  </WSDL:message>
+  <WSDL:message name="CancelJob">
+    <WSDL:part name="parameters" element="DPCL2:CancelJob" />
+  </WSDL:message>
+  <WSDL:message name="CancelJobResponse">
+    <WSDL:part name="parameters" element="DPCL2:CancelJobResponse" />
+  </WSDL:message>
+  <WSDL:message name="ResumeJob">
+    <WSDL:part name="parameters" element="DPCL2:ResumeJob" />
+  </WSDL:message>
+  <WSDL:message name="ResumeJobResponse">
+    <WSDL:part name="parameters" element="DPCL2:ResumeJobResponse" />
+  </WSDL:message>
+  <WSDL:message name="RestartJob">
+    <WSDL:part name="parameters" element="DPCL2:RestartJob" />
+  </WSDL:message>
+  <WSDL:message name="RestartJobResponse">
+    <WSDL:part name="parameters" element="DPCL2:RestartJobResponse" />
+  </WSDL:message>
+  <WSDL:message name="SubmitAction">
+    <WSDL:part name="parameters" element="DPCL2:SubmitAction" />
+  </WSDL:message>
+  <WSDL:message name="SubmitActionResponse">
+    <WSDL:part name="parameters" element="DPCL2:SubmitActionResponse" />
+  </WSDL:message>
+  <WSDL:message name="SubmitData">
+    <WSDL:part name="parameters" element="DPCL2:SubmitData" />
+  </WSDL:message>
+  <WSDL:message name="SubmitDataResponse">
+    <WSDL:part name="parameters" element="DPCL2:SubmitDataResponse" />
+  </WSDL:message>
+  <WSDL:message name="RetrieveData">
+    <WSDL:part name="parameters" element="DPCL2:RetrieveData" />
+  </WSDL:message>
+  <WSDL:message name="RetrieveDataResponse">
+    <WSDL:part name="parameters" element="DPCL2:RetrieveDataResponse" />
+  </WSDL:message>
+  <WSDL:message name="WaitForStatus">
+    <WSDL:part name="parameters" element="DPCL2:WaitForStatus" />
+  </WSDL:message>
+  <WSDL:message name="WaitForStatusResponse">
+    <WSDL:part name="parameters" element="DPCL2:WaitForStatusResponse" />
+  </WSDL:message>
+  <WSDL:message name="DiscoverPrinter">
+    <WSDL:part name="parameters" element="DPCL2:DiscoverPrinter" />
+  </WSDL:message>
+  <WSDL:message name="DiscoverPrinterResponse">
+    <WSDL:part name="parameters" element="DPCL2:DiscoverPrinterResponse" />
+  </WSDL:message>
+  <WSDL:message name="ExchangeMessage">
+    <WSDL:part name="parameters" element="DPCL2:ExchangeMessage" />
+  </WSDL:message>
+  <WSDL:message name="ExchangeMessageResponse">
+    <WSDL:part name="parameters" element="DPCL2:ExchangeMessageResponse" />
+  </WSDL:message>
+  <WSDL:message name="ResumeMessage">
+    <WSDL:part name="parameters" element="DPCL2:ResumeMessage" />
+  </WSDL:message>
+  <WSDL:message name="ResumeMessageResponse">
+    <WSDL:part name="parameters" element="DPCL2:ResumeMessageResponse" />
+  </WSDL:message>
+  <WSDL:message name="SetJobQueueState">
+    <WSDL:part name="parameters" element="DPCL2:SetJobQueueState" />
+  </WSDL:message>
+  <WSDL:message name="SetJobQueueStateResponse">
+    <WSDL:part name="parameters" element="DPCL2:SetJobQueueStateResponse" />
+  </WSDL:message>
+  <WSDL:message name="SetLockState">
+    <WSDL:part name="parameters" element="DPCL2:SetLockState" />
+  </WSDL:message>
+  <WSDL:message name="SetLockStateResponse">
+    <WSDL:part name="parameters" element="DPCL2:SetLockStateResponse" />
+  </WSDL:message>
+  <WSDL:message name="SetPowerState">
+    <WSDL:part name="parameters" element="DPCL2:SetPowerState" />
+  </WSDL:message>
+  <WSDL:message name="SetPowerStateResponse">
+    <WSDL:part name="parameters" element="DPCL2:SetPowerStateResponse" />
+  </WSDL:message>
+  <WSDL:message name="StartJob2">
+    <WSDL:part name="parameters" element="DPCL2:StartJob2" />
+  </WSDL:message>
+  <WSDL:message name="StartJob2Response">
+    <WSDL:part name="parameters" element="DPCL2:StartJob2Response" />
+  </WSDL:message>
+  <WSDL:message name="StartJob3">
+    <WSDL:part name="parameters" element="DPCL2:StartJob3" />
+  </WSDL:message>
+  <WSDL:message name="StartJob3Response">
+    <WSDL:part name="parameters" element="DPCL2:StartJob3Response" />
+  </WSDL:message>
+  <WSDL:message name="WaitForStatus2">
+    <WSDL:part name="parameters" element="DPCL2:WaitForStatus2" />
+  </WSDL:message>
+  <WSDL:message name="WaitForStatus2Response">
+    <WSDL:part name="parameters" element="DPCL2:WaitForStatus2Response" />
+  </WSDL:message>
+  <WSDL:message name="DiscoverPrinter2">
+    <WSDL:part name="parameters" element="DPCL2:DiscoverPrinter2" />
+  </WSDL:message>
+  <WSDL:message name="DiscoverPrinter2Response">
+    <WSDL:part name="parameters" element="DPCL2:DiscoverPrinter2Response" />
+  </WSDL:message>
+  <WSDL:message name="RetrieveLog">
+    <WSDL:part name="parameters" element="DPCL2:RetrieveLog" />
+  </WSDL:message>
+  <WSDL:message name="RetrieveLogResponse">
+    <WSDL:part name="parameters" element="DPCL2:RetrieveLogResponse" />
+  </WSDL:message>
+  <WSDL:portType name="DPCL2PortType">
+    <WSDL:operation name="StartJob">
+      <documentation>Start a job.</documentation>
+      <WSDL:input message="DPCL2:StartJob" />
+      <WSDL:output message="DPCL2:StartJobResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="EndJob">
+      <documentation>Finish submitting actions for a job.</documentation>
+      <WSDL:input message="DPCL2:EndJob" />
+      <WSDL:output message="DPCL2:EndJobResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="CancelJob">
+      <documentation>Force-cancel a job.</documentation>
+      <WSDL:input message="DPCL2:CancelJob" />
+      <WSDL:output message="DPCL2:CancelJobResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="ResumeJob">
+      <documentation>Gracefully resume a job, canceling or continuing as appropriate.</documentation>
+      <WSDL:input message="DPCL2:ResumeJob" />
+      <WSDL:output message="DPCL2:ResumeJobResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="RestartJob">
+      <documentation>Attempt to force-complete a job.</documentation>
+      <WSDL:input message="DPCL2:RestartJob" />
+      <WSDL:output message="DPCL2:RestartJobResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="SubmitAction">
+      <documentation>Add actions to a job.</documentation>
+      <WSDL:input message="DPCL2:SubmitAction" />
+      <WSDL:output message="DPCL2:SubmitActionResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="SubmitData">
+      <documentation>Submit data to an action.</documentation>
+      <WSDL:input message="DPCL2:SubmitData" />
+      <WSDL:output message="DPCL2:SubmitDataResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="RetrieveData">
+      <documentation>Retrieve data from an action.</documentation>
+      <WSDL:input message="DPCL2:RetrieveData" />
+      <WSDL:output message="DPCL2:RetrieveDataResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="WaitForStatus">
+      <documentation>Get status on printer, supplies and jobs with adjustable triggers.</documentation>
+      <WSDL:input message="DPCL2:WaitForStatus" />
+      <WSDL:output message="DPCL2:WaitForStatusResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="DiscoverPrinter">
+      <documentation>Discover static information about the printer.</documentation>
+      <WSDL:input message="DPCL2:DiscoverPrinter" />
+      <WSDL:output message="DPCL2:DiscoverPrinterResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="ExchangeMessage">
+      <documentation>Test</documentation>
+      <WSDL:input message="DPCL2:ExchangeMessage" />
+      <WSDL:output message="DPCL2:ExchangeMessageResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="ResumeMessage">
+      <documentation>Test</documentation>
+      <WSDL:input message="DPCL2:ResumeMessage" />
+      <WSDL:output message="DPCL2:ResumeMessageResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="SetJobQueueState">
+      <documentation>Going from offline to not offline could trigger init job.</documentation>
+      <WSDL:input message="DPCL2:SetJobQueueState" />
+      <WSDL:output message="DPCL2:SetJobQueueStateResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="SetLockState">
+      <documentation>Change the state of the mechanical locks (if any). Unlocking with a key will produce the same effect as calling this method, with the exception that the key could lock the cover open. For that reason, calling unlock with the covers open will retrigger the solenoid activity. Unlocking the system prevents any new actions from becomming Active.</documentation>
+      <WSDL:input message="DPCL2:SetLockState" />
+      <WSDL:output message="DPCL2:SetLockStateResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="SetPowerState">
+      <documentation>Test</documentation>
+      <WSDL:input message="DPCL2:SetPowerState" />
+      <WSDL:output message="DPCL2:SetPowerStateResponse" />
+    </WSDL:operation>
+    <WSDL:operation name="StartJob2">
+      <documentation>Start a job.</documentation>
+      <WSDL:input message="DPCL2:StartJob2" />
+      <WSDL:output message="DPCL2:StartJob2Response" />
+    </WSDL:operation>
+    <WSDL:operation name="StartJob3">
+      <documentation>Service definition of function DPCL2__StartJob3</documentation>
+      <WSDL:input message="DPCL2:StartJob3" />
+      <WSDL:output message="DPCL2:StartJob3Response" />
+    </WSDL:operation>
+    <WSDL:operation name="WaitForStatus2">
+      <documentation>Test</documentation>
+      <WSDL:input message="DPCL2:WaitForStatus2" />
+      <WSDL:output message="DPCL2:WaitForStatus2Response" />
+    </WSDL:operation>
+    <WSDL:operation name="DiscoverPrinter2">
+      <documentation>Test</documentation>
+      <WSDL:input message="DPCL2:DiscoverPrinter2" />
+      <WSDL:output message="DPCL2:DiscoverPrinter2Response" />
+    </WSDL:operation>
+    <WSDL:operation name="RetrieveLog">
+      <documentation>Retrieve the current log files, optionally resetting them.</documentation>
+      <WSDL:input message="DPCL2:RetrieveLog" />
+      <WSDL:output message="DPCL2:RetrieveLogResponse" />
+    </WSDL:operation>
+  </WSDL:portType>
+  <WSDL:binding name="DPCL2Binding" type="DPCL2:DPCL2PortType">
+    <SOAP:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <WSDL:operation name="StartJob">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="EndJob">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="CancelJob">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="ResumeJob">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="RestartJob">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="SubmitAction">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="SubmitData">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="RetrieveData">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="WaitForStatus">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="DiscoverPrinter">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="ExchangeMessage">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="ResumeMessage">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="SetJobQueueState">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="SetLockState">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="SetPowerState">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="StartJob2">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="StartJob3">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="WaitForStatus2">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="DiscoverPrinter2">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+    <WSDL:operation name="RetrieveLog">
+      <SOAP:operation soapAction="" />
+      <WSDL:input>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" parts="parameters" />
+      </WSDL:output>
+    </WSDL:operation>
+  </WSDL:binding>
+  <WSDL:service name="DPCL2">
+    <documentation>Web services for the printer PDL "application/vnd.dpcl.wsdl+xml version urn:dpcl:wsdl:2011-09-02</documentation>
+    <WSDL:port name="DPCL2Port" binding="DPCL2:DPCL2Binding">
+      <SOAP:address location="http://localhost:9100" />
+    </WSDL:port>
+    <WSDL:port name="DPCL2SecurePort" binding="DPCL2:DPCL2Binding">
+      <SOAP:address location="https://localhost:9111" />
+    </WSDL:port>
+  </WSDL:service>
+</WSDL:definitions>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Card xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <objects>
+    <collection>
+      <MagStripe>
+        <ID>1</ID>
+        <Name>Магнитная полоса 1</Name>
+        <Side>Back</Side>
+        <X>0</X>
+        <Y>1.45</Y>
+        <Width>3.375</Width>
+        <Height>0.51</Height>
+        <InType xsi:nil="true" />
+        <InTypeM>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+        </InTypeM>
+        <InDataM>
+          <string>Не определено</string>
+          <string>Не определено</string>
+          <string>Не определено</string>
+        </InDataM>
+        <Feedback>false</Feedback>
+      </MagStripe>
+    </collection>
+  </objects>
+  <X>0</X>
+  <Y>0</Y>
+  <Block>false</Block>
+  <UseMetric>false</UseMetric>
+  <Landscape>true</Landscape>
+  <Name>Дизайн карты</Name>
+</Card>

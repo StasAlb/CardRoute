@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="ToolBar_Start">Запустить сервис</system:String>
+    <system:String x:Key="ToolBar_Stop">Остановить сервис</system:String>
+    <system:String x:Key="ToolBar_Refresh">Обновить состояние</system:String>
+
+    <system:String x:Key="TabPage_Db">Подключение к базе данных</system:String>
+    <system:String x:Key="TabPage_Cdp">Настройки CDP</system:String>
+    <system:String x:Key="TabPage_Common">Общие</system:String>
+    <system:String x:Key="TabPage_Perso">Персо</system:String>
+
+    <system:String x:Key="Common_Timeout">Таймаут (сек.)</system:String>
+    <system:String x:Key="Common_Lang">Язык</system:String>
+
+    <system:String x:Key="Db_Server">Сервер</system:String>
+    <system:String x:Key="Db_Name">База данных</system:String>
+    <system:String x:Key="Db_Login">Пользователь</system:String>
+    <system:String x:Key="Db_Password">Пароль</system:String>
+    <system:String x:Key="DbConnectionOk">Тест соединения пройден</system:String>
+
+    <system:String x:Key="Cdp_console">Консоль</system:String>
+    <system:String x:Key="Cdp_inifolder">Директория ini-файлов</system:String>
+    <system:String x:Key="Cdp_ini">Ini-файл по умолч.</system:String>
+    <system:String x:Key="Cdp_infile">Входной файл по умолч.</system:String>
+
+    <system:String x:Key="Hs_port">HS порт</system:String>
+    <system:String x:Key="Hs_log">Логи</system:String>
+
+    
+    <system:String x:Key="AllFiles">Все файлы</system:String>
+
+    <system:String x:Key="ButtonSave">Сохранить</system:String>
+</ResourceDictionary>
+
+    

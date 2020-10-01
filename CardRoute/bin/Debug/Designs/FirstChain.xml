@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Card xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <objects>
+    <collection>
+      <EmbossText2>
+        <ID>1</ID>
+        <Name>Pan</Name>
+        <Side>Front</Side>
+        <X>0.401</X>
+        <Y>0.843</Y>
+        <Width>2.7142322834645669</Width>
+        <Height>0.15748031496062992</Height>
+        <InType>None</InType>
+        <InData>Не определено</InData>
+        <Font>Farrington</Font>
+        <Shablon>**** **** **** ****</Shablon>
+        <Align>Left</Align>
+      </EmbossText2>
+      <EmbossText2>
+        <ID>2</ID>
+        <Name>ExDate</Name>
+        <Side>Front</Side>
+        <X>1.601</X>
+        <Y>0.492</Y>
+        <Width>0.5</Width>
+        <Height>0.11811023622047245</Height>
+        <InType>None</InType>
+        <InData>Не определено</InData>
+        <Font>Gothic</Font>
+        <Shablon>XXXXX</Shablon>
+        <Align>Left</Align>
+      </EmbossText2>
+      <EmbossText2>
+        <ID>3</ID>
+        <Name>Cardholder</Name>
+        <Side>Front</Side>
+        <X>0.301</X>
+        <Y>0.334</Y>
+        <Width>2.4000000000000004</Width>
+        <Height>0.11811023622047245</Height>
+        <InType>None</InType>
+        <InData>Не определено</InData>
+        <Font>Gothic</Font>
+        <Shablon>XXXXXXXXXXXXXXXXXXXXXXXX</Shablon>
+        <Align>Left</Align>
+      </EmbossText2>
+      <EmbossText2>
+        <ID>9</ID>
+        <Name>CVV</Name>
+        <Side>Back</Side>
+        <X>1.8426666666666665</X>
+        <Y>1.0311666666666661</Y>
+        <Width>0.20078740157480318</Width>
+        <Height>0.11811023622047245</Height>
+        <InType>None</InType>
+        <InData>Не определено</InData>
+        <Font>MCIndentInvert</Font>
+        <Shablon>XXX</Shablon>
+        <Align>Left</Align>
+      </EmbossText2>
+      <MagStripe>
+        <ID>10</ID>
+        <Name>Магнитная полоса 1</Name>
+        <Side>Back</Side>
+        <X>0</X>
+        <Y>1.45</Y>
+        <Width>3.375</Width>
+        <Height>0.51</Height>
+        <InType xsi:nil="true" />
+        <InTypeM>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+        </InTypeM>
+        <InDataM>
+          <string>Не определено</string>
+          <string>Не определено</string>
+          <string>Не определено</string>
+        </InDataM>
+        <Feedback>false</Feedback>
+      </MagStripe>
+    </collection>
+  </objects>
+  <X>0</X>
+  <Y>0</Y>
+  <Block>false</Block>
+  <UseMetric>false</UseMetric>
+  <Landscape>true</Landscape>
+  <Name>Дизайн карты</Name>
+</Card>

@@ -1,0 +1,2 @@
+D:\Work\OstCardCollection\CardRoute\FirstPointConsole\bin\Debug\FirstPointConsole.exe.config
+D:\Work\CardRoute\FirstPointConsole\obj\Debug\FirstPointConsole.csprojAssemblyReference.cache

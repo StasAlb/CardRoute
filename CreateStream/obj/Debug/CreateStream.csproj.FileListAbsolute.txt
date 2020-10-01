@@ -1,0 +1,12 @@
+D:\Work\OstCardCollection\CardRoute\CreateStream\bin\Debug\CreateStream.exe.config
+D:\Work\OstCardCollection\CardRoute\CreateStream\bin\Debug\CreateStream.exe
+D:\Work\OstCardCollection\CardRoute\CreateStream\bin\Debug\CreateStream.pdb
+D:\Work\OstCardCollection\CardRoute\CreateStream\obj\Debug\CreateStream.csprojResolveAssemblyReference.cache
+D:\Work\OstCardCollection\CardRoute\CreateStream\obj\Debug\CreateStream.exe
+D:\Work\OstCardCollection\CardRoute\CreateStream\obj\Debug\CreateStream.pdb
+D:\Work\CardRoute\CreateStream\bin\Debug\CreateStream.exe.config
+D:\Work\CardRoute\CreateStream\bin\Debug\CreateStream.exe
+D:\Work\CardRoute\CreateStream\bin\Debug\CreateStream.pdb
+D:\Work\CardRoute\CreateStream\obj\Debug\CreateStream.exe
+D:\Work\CardRoute\CreateStream\obj\Debug\CreateStream.pdb
+D:\Work\CardRoute\CreateStream\obj\Debug\CreateStream.csprojAssemblyReference.cache

@@ -1,0 +1,1012 @@
+15.28.32:057	Start CardRoute service
+15.29.04:525	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+15.29.04:539	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1145
+ClientConnectionId:281dc242-7dc3-43af-8bd7-d9dfb2e7dfba
+Error Number: -2, State: 0, Class: 11
+15.29.04:659	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 563
+ClientConnectionId:232e0cc6-32e8-4a68-8cbd-2d77ccf9be8d
+Error Number: -2, State: 0, Class: 11
+15.32.09:588	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 563
+ClientConnectionId:4c2008d9-51fd-4fa6-a925-5234e9701b36
+Error Number: -2, State: 0, Class: 11
+15.32.09:588	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+15.32.11:323	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1145
+ClientConnectionId:16199b73-d48a-46dc-a462-e6652f08c7fb
+Error Number: -2, State: 0, Class: 11
+15.36.37:405	Start CardRoute service
+15.37.42:229	Stop CardRoute service
+15.39.52:443	Start CardRoute service
+15.40.29:454	Stop CardRoute service
+15.41.51:756	Start CardRoute service
+15.42.01:892	Stop CardRoute service
+15.42.35:900	Start CardRoute service
+15.42.45:984	cdp thread reset
+15.42.48:260	Stop CardRoute service
+16.02.51:892	Start CardRoute service
+16.03.00:684	CardRoute service stoping...
+16.03.00:685	CardRoute service stoped
+16.03.36:186	Start CardRoute service
+16.03.40:781	CardRoute service stoping...
+16.03.51:443	CardRoute service stoped
+16.11.39:405	Start CardRoute service
+16.11.42:068	CardRoute service stoping...
+16.11.49:695	cdp thread reset
+16.11.49:708	CardRoute service stoped
+16.13.12:131	Start CardRoute service
+16.13.22:977	cdp thread reset
+16.13.31:111	cdp thread reset
+16.13.39:181	cdp thread reset
+16.13.47:608	cdp thread reset
+16.13.55:749	cdp thread reset
+16.14.03:888	cdp thread reset
+16.14.12:379	cdp thread reset
+16.14.20:486	cdp thread reset
+16.14.30:562	cdp thread reset
+16.14.38:906	cdp thread reset
+16.14.47:868	cdp thread reset
+16.14.56:212	cdp thread reset
+16.15.04:322	cdp thread reset
+16.15.12:367	cdp thread reset
+16.15.20:536	cdp thread reset
+16.15.28:672	cdp thread reset
+16.15.36:720	cdp thread reset
+16.15.41:764	CardRoute service stopping...Wait for all thread terminating
+16.15.46:835	cdp thread reset
+16.17.50:999	Start CardRoute service
+16.17.59:028	CardRoute service stopping...Wait for all thread terminating
+16.17.59:028	CardRoute service stopped
+16.18.08:955	Start CardRoute service
+16.18.14:452	CardRoute service stopping...Wait for all thread terminating
+16.18.19:108	cdp thread reset
+16.18.19:175	CardRoute service stopped
+16.18.27:868	Start CardRoute service
+16.18.38:518	cdp thread reset
+16.18.46:616	cdp thread reset
+16.18.47:213	CardRoute service stopping...Wait for all thread terminating
+16.18.54:695	cdp thread reset
+16.18.54:750	CardRoute service stopped
+16.19.04:771	Start CardRoute service
+16.19.14:116	CardRoute service stopping...Wait for all thread terminating
+16.19.15:350	cdp thread reset
+16.19.17:635	CardRoute service stopped
+16.19.32:837	Start CardRoute service
+16.19.41:797	CardRoute service stopping...Wait for all thread terminating
+16.20.01:177	CardRoute service stopping...Wait for all thread terminating
+16.22.00:654	Start CardRoute service
+16.22.04:556	CardRoute service stopping...Wait for all thread terminating
+16.22.08:302	CardRoute service stopped
+16.39.20:840	Start CardRoute service
+16.40.18:509	CardRoute service stopping...Wait for all thread terminating
+16.40.21:224	CardRoute service stopped
+16.40.31:665	Start CardRoute service
+16.40.42:431	cdp thread reset
+16.40.50:577	cdp thread reset
+16.40.58:698	cdp thread reset
+16.41.07:052	cdp thread reset
+16.41.15:289	cdp thread reset
+16.41.23:519	cdp thread reset
+16.41.31:879	cdp thread reset
+16.41.39:984	cdp thread reset
+16.41.48:203	cdp thread reset
+16.41.56:602	cdp thread reset
+16.42.04:674	cdp thread reset
+16.42.12:788	cdp thread reset
+16.42.21:139	cdp thread reset
+16.42.29:393	cdp thread reset
+16.42.37:507	cdp thread reset
+16.42.45:718	cdp thread reset
+16.42.53:920	cdp thread reset
+16.43.02:157	cdp thread reset
+16.43.10:310	cdp thread reset
+16.43.20:475	cdp thread reset
+16.43.28:764	cdp thread reset
+16.43.36:854	cdp thread reset
+16.43.45:152	cdp thread reset
+16.43.53:428	cdp thread reset
+16.44.01:614	cdp thread reset
+16.44.09:729	cdp thread reset
+16.44.17:914	cdp thread reset
+16.44.26:068	cdp thread reset
+16.44.34:226	cdp thread reset
+16.44.42:432	cdp thread reset
+16.44.50:714	cdp thread reset
+16.44.58:813	cdp thread reset
+16.45.07:368	cdp thread reset
+16.45.15:712	cdp thread reset
+16.45.23:906	cdp thread reset
+16.45.32:408	cdp thread reset
+16.45.40:685	cdp thread reset
+16.45.50:939	cdp thread reset
+16.45.59:302	cdp thread reset
+16.46.07:775	cdp thread reset
+16.46.15:889	cdp thread reset
+16.46.24:176	cdp thread reset
+16.46.32:313	cdp thread reset
+16.46.40:376	cdp thread reset
+16.46.48:441	cdp thread reset
+16.46.56:576	cdp thread reset
+16.47.04:639	cdp thread reset
+16.47.12:754	cdp thread reset
+16.47.20:851	cdp thread reset
+16.47.29:039	cdp thread reset
+16.47.37:199	cdp thread reset
+16.47.45:629	cdp thread reset
+16.47.53:789	cdp thread reset
+16.48.01:886	cdp thread reset
+16.48.10:313	cdp thread reset
+16.48.18:525	cdp thread reset
+16.48.26:719	cdp thread reset
+16.48.35:402	cdp thread reset
+16.48.43:513	cdp thread reset
+16.48.51:765	cdp thread reset
+16.49.00:251	cdp thread reset
+16.49.08:296	cdp thread reset
+16.49.16:381	cdp thread reset
+16.49.24:682	cdp thread reset
+16.49.32:889	cdp thread reset
+16.49.41:009	cdp thread reset
+16.49.49:309	cdp thread reset
+16.49.57:543	cdp thread reset
+16.50.05:679	cdp thread reset
+16.50.13:771	cdp thread reset
+16.50.21:866	cdp thread reset
+16.50.30:176	cdp thread reset
+16.50.38:272	cdp thread reset
+16.50.46:379	cdp thread reset
+16.50.54:635	cdp thread reset
+16.51.02:810	cdp thread reset
+16.51.10:876	cdp thread reset
+16.51.19:086	cdp thread reset
+16.51.27:278	cdp thread reset
+16.51.35:312	cdp thread reset
+16.51.43:443	cdp thread reset
+16.51.51:676	cdp thread reset
+16.51.59:948	cdp thread reset
+16.52.08:019	cdp thread reset
+16.52.16:117	cdp thread reset
+16.52.24:256	cdp thread reset
+16.52.32:358	cdp thread reset
+16.52.40:453	cdp thread reset
+16.52.48:616	cdp thread reset
+16.52.56:758	cdp thread reset
+16.53.04:948	cdp thread reset
+16.53.13:187	cdp thread reset
+16.53.21:309	cdp thread reset
+16.53.29:438	cdp thread reset
+16.53.37:610	cdp thread reset
+16.53.45:784	cdp thread reset
+16.53.53:865	cdp thread reset
+16.54.01:950	cdp thread reset
+16.54.10:378	cdp thread reset
+16.54.18:565	cdp thread reset
+16.54.26:647	cdp thread reset
+16.54.35:319	cdp thread reset
+16.54.43:580	cdp thread reset
+16.54.51:723	cdp thread reset
+16.55.00:061	cdp thread reset
+16.55.08:209	cdp thread reset
+16.55.16:503	cdp thread reset
+16.55.24:837	cdp thread reset
+16.55.32:931	cdp thread reset
+16.55.41:064	cdp thread reset
+16.55.49:586	cdp thread reset
+16.55.57:775	cdp thread reset
+16.56.05:869	cdp thread reset
+16.56.14:220	cdp thread reset
+16.56.22:487	cdp thread reset
+16.56.32:552	cdp thread reset
+16.56.40:660	cdp thread reset
+16.56.48:723	cdp thread reset
+16.56.56:868	cdp thread reset
+16.57.05:068	cdp thread reset
+16.57.13:208	cdp thread reset
+16.57.21:450	cdp thread reset
+16.57.29:634	cdp thread reset
+16.57.37:730	cdp thread reset
+16.57.45:820	cdp thread reset
+16.57.53:991	cdp thread reset
+16.58.02:160	cdp thread reset
+16.58.10:231	cdp thread reset
+16.58.18:381	cdp thread reset
+16.58.26:560	cdp thread reset
+16.58.34:681	cdp thread reset
+16.58.42:883	cdp thread reset
+16.58.52:979	cdp thread reset
+16.59.01:167	cdp thread reset
+16.59.09:306	cdp thread reset
+16.59.17:358	cdp thread reset
+16.59.25:495	cdp thread reset
+16.59.33:584	cdp thread reset
+16.59.41:700	cdp thread reset
+16.59.49:936	cdp thread reset
+16.59.58:064	cdp thread reset
+17.00.06:175	cdp thread reset
+17.00.14:450	cdp thread reset
+17.00.22:550	cdp thread reset
+17.00.30:607	cdp thread reset
+17.00.38:675	cdp thread reset
+17.00.46:835	cdp thread reset
+17.00.55:147	cdp thread reset
+17.01.03:274	cdp thread reset
+17.01.13:475	cdp thread reset
+17.01.21:632	cdp thread reset
+17.01.29:708	cdp thread reset
+17.01.37:793	cdp thread reset
+17.01.45:969	cdp thread reset
+17.01.54:024	cdp thread reset
+17.02.02:172	cdp thread reset
+17.02.10:406	cdp thread reset
+17.02.18:578	cdp thread reset
+17.02.26:625	cdp thread reset
+17.02.34:671	cdp thread reset
+17.02.42:793	cdp thread reset
+17.02.50:876	cdp thread reset
+17.02.58:962	cdp thread reset
+17.03.07:079	cdp thread reset
+17.03.15:370	cdp thread reset
+17.03.23:415	cdp thread reset
+17.03.31:522	cdp thread reset
+17.03.40:014	cdp thread reset
+17.03.48:174	cdp thread reset
+17.03.56:230	cdp thread reset
+17.04.04:759	cdp thread reset
+17.04.13:000	cdp thread reset
+17.04.21:165	cdp thread reset
+17.04.29:458	cdp thread reset
+17.04.37:530	cdp thread reset
+17.04.45:748	cdp thread reset
+17.04.53:951	cdp thread reset
+17.05.02:067	cdp thread reset
+17.05.10:169	cdp thread reset
+17.05.18:443	cdp thread reset
+17.05.26:588	cdp thread reset
+17.05.34:632	cdp thread reset
+17.05.42:901	cdp thread reset
+17.05.51:135	cdp thread reset
+17.05.59:326	cdp thread reset
+17.06.07:522	cdp thread reset
+17.06.15:822	cdp thread reset
+17.06.24:062	cdp thread reset
+17.06.32:234	cdp thread reset
+17.06.40:338	cdp thread reset
+17.06.48:649	cdp thread reset
+17.06.56:829	cdp thread reset
+17.07.05:043	cdp thread reset
+17.07.13:228	cdp thread reset
+17.07.21:617	cdp thread reset
+17.07.29:997	cdp thread reset
+17.07.38:210	cdp thread reset
+17.07.46:321	cdp thread reset
+17.07.54:720	cdp thread reset
+17.08.02:954	cdp thread reset
+17.08.11:162	cdp thread reset
+17.08.19:299	cdp thread reset
+17.08.27:370	cdp thread reset
+17.08.35:617	cdp thread reset
+17.08.43:775	cdp thread reset
+17.08.51:979	cdp thread reset
+17.09.00:201	cdp thread reset
+17.09.08:428	cdp thread reset
+17.09.16:560	cdp thread reset
+17.09.24:765	cdp thread reset
+17.09.35:021	cdp thread reset
+17.09.43:228	cdp thread reset
+17.09.51:493	cdp thread reset
+17.09.59:682	cdp thread reset
+17.10.07:893	cdp thread reset
+17.10.16:505	cdp thread reset
+17.10.24:687	cdp thread reset
+17.10.32:991	cdp thread reset
+17.10.43:334	cdp thread reset
+17.10.51:577	cdp thread reset
+17.10.59:954	cdp thread reset
+17.11.00:300	CardRoute service stopping...Wait for all thread terminating
+17.11.08:193	cdp thread reset
+17.11.08:242	CardRoute service stopped
+19.34.19:191	Start CardRoute service
+19.34.51:300	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.34.51:488	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:fd53139f-96ac-486c-a2f5-115d8f095a34
+Error Number: -2, State: 0, Class: 11
+19.34.51:503	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:d0a648cf-3f70-460b-9028-e5eb833a7e2c
+Error Number: -2, State: 0, Class: 11
+19.34.51:503	cdp thread reset
+19.35.23:328	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.35.23:531	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:fd53139f-96ac-486c-a2f5-115d8f095a34
+Error Number: -2, State: 0, Class: 11
+19.35.23:671	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:71a94130-71ff-4ed6-adfb-978fa934ca56
+Error Number: -2, State: 0, Class: 11
+19.35.23:671	cdp thread reset
+19.35.55:344	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.35.55:547	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:fd53139f-96ac-486c-a2f5-115d8f095a34
+Error Number: -2, State: 0, Class: 11
+19.35.55:813	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:521492c1-93ac-4a80-b78e-7640fab05df1
+Error Number: -2, State: 0, Class: 11
+19.35.55:813	cdp thread reset
+19.36.27:363	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.36.27:566	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:521492c1-93ac-4a80-b78e-7640fab05df1
+Error Number: -2, State: 0, Class: 11
+19.36.27:987	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:18b5a20b-65e1-42cf-bde6-b7b5738f073e
+Error Number: -2, State: 0, Class: 11
+19.36.27:987	cdp thread reset
+19.36.59:374	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.36.59:592	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:521492c1-93ac-4a80-b78e-7640fab05df1
+Error Number: -2, State: 0, Class: 11
+19.37.00:108	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:71a94130-71ff-4ed6-adfb-978fa934ca56
+Error Number: -2, State: 0, Class: 11
+19.37.00:108	cdp thread reset
+19.37.31:374	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.37.31:609	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:521492c1-93ac-4a80-b78e-7640fab05df1
+Error Number: -2, State: 0, Class: 11
+19.37.32:216	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:d0a648cf-3f70-460b-9028-e5eb833a7e2c
+Error Number: -2, State: 0, Class: 11
+19.37.32:218	cdp thread reset
+19.37.38:384	CardRoute service stopping...Wait for all thread terminating
+19.38.03:379	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.38.03:616	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:521492c1-93ac-4a80-b78e-7640fab05df1
+Error Number: -2, State: 0, Class: 11
+19.38.04:274	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:18b5a20b-65e1-42cf-bde6-b7b5738f073e
+Error Number: -2, State: 0, Class: 11
+19.38.04:274	cdp thread reset
+19.38.04:383	CardRoute service stopped
+19.39.06:321	Start CardRoute service
+19.39.38:588	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.39.38:588	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:38a764a1-4f84-4d3d-a888-ba3623c87517
+Error Number: -2, State: 0, Class: 11
+19.39.38:588	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:285c04ed-7249-458e-bebb-33f7e47598d6
+Error Number: -2, State: 0, Class: 11
+19.39.38:588	cdp thread reset
+19.40.13:108	cdp thread reset
+19.40.23:201	cdp thread reset
+19.40.31:302	cdp thread reset
+19.40.39:498	cdp thread reset
+19.40.47:655	cdp thread reset
+19.40.55:741	cdp thread reset
+19.41.03:921	cdp thread reset
+19.41.12:122	cdp thread reset
+19.41.20:258	cdp thread reset
+19.41.28:354	cdp thread reset
+19.41.36:410	cdp thread reset
+19.41.44:661	cdp thread reset
+19.41.53:052	cdp thread reset
+19.42.01:230	cdp thread reset
+19.42.09:328	cdp thread reset
+19.42.17:659	cdp thread reset
+19.42.25:863	cdp thread reset
+19.42.34:050	cdp thread reset
+19.42.42:268	cdp thread reset
+19.42.50:308	cdp thread reset
+19.42.58:546	cdp thread reset
+19.43.06:832	cdp thread reset
+19.43.14:986	cdp thread reset
+19.43.23:161	cdp thread reset
+19.43.31:248	cdp thread reset
+19.43.39:399	cdp thread reset
+19.43.47:493	cdp thread reset
+19.43.55:652	cdp thread reset
+19.44.03:846	cdp thread reset
+19.44.12:022	cdp thread reset
+19.44.20:180	cdp thread reset
+19.44.28:276	cdp thread reset
+19.44.36:492	cdp thread reset
+19.44.44:757	cdp thread reset
+19.44.52:902	cdp thread reset
+19.45.00:996	cdp thread reset
+19.45.09:139	cdp thread reset
+19.45.17:234	cdp thread reset
+19.45.25:328	cdp thread reset
+19.45.33:469	cdp thread reset
+19.45.41:615	cdp thread reset
+19.45.49:766	cdp thread reset
+19.45.57:890	cdp thread reset
+19.46.05:961	cdp thread reset
+19.46.12:308	CardRoute service stopping...Wait for all thread terminating
+19.46.14:142	cdp thread reset
+19.46.17:920	CardRoute service stopped
+19.47.11:376	Start CardRoute service
+19.47.43:445	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.47.43:445	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:2887af37-b9d6-431a-ada5-335f475e7a60
+Error Number: -2, State: 0, Class: 11
+19.47.43:445	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:58277301-caab-4a96-a07e-c81e460876e0
+Error Number: -2, State: 0, Class: 11
+19.47.43:445	cdp thread reset
+19.48.15:456	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.48.15:456	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:58277301-caab-4a96-a07e-c81e460876e0
+Error Number: -2, State: 0, Class: 11
+19.48.15:628	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:cf1b046c-9ebd-4d59-b595-77fb8e4ba1a2
+Error Number: -2, State: 0, Class: 11
+19.48.15:628	cdp thread reset
+19.48.47:484	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.48.47:484	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:cf1b046c-9ebd-4d59-b595-77fb8e4ba1a2
+Error Number: -2, State: 0, Class: 11
+19.48.47:718	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:68c8d3fe-7123-4cad-a670-b80dcd3ff60f
+Error Number: -2, State: 0, Class: 11
+19.48.47:718	cdp thread reset
+19.49.19:485	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.49.19:486	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:cf1b046c-9ebd-4d59-b595-77fb8e4ba1a2
+Error Number: -2, State: 0, Class: 11
+19.49.19:814	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:2887af37-b9d6-431a-ada5-335f475e7a60
+Error Number: -2, State: 0, Class: 11
+19.49.19:816	cdp thread reset
+19.49.28:632	CardRoute service stopping...Wait for all thread terminating
+19.49.51:499	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.49.51:499	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:2887af37-b9d6-431a-ada5-335f475e7a60
+Error Number: -2, State: 0, Class: 11
+19.49.51:952	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:68c8d3fe-7123-4cad-a670-b80dcd3ff60f
+Error Number: -2, State: 0, Class: 11
+19.49.51:952	cdp thread reset
+19.49.52:030	CardRoute service stopped
+19.54.39:327	Start CardRoute service
+19.55.11:767	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.55.11:773	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:f73a3600-b847-4b73-93e9-c61e35a2fa54
+Error Number: -2, State: 0, Class: 11
+19.55.11:775	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:6218ff66-5887-4e04-803c-8eaa1e6b7938
+Error Number: -2, State: 0, Class: 11
+19.55.11:776	cdp thread reset
+19.55.43:773	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.55.43:788	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:f73a3600-b847-4b73-93e9-c61e35a2fa54
+Error Number: -2, State: 0, Class: 11
+19.55.43:913	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:b98a184b-4362-4fae-9953-939b6a4ee08a
+Error Number: -2, State: 0, Class: 11
+19.55.43:913	cdp thread reset
+19.56.15:788	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.56.15:804	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:b98a184b-4362-4fae-9953-939b6a4ee08a
+Error Number: -2, State: 0, Class: 11
+19.56.15:992	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:37a6c156-6b5b-4f1b-894d-2dc9c8326053
+Error Number: -2, State: 0, Class: 11
+19.56.15:992	cdp thread reset
+19.56.18:165	CardRoute service stopping...Wait for all thread terminating
+19.56.47:804	Report error: Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает.
+19.56.47:820	Issue error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerIssue_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 571
+ClientConnectionId:b98a184b-4362-4fae-9953-939b6a4ee08a
+Error Number: -2, State: 0, Class: 11
+19.56.48:023	Cdp proccess error: System.Data.SqlClient.SqlException (0x80131904): Время ожидания выполнения истекло. Время ожидания истекло до завершения операции, или сервер не отвечает. ---> System.ComponentModel.Win32Exception (0x80004005): Время ожидания операции истекло
+   в System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   в System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   в System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   в System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   в System.Data.SqlClient.SqlDataReader.get_MetaData()
+   в System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   в System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   в System.Data.SqlClient.SqlCommand.ExecuteReader()
+   в CardRoute.CardRouteService.TimerCdp_Elapsed(Object sender, ElapsedEventArgs e) в D:\Work\CardRoute\CardRoute\CardRouteService.cs:строка 1157
+ClientConnectionId:f73a3600-b847-4b73-93e9-c61e35a2fa54
+Error Number: -2, State: 0, Class: 11
+19.56.48:023	cdp thread reset
+19.56.48:132	CardRoute service stopped

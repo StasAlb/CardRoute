@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAFDF520-BAB6-49EA-994B-A346EFD0D736}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DpclDevice</RootNamespace>
+    <AssemblyName>DpclDevice</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes.cs" />
+    <Compile Include="DpclDevice.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\DPCL2ServiceReference\Reference.cs" />
+    <Compile Include="Service References\DPCL2ServiceReference\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Service References\DPCL2ServiceReference\configuration.svcinfo" />
+    <Content Include="Service References\DPCL2ServiceReference\configuration91.svcinfo" />
+    <Content Include="Service References\DPCL2ServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DPCL2ServiceReference\DPCL2.wsdl" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.CancelJobOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.CancelJobResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.DiscoverPrinter2Output.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.DiscoverPrinter2Response.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.DiscoverPrinterOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.DiscoverPrinterResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.EndJobOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.EndJobResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ExchangeMessageOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ExchangeMessageResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RestartJobOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RestartJobResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ResumeJobOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ResumeJobResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ResumeMessageOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.ResumeMessageResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RetrieveDataOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RetrieveDataResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RetrieveLogOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.RetrieveLogResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetJobQueueStateOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetJobQueueStateResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetLockStateOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetLockStateResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetPowerStateOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SetPowerStateResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.StartJob2Response.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.StartJob3Output.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.StartJob3Response.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.StartJobOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.StartJobResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SubmitActionOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SubmitActionResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SubmitDataOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.SubmitDataResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.WaitForStatus2Output.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.WaitForStatus2Response.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.WaitForStatusOutput.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\DPCL2Test.DPCL2ServiceReference.WaitForStatusResponse.datasource" />
+    <None Include="Service References\DPCL2ServiceReference\xmlmime.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DPCL2ServiceReference\xop_include.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HugeLib\HugeLib\HugeLib.csproj">
+      <Project>{eb06a641-b0ca-4983-aee8-5413487ab64d}</Project>
+      <Name>HugeLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProcardWPF\Common\Common.csproj">
+      <Project>{3475f69c-f2ed-4e1d-82e4-079df6f462f5}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProcardWPF\Devices\Devices.csproj">
+      <Project>{ed72a15c-b298-496e-bfdc-0e7961342e01}</Project>
+      <Name>Devices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.ru-Ru.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

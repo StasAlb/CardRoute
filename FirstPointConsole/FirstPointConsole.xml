@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <InputFormat Type="Text" Name="Standard">
+    <InputField Name="ProductCode">
+      <Type>ArrayItem</Type>
+      <Separator>#</Separator>
+      <Index>18</Index>
+    </InputField>
+    <InputField Name="Bin">
+      <Type>ArrayItem</Type>
+      <Separator>#</Separator>
+      <Index>0</Index>
+      <AddOn Function="Substring" Start="0" Length="6"></AddOn>
+    </InputField>
+    <InputField Name="AppNum">
+      <Type>ArrayItem</Type>
+      <Separator>#</Separator>
+      <Index>16</Index>
+    </InputField>
+    <InputField Name="CardholderName">
+      <Type>ArrayItem</Type>
+      <Separator>#</Separator>
+      <Index>3</Index>
+    </InputField>
+    <InputField Name="Pan">
+      <Type>ArrayItem</Type>
+      <Separator>#</Separator>
+      <Index>0</Index>
+    </InputField>
+  </InputFormat>
+  <Devices InputField="Device">
+    <Device Name="01" Alias="Мой CD800"/>
+  </Devices>
+  <InputDirectory Mask="*.*">..\Input</InputDirectory>
+  <Archive>..\Archive</Archive>
+</Settings>

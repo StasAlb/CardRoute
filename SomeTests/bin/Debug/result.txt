@@ -1,0 +1,10 @@
+Model: CE870
+DTCSmartCardContactless: Enabled
+EmbossModuleEmboss: Disabled
+EmbossModuleExpected: Disabled
+EmbossModuleIndent: Disabled
+EmbossModuleKioskExtReader: Disabled
+EmbossModuleKioskRollersPark: Disabled
+EmbossModuleKioskSupport: Disabled
+EmbossModuleTop: Disabled
+LaminatorModuleExpected: Disabled

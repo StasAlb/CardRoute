@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Chain FirstLink="Cdp">
+  <Cdp NextLink="Issue">
+    <InputStream Delimiter="|">
+      <Field Name="Data" Description="Вся входная строка"/>
+    </InputStream>
+    <OutputStream Delimiter="#">
+      <Field Name="Pan"/>
+      <Field Name="ExpDate"/>
+      <Field Name="Cardholder"/>
+      <Field Name="Company"/>
+      <Field Name="CVV"/>
+      <Field Name="Track1"/>
+      <Field Name="Track2"/>
+      <Field Name="SmartData"/>
+    </OutputStream>
+    <InFile>C:\ostcard\CDP\Input\data.txt </InFile>
+    <CdpIni>C:\ostcard\CDP\Ini\product.ini</CdpIni>
+  </Cdp>
+  <Issue NextLink="Complete">
+    <Step Type="Perso" Script="scriptname.000" Protocol="Contact" Log="On" Field="SmartData"/>
+    <Step Type="Print" Design="emboss.xml"/>
+  </Issue>
+  <Central NextLink="Complete">
+    <PersoFile File="c:\temp\central.txt" Delimiter="|">
+      <Field Name="Data"/>
+    </PersoFile>
+  </Central>
+</Chain>
