@@ -5,10 +5,10 @@
   </Common>
   <Database>
     <providerName>System.Data.SqlClient</providerName>
-    <server>ALBER-10\MSSQL_2019</server>
+    <server>STAS10\SQL2019</server>
     <name>CardRoute_Default</name>
     <uid>sa</uid>
-    <password>165DCB0232AA789C</password>
+    <password>DA2D3080343FCB16C71E36CA136CC76B</password>
   </Database>
   <Cdp DeleteResult="false">
     <IniFolder>c:\ostcard\cdp\Ini\</IniFolder>
