@@ -18,8 +18,8 @@
     <InFile>C:\ostcard\CDP\Input\data.txt </InFile>
     <CdpIni>C:\ostcard\CDP\Ini\UPI_9_17_PIN6.ini</CdpIni>
   </Cdp>
-  <Issue NextLink="Report" NeedConfirm="Admin">
-    <Emulation Duration="8" ErrorChance="0"/>
+  <Issue NextLink="Complete" NeedConfirm1="Admin">
+    <Emulation1 Duration="8" ErrorChance="0"/>
     <Step1 Type="MagRead">
       <MakeField Name="ReadTrack" Track="1"/>
       <MakeField Name="PanFromTrack" Track="2" StartPos="0" Length="16"/>
@@ -29,10 +29,10 @@
         <MakeField Track="2" StartPos="17" Length="2"/>
       </MakeField>
     </Step1>
-    <Step Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"></Step>
+    <Step1 Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"></Step1>
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"></Step1>
     <Step1 Type="Print" Design="onlymag.xml"></Step1>
-    <Step1 Type="Print" Design="firstchain.xml"></Step1> 
+    <Step Type="Print" Design="emboss.xml"></Step> 
   </Issue>
   <Report NextLink="Complete">
     <Emulation Duration="1" ErrorChance="0"/>

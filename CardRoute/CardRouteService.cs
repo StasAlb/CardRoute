@@ -901,8 +901,10 @@ namespace CardRoute
                 device.printerName = c.deviceLink;
                 try
                 {
-                    bool realwork = false;
-                    ((Dpcl) device).Https = (protocol == "https");
+                    bool realwork = true;
+                    device.eventPassMessage += Device_eventPassMessage;
+                    ((Dpcl)device).Https = (protocol == "https");
+                    ((Dpcl)device).CardId = c.cardId;
                     if (!device.StartJob())
                         throw new Exception("startjob error"); 
                     // подбираем лоток
@@ -1166,6 +1168,26 @@ namespace CardRoute
                 }
             }
         }
+
+        private void Device_eventPassMessage(MessageType messageType, string message)
+        {
+            if (messageType == MessageType.CompleteStep)
+            {
+                string[] sss = message.ToLower().Split(':');
+                if (sss[0].Equals("dispense"))
+                {
+                    int cid = Convert.ToInt32(sss[1]);
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SetCardStatus(new Card() { cardId = cid }, CardStatus.IssueDispensing, conn);
+                        conn.Close();
+                    }
+                }
+            }
+            
+        }
+
         private string CombineMakeField(XmlDocument x, string[] tracks)
         {
             string start = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "StartPos", "0", xnm);
