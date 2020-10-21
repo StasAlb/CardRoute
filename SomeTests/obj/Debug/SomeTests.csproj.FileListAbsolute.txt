@@ -1,5 +1,6 @@
-D:\Work\CardRoute\SomeTests\bin\Debug\SomeTests.exe.config
-D:\Work\CardRoute\SomeTests\bin\Debug\SomeTests.exe
-D:\Work\CardRoute\SomeTests\bin\Debug\SomeTests.pdb
-D:\Work\CardRoute\SomeTests\obj\Debug\SomeTests.exe
-D:\Work\CardRoute\SomeTests\obj\Debug\SomeTests.pdb
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.exe.config
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.exe
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.pdb
+d:\work\CardRoute\SomeTests\obj\Debug\SomeTests.csprojAssemblyReference.cache
+d:\work\CardRoute\SomeTests\obj\Debug\SomeTests.exe
+d:\work\CardRoute\SomeTests\obj\Debug\SomeTests.pdb

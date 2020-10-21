@@ -21,7 +21,9 @@ namespace CardRoute
         Start = 12,
         Central = 13,
         OperatorPending = 14,
-        AdminPending = 15
+        AdminPending = 15,
+        IssueDispensing = 16, //вылезла из киоска и ждет пока ее возьмут
+        CentralComplete = 17
     }
 
     enum DeviceType : int
@@ -42,6 +44,7 @@ namespace CardRoute
         internal int deviceId;
         internal DeviceType deviceType;
         internal string deviceLink;
+        internal string deviceName;
         internal string message;
         internal int branchid;
         internal int lastStatusId;

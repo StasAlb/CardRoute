@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using System.Xml;
+using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading;
@@ -133,9 +135,9 @@ namespace CardRoute
             lang = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Language", "russian", xnm).ToLower();
             if (lang != "russian" && lang != "english")
                 lang = "russian";
-            protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", "https", xnm).ToLower();
+            protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", "http", xnm).ToLower();
             if (protocol != "http" && protocol != "https")
-                protocol = "https";
+                protocol = "http";
 
 
             //хэш таблица для выпуска карт
@@ -194,6 +196,7 @@ namespace CardRoute
             timerIssue.Start();
             timerReport.Start();
             timerCentral.Start();
+            timerPin.Start();
         }
 
         private void TimerPin_Elapsed(object sender, ElapsedEventArgs e)
@@ -206,11 +209,12 @@ namespace CardRoute
                 List<Card> cards = new List<Card>();
                 SqlCommand sel = conn.CreateCommand();
                 sel.CommandText = $"select x.* from ( " +
-                                  "select c.cardid, CardPriorityId, c.DeviceId, cd.CardData, p.Link, p.ProductName, " +
+                                  "select c.cardid, CardPriorityId, c.DeviceId, d.DeviceName, cd.CardData, p.Link, p.ProductName, " +
                                   "rank() over(partition by c.deviceid order by cardpriorityid desc, c.cardid) num " +
                                   "from cards c " +
                                   "inner join Products p on c.ProductId = p.ProductId " +
                                   "inner join CardsData cd on c.CardId = cd.CardId " +
+                                  "inner join Devices d on c.DeviceId = d.DeviceId " + 
                                   "where c.CardStatusId = @status " +
                                   ") x where x.num = 1 order by CardPriorityId";
                 sel.Parameters.Add("@status", SqlDbType.Int).Value = (int)CardStatus.PinWaiting;
@@ -222,7 +226,8 @@ namespace CardRoute
                         {
                             cardId = Convert.ToInt32(dr["cardid"]),
                             cardData = dr["CardData"].ToString().Trim(),
-                            productLink = dr["Link"].ToString().Trim()
+                            productLink = dr["Link"].ToString().Trim(),
+                            deviceName = dr["DeviceName"].ToString().Trim()
                         });
                     }
                     dr.Close();
@@ -243,6 +248,7 @@ namespace CardRoute
                         stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
                         continue;
                     }
+                    SetCardStatus(c, CardStatus.PinProcess, conn);
                     string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Pin", "NextLink", xnm);
                     if (String.IsNullOrEmpty(next))
                         next = "Complete";
@@ -267,7 +273,7 @@ namespace CardRoute
                         Random r = new Random((int)DateTime.Now.Ticks);
                         if (r.Next(100) < emulationChance)
                         {
-                            c.message = "Ошибка при эмуляции выгрузки на центральный выпуск";
+                            c.message = "Ошибка при эмуляции печати пина";
                             SetCardStatus(c, CardStatus.Error, conn);
                         }
                         else
@@ -277,48 +283,123 @@ namespace CardRoute
                         continue;
                     }
                     #endregion
+                    string type = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Pin", "Type", xnm);
 
                     XmlDocument cardData = new XmlDocument();
                     cardData.LoadXml(c.cardData);
-
-                    int cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Central/PersoFile", xnm);
-                    for (int i = 0; i < cnt; i++)
+                    if (type.ToLower().Trim() == "kkb")
                     {
-                        XmlDocument onereport = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Central/PersoFile", i, xnm);
-                        string filename = stasHugeLib::HugeLib.XmlClass.GetAttribute(onereport, "", "File", xnm);
-                        string delimiter = stasHugeLib::HugeLib.XmlClass.GetAttribute(onereport, "", "Delimiter", xnm);
-                        int fieldcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(onereport, "Field", xnm);
-                        string str = ""; 
-                        for (int t = 0; t < fieldcnt; t++)
+                        XmlDocument pinDictionary = new XmlDocument();
+                        f = $"{System.AppDomain.CurrentDomain.BaseDirectory}\\PinDictionary.xml";
+                        try
                         {
-                            XmlDocument onefield = stasHugeLib::HugeLib.XmlClass.GetXmlNode(onereport, "Field", t, xnm);
-                            string name = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Name", xnm);
-                            string len = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Length", xnm);
-                            string def = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Default", xnm);
-                            string val = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", name, "Value", xnm);
-                            if (String.IsNullOrEmpty(val))
-                                val = def;
-                            int l = 0;
-                            if (Int32.TryParse(len, out l))
-                                val = val.PadRight(l);
-                            if (t > 0)
-                                str += delimiter;
-                            str += val;
+                            pinDictionary.Load(f);
                         }
-                        using (StreamWriter sw = new StreamWriter(filename, true))
+                        catch
                         {
-                            sw.BaseStream.Seek(0, SeekOrigin.End);
-                            sw.WriteLine(str);
-                            sw.Close();
+                            stasHugeLib::HugeLib.LogClass.WriteToLog("PinDictionary.xml load error");
+                        }
+                        string service_ip = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "PinIP", "Value", xnm);
+                        //string service_ip = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(pinDictionary, "Service", "DeviceNames", c.deviceName, "Ip", xnm);
+                        string service_port = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(pinDictionary, "Service", "Ip", service_ip, "Port", xnm);
+                        if (!String.IsNullOrEmpty(service_ip) && !String.IsNullOrEmpty(service_port))
+                        {
+                            string xml = "<CW_XML_Interface direction = 'Request' sequence = '1'><METHOD name = 'HostPinPrint'><RequestorPCName>CardRoute</RequestorPCName><RequestorName>CardRouteService</RequestorName>##DATA##</METHOD></CW_XML_Interface>";
+                            xml = xml.Replace((char)0x27, (char)0x22); //меняем апостроф на кавычки
+                            string part = String.Format("<DATAITEM name={0}##FIELD##{0} type={0}string{0} encoding={0}none{0}>##DATA##</DATAITEM>", (char)0x22);
+                            string pindata = "";
+                            int pinfieldcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Pin/Field", xnm);
+                            for (int i = 0; i < pinfieldcnt; i++)
+                            {
+                                XmlDocument x = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Pin/Field", i, xnm);
+                                string name = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Name", xnm);
+                                pindata += part.Replace("##FIELD##", name).Replace("##DATA##", stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", name, "Value", xnm));
+                            }
+                            xml = xml.Replace("##DATA##", pindata);
+                            stasHugeLib::HugeLib.LogClass.WriteToLog(xml);
+                            try
+                            {
+                                string reply = SendTCP(xml, service_ip, Convert.ToInt32(service_port));
+                                reply = reply.Substring(reply.IndexOf("<CW"));
+                                string start = stasHugeLib::HugeLib.Utils.AHex2String("5C22");
+                                string old = stasHugeLib::HugeLib.Utils.AHex2String("22");
+                                start = String.Format("\"");
+                                reply = reply.Replace(start, "'");
+                                XmlDocument pinreply = new XmlDocument();
+                                pinreply.LoadXml(reply);
+                                string ret_code = stasHugeLib::HugeLib.XmlClass.GetDataXml(pinreply, "METHOD/ReturnCode", xnm);
+                                if (ret_code != "0")
+                                    throw new Exception($"{ret_code}");
+                                SetCardStatus(c, next, conn);
+                            }
+                            catch(Exception ex)
+                            {
+                                c.message = $"Pin printing error: {ex.Message}";
+                                SetCardStatus(c, CardStatus.Error, conn);
+                            }
                         }
                     }
-                    SetCardStatus(c, next, conn);
+                    else
+                    {
+                        c.message = "Pin printing error: no service data";
+                        SetCardStatus(c, CardStatus.Error, conn);
+                    }
                 }
                 conn.Close();
             }
             Interlocked.Decrement(ref threadCount);
             if (!stopFlag)
-                timerCentral.Start();
+                timerPin.Start();
+        }
+        //взята из старого проекта CWHubService2.0, поэтому используется as is
+        private string SendTCP(string str, string ip, int port)
+        {
+            byte[] b1 = new byte[0x8000];
+            byte[] b2 = new byte[0xFFFF];
+            Array.Clear(b1, 0, 0x8000);
+            Array.Clear(b2, 0, 0xFFFF);
+            int i = 0;
+            b1[0] = 0x01;
+            b1[1] = 0x53; b1[2] = 0x54; b1[3] = 0x44; //STD
+            b1[4] = 0x31;
+            b1[5] = 0x11;
+            i = 6;
+            string slen = Convert.ToInt32(str.Length).ToString("X");
+            Array.Copy(Encoding.Default.GetBytes(slen), 0, b1, i, slen.Length);
+            i += slen.Length;
+            b1[i++] = 0x02;
+            Array.Copy(Encoding.Default.GetBytes(str), 0, b1, i, str.Length);
+            i += str.Length;
+
+            try
+            {
+                using (TcpClient tcp = new TcpClient(ip, port))
+                {
+                    using (NetworkStream ns = tcp.GetStream())
+                    {
+                        ns.Write(b1, 0, i);
+                        b1 = new byte[0x800];
+                        Array.Clear(b1, 0, 0x800);
+                        int t = 0;
+                        i = 0;
+                        do
+                        {
+                            i = ns.Read(b1, 0, 0x800);
+                            Array.Copy(b1, 0, b2, t, i);
+                            t += i;
+                            Thread.Sleep(50);
+                        }
+                        while (ns.DataAvailable);
+                        str = Encoding.Default.GetString(b2, 0, t);
+                        ns.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return str;
         }
 
         private void TimerCentral_Elapsed(object sender, ElapsedEventArgs e)
@@ -408,6 +489,7 @@ namespace CardRoute
                     cardData.LoadXml(c.cardData);
 
                     int cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Central/PersoFile", xnm);
+                    bool sendtocdp = false;
                     for (int i = 0; i < cnt; i++)
                     {
                         XmlDocument onereport = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Central/PersoFile", i, xnm);
@@ -422,8 +504,14 @@ namespace CardRoute
                             string len = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Length", xnm);
                             string def = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Default", xnm);
                             string val = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", name, "Value", xnm);
+                            string mustbe = stasHugeLib::HugeLib.XmlClass.GetAttribute(onefield, "", "Mandatory", xnm);
                             if (String.IsNullOrEmpty(val))
                                 val = def;
+                            if (String.IsNullOrEmpty(val) && mustbe.ToLower() == "true")// если какого-то поля нет переводим в подготовку данных
+                            {
+                                sendtocdp = true;
+                                break;
+                            }
                             int l = 0;
                             if (Int32.TryParse(len, out l))
                                 val = val.PadRight(l);
@@ -431,6 +519,8 @@ namespace CardRoute
                                 str += delimiter;
                             str += val;
                         }
+                        if (sendtocdp)
+                            break;
                         using (StreamWriter sw = new StreamWriter(filename, true))
                         {
                             sw.BaseStream.Seek(0, SeekOrigin.End);
@@ -438,7 +528,14 @@ namespace CardRoute
                             sw.Close();
                         }
                     }
-                    SetCardStatus(c, next, conn);
+                    if (sendtocdp)
+                    {
+                        stasHugeLib::HugeLib.XmlClass.SetXmlAttribute(cardData, "Field", "Name", "NextIsCentral", "Value", xnm, "true");
+                        SetCardData(c, cardData.InnerXml, conn);
+                        SetCardStatus(c, CardStatus.PrepWaiting, conn);
+                    }
+                    else
+                        SetCardStatus(c, next, conn);
                 }
                 conn.Close();
             }
@@ -513,7 +610,7 @@ namespace CardRoute
                 finally
                 {
                     conn?.Close();
-                    timerCdp.Interval = (wasProcess) ? 50 : timerInterval;
+                    timerStart.Interval = (wasProcess) ? 50 : timerInterval+1;
                     Interlocked.Decrement(ref threadCount);
                     if (!stopFlag)
                         timerStart.Start();
@@ -901,12 +998,15 @@ namespace CardRoute
                 device.printerName = c.deviceLink;
                 try
                 {
-                    bool realwork = false;
-                    ((Dpcl) device).Https = (protocol == "https");
+                    bool realwork = true;
+                    device.eventPassMessage += Device_eventPassMessage;
+                    ((Dpcl)device).Https = (protocol == "https");
+                    ((Dpcl)device).CardId = c.cardId;
                     if (!device.StartJob())
-                        throw new Exception("startjob error"); 
+                        throw new Exception("startjob error");
                     // подбираем лоток
-                    c.hopper = device.FindHopper(hoppers.ToArray());
+                    //c.hopper = device.FindHopper(hoppers.ToArray());
+                    c.hopper = 1;
                     ((Dpcl)device).HopperID = c.hopper;
                     if (realwork)
                     {
@@ -1166,6 +1266,26 @@ namespace CardRoute
                 }
             }
         }
+
+        private void Device_eventPassMessage(MessageType messageType, string message)
+        {
+            if (messageType == MessageType.CompleteStep)
+            {
+                string[] sss = message.ToLower().Split(':');
+                if (sss[0].Equals("dispense"))
+                {
+                    int cid = Convert.ToInt32(sss[1]);
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SetCardStatus(new Card() { cardId = cid }, CardStatus.IssueDispensing, conn);
+                        conn.Close();
+                    }
+                }
+            }
+            
+        }
+
         private string CombineMakeField(XmlDocument x, string[] tracks)
         {
             string start = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "StartPos", "0", xnm);
@@ -1201,6 +1321,7 @@ namespace CardRoute
                 case CardStatus.PrepWaiting:
                 case CardStatus.OperatorPending:
                 case CardStatus.AdminPending:
+                case CardStatus.PinWaiting:
                 {
                     waitingStatus = true;
                     break;
@@ -1284,6 +1405,12 @@ namespace CardRoute
                     break;
                 case "Issue":
                     SetCardStatus(c, CardStatus.IssueWaiting, conn);
+                    break;
+                case "CentralComplete":
+                    SetCardStatus(c, CardStatus.CentralComplete, conn);
+                    break;
+                case "Pin":
+                    SetCardStatus(c, CardStatus.PinWaiting, conn);
                     break;
             }
 
@@ -1393,6 +1520,7 @@ namespace CardRoute
                         int cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Cdp/InputStream/Field", xnm);
                         string inputString = "";
                         string delimiter = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp/InputStream", "Delimiter", xnm);
+                        string nextIsCentral = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "NextIsCentral", "Value", xnm); 
                         for (int i = 0; i < cnt; i++)
                         {
                             XmlDocument x = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Cdp/InputStream/Field", i, xnm);
@@ -1400,8 +1528,20 @@ namespace CardRoute
                             string fieldLength = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Length", xnm);
                             string fieldDefault = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Default", xnm);
                             string val = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", fieldName, "Value", xnm);
+                            string inFormatDate = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "InFormat", xnm);
+                            string outFormatDate = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "OutFormat", xnm);
                             if (String.IsNullOrEmpty(val))
                                 val = fieldDefault;
+                            if (inFormatDate.Length > 0)
+                            {
+                                try
+                                {
+                                    DateTime dt = DateTime.ParseExact(val, inFormatDate, CultureInfo.InvariantCulture);
+                                    val = dt.ToString(outFormatDate);
+                                }
+                                catch (Exception ex)
+                                { }
+                            }
                             int len = 0;
                             if (Int32.TryParse(fieldLength, out len))
                                 val = val.PadRight(len);
@@ -1437,7 +1577,10 @@ namespace CardRoute
                             }
                             SetCardData(c, cardData.InnerXml, conn);
                             string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp", "NextLink", xnm);
-                            SetCardStatus(c, next, conn);
+                            if (nextIsCentral.ToLower() == "true")
+                                SetCardStatus(c, CardStatus.Central, conn);
+                            else
+                                SetCardStatus(c, next, conn);
                         }
                         catch (Exception exception)
                         {

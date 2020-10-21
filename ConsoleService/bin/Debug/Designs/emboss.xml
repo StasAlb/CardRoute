@@ -58,27 +58,6 @@
         <Shablon>XXX</Shablon>
         <Align>Left</Align>
       </EmbossText2>
-      <MagStripe>
-        <ID>10</ID>
-        <Name>Магнитная полоса 1</Name>
-        <Side>Back</Side>
-        <X>0</X>
-        <Y>1.45</Y>
-        <Width>3.375</Width>
-        <Height>0.51</Height>
-        <InType xsi:nil="true" />
-        <InTypeM>
-          <InTypes>None</InTypes>
-          <InTypes>None</InTypes>
-          <InTypes>None</InTypes>
-        </InTypeM>
-        <InDataM>
-          <string>Не определено</string>
-          <string>Не определено</string>
-          <string>Не определено</string>
-        </InDataM>
-        <Feedback>false</Feedback>
-      </MagStripe>
     </collection>
   </objects>
   <X>0</X>

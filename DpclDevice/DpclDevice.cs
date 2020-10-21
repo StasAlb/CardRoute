@@ -26,7 +26,12 @@ namespace DpclDevice
         private bool isKiosk = false;
         List<EmbossString> embossData = new List<EmbossString>();
         public bool Https = false;
-
+        private int cardId = 0; // id карты для возврата при поднятии события Dispense
+        public int CardId
+        {
+            set { cardId = value; }
+        }
+        
         public override bool StartJob()
         {
             dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
@@ -662,12 +667,12 @@ namespace DpclDevice
 
         /// <summary>
         /// Waits for the job completion.
-        /// </summary>
+        /// </summary>  
         private void WaitForCompletion()
         {
             var input = new WaitForStatus2Input
             {
-                maxSeconds = 20,
+                maxSeconds = 2,
                 matchConditionClient = ClientId,
                 matchConditionJobId = JobId,
                 minConditionSeverity = ConditionSeverity.Notice,
@@ -677,16 +682,22 @@ namespace DpclDevice
                 includeNetworkAdapters = false,
                 includeSensors = false,
                 includeSettings = false,
-                includeSupplies = false,
+                includeSupplies = true,
                 includeTunnels = false
             };
 
             uint currentConditionMarker = 0;
+            uint? startConditionMarker = null;
             while (true)
             {
                 input.minConditionMarker = currentConditionMarker;
                 var output = dpcl2Client.WaitForStatus2(input);
                 currentConditionMarker = output.nextConditionMarker;
+                if (startConditionMarker == null)
+                    startConditionMarker = currentConditionMarker;
+                //LogClass.WriteToLog($"{currentConditionMarker}");
+                if ((currentConditionMarker - startConditionMarker) >= 6)
+                    SendMessage(MessageType.CompleteStep, $"dispense:{cardId}");
 
                 if (output.status.condition == null)
                 {
@@ -710,6 +721,7 @@ namespace DpclDevice
                 }
             }
         }
+        #warning может сделать одну WaitForCompletion, вроде отличаются только с.code
         private void WaitForActionCompletion()
         {
             var input = new WaitForStatus2Input
@@ -795,6 +807,8 @@ namespace DpclDevice
                     return "Print ribbon type problem";
                 case 119:
                     return "Print ribbon not supported";
+                case 195:
+                    return "Card not taken? (195)";
                 default:
                     return $"Printer error code {code}";
             }
