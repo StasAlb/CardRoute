@@ -2,8 +2,10 @@
 <Chain FirstLink="Cdp">
   <Cdp NextLink="Complete">
     <Emulation1 Duration="3" ErrorChance="0"/>
-    <InputStream Delimiter="|">
+    <InputStream Delimiter="|">      
       <Field Name="Data"/>
+      <Field1 Name="Pan"/>
+      <Field Name="expirationDate" InFormat="yyyy-mm-dd" OutFormat="yyyymmdd"/>
     </InputStream>
     <OutputStream Delimiter="#">
       <Field Name="Pan"/>
@@ -18,8 +20,8 @@
     <InFile>C:\ostcard\CDP\Input\data.txt </InFile>
     <CdpIni>C:\ostcard\CDP\Ini\UPI_9_17_PIN6.ini</CdpIni>
   </Cdp>
-  <Issue NextLink="Complete" NeedConfirm1="Admin">
-    <Emulation1 Duration="8" ErrorChance="0"/>
+  <Issue NextLink="Pin" NeedConfirm1="Admin">
+    <Emulation Duration="2" ErrorChance="0"/>
     <Step1 Type="MagRead">
       <MakeField Name="ReadTrack" Track="1"/>
       <MakeField Name="PanFromTrack" Track="2" StartPos="0" Length="16"/>
@@ -35,15 +37,24 @@
     <Step Type="Print" Design="emboss.xml"></Step> 
   </Issue>
   <Report NextLink="Complete">
-    <Emulation Duration="1" ErrorChance="0"/>
-    <Report File="d:\temp\cardroute.txt" Delimiter="|">
+    <Emulation1 Duration="1" ErrorChance="0"/>
+    <Report File="c:\temp\cardroute.txt" Delimiter="|">
       <Field Name="Pan" Length="20"/>
       <Field Name="Cardholder"/>  
     </Report>
-    <Report File="d:\temp\cardroute_3.txt">
+    <Report File="c:\temp\cardroute_3.txt">
       <Field Name="Pan" Length="20"/>
       <Field Name="Cardholder" Length="100"/>
       <Field Name="CVV"/>
     </Report>
   </Report>
+  <Central>
+	<PersoFile File="c:\temp\111.txt" Delimiter="|">
+		<Field Name="Pan" Mandatory="true"/>
+   	</PersoFile>
+  </Central>
+  <Pin Type="KKB" NextLink="Complete">
+	<Field Name="Pan"/>
+	<Field Name="Cardholder"/>
+  </Pin>
 </Chain>

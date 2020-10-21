@@ -1,21 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
   <Common>
     <Timeout>2</Timeout>
+    <Language>Russian</Language>
   </Common>
   <Database>
     <providerName>System.Data.SqlClient</providerName>
-    <server>STAS10\SQL2019</server>
+    <server>DESKTOP-CLAHLP8\SQL2019</server>
     <name>CardRoute_Default</name>
     <uid>sa</uid>
-    <password>DA2D3080343FCB16C71E36CA136CC76B</password>
+    <password>165DCB0232AA789C</password>
   </Database>
-  <Cdp DeleteResult="false">
-    <IniFolder>c:\ostcard\cdp\Ini\</IniFolder>
+  <Cdp>
     <Console>c:\ostcard\cdp\cdp_cn.exe</Console>
+    <IniFolder>c:\ostcard\cdp\Ini\</IniFolder>
     <InFile>..\Input\cubes_cdp.txt</InFile>
     <CdpIni>..\Dummy.ini</CdpIni>
   </Cdp>
-  <HS Ip="127.0.0.1" Port="1600"></HS>
-  <HS1 Ip="192.168.1.193" Port="1600"></HS1>
+  <HS Ip="127.0.0.1" Port="1600" Log="on" />
 </Settings>

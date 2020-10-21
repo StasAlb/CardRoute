@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-d:\work\CardRoute\CardRouteControl\obj\Debug\
+C:\Work\CardRoute\CardRouteControl\obj\Debug\
 CardRouteControl
 none
 false
 DEBUG;TRACE
-d:\work\CardRoute\CardRouteControl\App.xaml
+C:\Work\CardRoute\CardRouteControl\App.xaml
 3-1177184346
 
 9-1630109340
-16-739604997
+16-1974199396
 Resources\Interface.en.xaml;Resources\Interface.ru.xaml;MainWindow.xaml;
 
-False
+True
 

@@ -17,7 +17,7 @@ namespace CreateStream
             // имена брал с https://www.briandunning.com/sample-data/
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = @"Server=ALBER-10\MSSQL_2019;Database=CardRoute;Uid=sa;Pwd=123;";
+                conn.ConnectionString = @"Server=DESKTOP-CLAHLP8\SQL2019;Database=CardRoute_Default;Uid=sa;Pwd=123;";
                 conn.Open();
                 int indexbank = 1; // 0 - iberia, 1 - albion
                 string[] bankname = new[] {"iberia", "albion"};

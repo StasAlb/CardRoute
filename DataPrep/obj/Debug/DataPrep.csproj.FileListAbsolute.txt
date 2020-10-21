@@ -19,3 +19,16 @@ d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.csprojAssemblyReference.cache
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.csproj.CopyComplete
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.dll
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.pdb
+C:\Work\CardRoute\DataPrep\bin\Debug\DataPrep.dll
+C:\Work\CardRoute\DataPrep\bin\Debug\DataPrep.pdb
+C:\Work\CardRoute\DataPrep\bin\Debug\HugeLib.dll
+C:\Work\CardRoute\DataPrep\bin\Debug\BouncyCastle.Crypto.dll
+C:\Work\CardRoute\DataPrep\bin\Debug\dxp01sdk.dll
+C:\Work\CardRoute\DataPrep\bin\Debug\JSrv2.dll
+C:\Work\CardRoute\DataPrep\bin\Debug\HugeLib.pdb
+C:\Work\CardRoute\DataPrep\bin\Debug\dxp01sdk.pdb
+C:\Work\CardRoute\DataPrep\bin\Debug\JSrv2.pdb
+C:\Work\CardRoute\DataPrep\obj\Debug\DataPrep.csprojAssemblyReference.cache
+C:\Work\CardRoute\DataPrep\obj\Debug\DataPrep.csproj.CopyComplete
+C:\Work\CardRoute\DataPrep\obj\Debug\DataPrep.dll
+C:\Work\CardRoute\DataPrep\obj\Debug\DataPrep.pdb
