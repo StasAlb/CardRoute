@@ -18,7 +18,7 @@
       </EmbossText2>
       <EmbossText2>
         <ID>2</ID>
-        <Name>ExpDate</Name>
+        <Name>ExDateEmb</Name>
         <Side>Front</Side>
         <X>1.601</X>
         <Y>0.492</Y>
@@ -58,8 +58,60 @@
         <Shablon>XXX</Shablon>
         <Align>Left</Align>
       </EmbossText2>
+      <TextField>
+        <ID>10</ID>
+        <Name>Pan</Name>
+        <Side>Front</Side>
+        <X>0.5625</X>
+        <Y>1.34375</Y>
+        <Width>2.4479166666666665</Width>
+        <Height>0.2604166666666663</Height>
+        <InType>None</InType>
+        <InData>Не определено</InData>
+        <Shablon>23423423</Shablon>
+        <Font>
+          <FontName>Microsoft Sans Serif</FontName>
+          <FontSize>14</FontSize>
+          <FontStyle />
+          <FontWeight />
+          <FontStretch />
+          <Service />
+        </Font>
+        <TextColor>
+          <A>255</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+          <ScA>1</ScA>
+          <ScR>0</ScR>
+          <ScG>0</ScG>
+          <ScB>0</ScB>
+        </TextColor>
+        <BackColor>
+          <A>255</A>
+          <R>255</R>
+          <G>255</G>
+          <B>255</B>
+          <ScA>1</ScA>
+          <ScR>1</ScR>
+          <ScG>1</ScG>
+          <ScB>1</ScB>
+        </BackColor>
+        <IsTransparent>true</IsTransparent>
+        <HAlignment>Left</HAlignment>
+        <TextRotate>None</TextRotate>
+        <TextRotateBinding>0</TextRotateBinding>
+      </TextField>
     </collection>
   </objects>
+  <XPSPrinter>
+    <DeviceType>CE</DeviceType>
+    <printerName />
+    <OnlyPrint>false</OnlyPrint>
+    <HopperID>1</HopperID>
+    <NoTopper>false</NoTopper>
+    <GraphicTopper>true</GraphicTopper>
+  </XPSPrinter>
   <X>0</X>
   <Y>0</Y>
   <Block>false</Block>

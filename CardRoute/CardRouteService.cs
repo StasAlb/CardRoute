@@ -8,6 +8,8 @@ using System.Data.Common;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,11 +24,15 @@ using System.Timers;
 using System.Xml.Serialization;
 using System.Resources;
 using System.Security.Cryptography;
+using System.Windows;
+using Media = System.Windows.Media;
+using System.Windows.Media.Imaging;
 using HugeLib;
 using DataPrep;
 using Devices;
 using DpclDevice;
 using ProcardWPF;
+using Brushes = System.Drawing.Brushes;
 using Timer = System.Timers.Timer;
 
 
@@ -1005,8 +1011,16 @@ namespace CardRoute
                     if (!device.StartJob())
                         throw new Exception("startjob error");
                     // подбираем лоток
-                    //c.hopper = device.FindHopper(hoppers.ToArray());
-                    c.hopper = 1;
+                    try
+                    {
+                        // поставил в try, потому что в старых прошивках (например КубаньКредит) такой команды нет и дает ошибку
+                        if (realwork)
+                            c.hopper = device.FindHopper(hoppers.ToArray());
+                    }
+                    catch
+                    {
+                        c.hopper = hoppers[0];
+                    }
                     ((Dpcl)device).HopperID = c.hopper;
                     if (realwork)
                     {
@@ -1156,6 +1170,8 @@ namespace CardRoute
                             xr.Close();
 
                             ((Dpcl)device).ClearEmboss();
+                            procard.SetMas(96);
+                            procard.SetTopLeftForPrint();
                             foreach (ProcardWPF.DesignObject dsO in procard.objects)
                             {
                                 if (dsO.OType == ProcardWPF.ObjectType.MagStripe)
@@ -1198,6 +1214,7 @@ namespace CardRoute
                                     }
                                     if (posInOld > 0) //если мы хоть раз зашли в обработку по спецсимволу
                                         textToEmboss = formattedText;
+                                    dsO.SetText(textToEmboss);
 
                                     ((Dpcl)device).AddEmboss(new EmbossString()
                                     {
@@ -1209,6 +1226,12 @@ namespace CardRoute
                                 }
                             }
 
+                            if (procard.HasImage())
+                            {
+                                Bitmap front = MakeImage(procard, cardData, SideType.Front);
+                                Bitmap back = MakeImage(procard, cardData, SideType.Back);
+                                
+                            }
                             try
                             {
                                 if (realwork)
@@ -1265,6 +1288,92 @@ namespace CardRoute
                     conn.Close();
                 }
             }
+        }
+        private Bitmap MakeImage(ProcardWPF.Card procard, XmlDocument cardData, SideType side)
+        {
+            Bitmap res = null;
+            int col = 0;
+            Media.DrawingVisual dv = new Media.DrawingVisual();
+            bool graphictopper = procard.device?.DeviceType == ProcardWPF.DeviceType.CE && ((XPSPrinter) procard.device).GraphicTopper;
+            using (Media.DrawingContext dc = dv.RenderOpen())
+            {
+                dc.DrawRectangle(Media.Brushes.White, new Media.Pen(Media.Brushes.White, 1), new Rect(0, 0, ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width), ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height)));
+                for (int t = 0; t < procard.objects.Count; t++)
+                {
+                    string formattedText = "";
+                    if (side != procard.objects[t].Side)
+                        continue;
+                    if (graphictopper && procard.objects[t].OType == ObjectType.EmbossText2)
+                    {
+                        if (((EmbossText2)procard.objects[t]).IsEmbossFont)
+                        {
+                            MyFont font = null;
+                            switch (((EmbossText2) procard.objects[t]).Font)
+                            {
+                                case EmbossFont.Farrington:
+                                    font = new MyFont() {FontName = "Farrington-7B-Qiqi", FontSize = 10};
+                                    break;
+                                case EmbossFont.Gothic:
+                                    font = new MyFont() { FontName = "Credit Card", FontSize = 10 }; 
+                                    break;
+                            }
+
+                            int x = ProcardWPF.Card.ClientXToScreen(procard.objects[t].X);
+                            int y = ProcardWPF.Card.ClientYToScreen(procard.objects[t].Y, side);
+                            foreach (char c in procard.objects[t].Text)
+                            {
+                                dc.DrawText(new Media.FormattedText(c.ToString(), CultureInfo.CurrentCulture, FlowDirection.LeftToRight,  font?.GetTypeface(), font.FontSize * 96.0 / 72.0, Media.Brushes.Black),new System.Windows.Point(x,y));
+                                x += ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.FontDis(((EmbossText2) procard.objects[t]).Font));
+                            }
+                        }
+                    }
+                    if (procard.objects[t].OType == ObjectType.TextField)
+                    {
+                        string textToPrint = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData,
+                            "Field", "Name",
+                            procard.objects[t].Name,
+                            "Value", xnm);
+                        if (procard.objects[t].OType == ObjectType.TextField)
+                            formattedText = ((TextField) procard.objects[t]).Shablon;
+                        int posInNew = formattedText.IndexOf('*');
+                        int posInOld = 0;
+                        while (posInNew >= 0)
+                        {
+                            if (posInOld < textToPrint.Length)
+                                formattedText = formattedText.Remove(posInNew, 1)
+                                    .Insert(posInNew, textToPrint[posInOld++].ToString());
+                            else
+                                formattedText = formattedText.Remove(posInNew, 1);
+                            posInNew = formattedText.IndexOf('*');
+                        }
+
+                        if (posInOld > 0) //если мы хоть раз зашли в обработку по спецсимволу
+                            textToPrint = formattedText;
+
+                        // поддержку спецсимвола перенес в перегруженный метод для текстового поля (для полей эмбоссирования пока что оставил как было, перед SetText)
+                        procard.objects[t].SetText(textToPrint);
+                        procard.objects[t].Draw(dc, Regim.ToPrinter, false, 0);
+                        col++;
+                    }
+                }
+            }
+            if (col > 0)
+            {
+                RenderTargetBitmap bitmap = new RenderTargetBitmap(
+                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width),
+                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 96, 96, Media.PixelFormats.Default);
+
+                bitmap.Render(dv);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    BitmapEncoder be = new BmpBitmapEncoder();
+                    be.Frames.Add(BitmapFrame.Create(bitmap));
+                    be.Save(ms);
+                    res = new Bitmap(ms);
+                    res.Save($"Test_{side}.png", ImageFormat.Png);
+                }
+            }
+            return res;
         }
 
         private void Device_eventPassMessage(MessageType messageType, string message)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,9 +29,16 @@ namespace DpclDevice
         List<EmbossString> embossData = new List<EmbossString>();
         public bool Https = false;
         private int cardId = 0; // id карты для возврата при поднятии события Dispense
+        private System.Drawing.Bitmap frontBitmap, backBitmap;
         public int CardId
         {
             set { cardId = value; }
+        }
+
+        public void SetImageForPrint(Bitmap frontImage, Bitmap backImage)
+        {
+            frontBitmap = frontImage;
+            backBitmap = backImage;
         }
         
         public override bool StartJob()
@@ -50,6 +59,8 @@ namespace DpclDevice
 
         public override bool StartCard()
         {
+            frontBitmap = null;
+            backBitmap = null;
             if (GetPrinterStatus() != PrinterStatus.Ready)
                 throw new Exception("Printer not ready");
             JobId = GetNewJobID();
@@ -114,6 +125,38 @@ namespace DpclDevice
                     LogClass.WriteToLog($"Encode t1: {magstripe[0]}, t2: {magstripe[1]}, t3: {magstripe[2]}");
                     EncodeMagstripe(2, magstripe[0].ToUpper(), magstripe[1], magstripe[2]);
                 }
+
+                if (frontBitmap != null)
+                {
+                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    MemoryStream ms = new MemoryStream();
+                    frontBitmap.Save(ms, ImageFormat.Png);
+                    byte[] data = ms.ToArray();
+                    ms.Close();
+                    var parameters = new List<Parameter>();
+                    parameters.Add(new Parameter { name = "Orientation", value = "Portrait" });
+                    parameters.Add(new Parameter { name = "ImageContent", value = "Graphics" });
+                    parameters.Add(new Parameter { name = "XOrigin", value = "0" });
+                    parameters.Add(new Parameter { name = "YOrigin", value = "0" });
+                    SubmitData("image/png", data, parameters.ToArray());
+                }
+                if (backBitmap != null)
+                {
+                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    MemoryStream ms = new MemoryStream();
+                    backBitmap.Save(ms, ImageFormat.Png);
+                    byte[] data = ms.ToArray();
+                    ms.Close();
+                    var parameters = new List<Parameter>();
+                    parameters.Add(new Parameter { name = "Orientation", value = "Portrait" });
+                    parameters.Add(new Parameter { name = "ImageContent", value = "Graphics" });
+                    parameters.Add(new Parameter { name = "XOrigin", value = "0" });
+                    parameters.Add(new Parameter { name = "YOrigin", value = "0" });
+                    SubmitData("image/png", data, parameters.ToArray());
+                }
+
 
                 if (embossData.Count > 0)
                     EmbossData(embossData, true);
@@ -595,6 +638,11 @@ namespace DpclDevice
         /// <param name="data">The data.</param>
         private void SubmitData(string contentType, byte[] data)
         {
+            SubmitData(contentType, data, null);
+        }
+
+        private void SubmitData(string contentType, byte[] data, Parameter[] parameters)
+        {
             var submitDataIn = new SubmitDataInput
             {
                 client = ClientId,
@@ -602,6 +650,8 @@ namespace DpclDevice
                 actionId = LastAction,
                 dataId = 1
             };
+            if (parameters != null)
+                submitDataIn.parameter = parameters;
 
             var attachment = new Attachment();
             submitDataIn.attachment = attachment;
@@ -610,6 +660,7 @@ namespace DpclDevice
 
             dpcl2Client.SubmitDataAsync(submitDataIn);
         }
+
 
         public void ClearEmboss()
         {
