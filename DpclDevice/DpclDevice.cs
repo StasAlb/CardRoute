@@ -21,6 +21,7 @@ namespace DpclDevice
     public class Dpcl : Devices.PrinterClass
     {
         private DPCL2PortTypeClient dpcl2Client;
+        public bool NoTopper = false;
         public int HopperID;
         private uint JobId;
         private string ClientId = "Card Route";
@@ -130,6 +131,9 @@ namespace DpclDevice
                 {
                     SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
                         new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    GraphicsUnit gu = GraphicsUnit.Pixel;
+                    frontBitmap = frontBitmap.Clone(frontBitmap.GetBounds(ref gu), PixelFormat.Format1bppIndexed);
+                    frontBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
                     frontBitmap.Save(ms, ImageFormat.Png);
                     byte[] data = ms.ToArray();
@@ -145,6 +149,7 @@ namespace DpclDevice
                 {
                     SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
                         new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    backBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
                     backBitmap.Save(ms, ImageFormat.Png);
                     byte[] data = ms.ToArray();
@@ -158,9 +163,9 @@ namespace DpclDevice
                 }
 
 
-                if (embossData.Count > 0)
-                    EmbossData(embossData, true);
-                else
+                //if (embossData.Count > 0)
+                //    EmbossData(embossData, !NoTopper);
+                //else
                     Eject();
             }
             catch (Exception e)

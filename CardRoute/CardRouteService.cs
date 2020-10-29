@@ -1170,7 +1170,9 @@ namespace CardRoute
                             xr.Close();
 
                             ((Dpcl)device).ClearEmboss();
-                            procard.SetMas(96);
+                            if (procard.device?.DeviceType == ProcardWPF.DeviceType.CE)
+                                ((Dpcl)device).NoTopper = ((XPSPrinter)procard.device).NoTopper;
+                            procard.SetMas(100);
                             procard.SetTopLeftForPrint();
                             foreach (ProcardWPF.DesignObject dsO in procard.objects)
                             {
@@ -1230,7 +1232,7 @@ namespace CardRoute
                             {
                                 Bitmap front = MakeImage(procard, cardData, SideType.Front);
                                 Bitmap back = MakeImage(procard, cardData, SideType.Back);
-                                
+                                ((Dpcl)device).SetImageForPrint(front, back);
                             }
                             try
                             {
@@ -1291,6 +1293,7 @@ namespace CardRoute
         }
         private Bitmap MakeImage(ProcardWPF.Card procard, XmlDocument cardData, SideType side)
         {
+            procard.SetMas(100);
             Bitmap res = null;
             int col = 0;
             Media.DrawingVisual dv = new Media.DrawingVisual();
@@ -1308,23 +1311,26 @@ namespace CardRoute
                         if (((EmbossText2)procard.objects[t]).IsEmbossFont)
                         {
                             MyFont font = null;
+                            double x1 = 11, y1 = 13, d = 22;
                             switch (((EmbossText2) procard.objects[t]).Font)
                             {
                                 case EmbossFont.Farrington:
-                                    font = new MyFont() {FontName = "Farrington-7B-Qiqi", FontSize = 10};
+                                    font = new MyFont() {FontName = "Farrington-7B-Qiqi", FontSize = 12, FontWeight = FontWeights.Bold };
+                                    x1 = 10.8; y1 = 14; d = 13.3;
                                     break;
                                 case EmbossFont.Gothic:
-                                    font = new MyFont() { FontName = "Credit Card", FontSize = 10 }; 
+                                    font = new MyFont() { FontName = "C35495 C134", FontSize = 12 }; 
                                     break;
                             }
 
-                            int x = ProcardWPF.Card.ClientXToScreen(procard.objects[t].X);
-                            int y = ProcardWPF.Card.ClientYToScreen(procard.objects[t].Y, side);
+                            double x = ProcardWPF.Card.ClientXToScreen(procard.objects[t].X) - x1;
+                            double y = ProcardWPF.Card.ClientYToScreen(procard.objects[t].Y, side) - y1;
                             foreach (char c in procard.objects[t].Text)
                             {
                                 dc.DrawText(new Media.FormattedText(c.ToString(), CultureInfo.CurrentCulture, FlowDirection.LeftToRight,  font?.GetTypeface(), font.FontSize * 96.0 / 72.0, Media.Brushes.Black),new System.Windows.Point(x,y));
-                                x += ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.FontDis(((EmbossText2) procard.objects[t]).Font));
+                                x += d;
                             }
+                            col++;
                         }
                     }
                     if (procard.objects[t].OType == ObjectType.TextField)
@@ -1359,9 +1365,10 @@ namespace CardRoute
             }
             if (col > 0)
             {
+                procard.SetMas(300);
                 RenderTargetBitmap bitmap = new RenderTargetBitmap(
                     ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width),
-                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 96, 96, Media.PixelFormats.Default);
+                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 300, 300, Media.PixelFormats.Default);
 
                 bitmap.Render(dv);
                 using (MemoryStream ms = new MemoryStream())
