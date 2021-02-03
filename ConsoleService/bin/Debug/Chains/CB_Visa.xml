@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Chain FirstLink="Cdp">
-  <Cdp NextLink="Complete">
+  <Cdp NextLink="Issue">
     <Emulation1 Duration="3" ErrorChance="0"/>
     <InputStream Delimiter="|">      
       <Field Name="Data"/>
@@ -21,7 +21,7 @@
     <CdpIni>C:\ostcard\CDP\Ini\UPI_9_17_PIN6.ini</CdpIni>
   </Cdp>
   <Issue NextLink="Complete" NeedConfirm1="Admin">
-    <Emulation1 Duration="2" ErrorChance="0"/>
+    <Emulation Duration="2" ErrorChance="0"/>
     <Step1 Type="MagRead">
       <MakeField Name="ReadTrack" Track="1"/>
       <MakeField Name="PanFromTrack" Track="2" StartPos="0" Length="16"/>
@@ -50,7 +50,7 @@
   </Report>
   <Central>
 	<PersoFile File="c:\temp\111.txt" Delimiter="|">
-		<Field Name="Pan" Mandatory="true"/>
+		<Field Name="SmartData" Mandatory="true"/>
    	</PersoFile>
   </Central>
   <Pin Type="KKB" NextLink="Complete">

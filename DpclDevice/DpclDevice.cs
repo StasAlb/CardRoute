@@ -163,9 +163,9 @@ namespace DpclDevice
                 }
 
 
-                //if (embossData.Count > 0)
-                //    EmbossData(embossData, !NoTopper);
-                //else
+                if (embossData.Count > 0)
+                    EmbossData(embossData, !NoTopper);
+                else
                     Eject();
             }
             catch (Exception e)

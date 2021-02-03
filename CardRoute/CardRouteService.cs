@@ -138,10 +138,10 @@ namespace CardRoute
                 timerInterval = 5000;
             }
 
-            lang = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Language", "russian", xnm).ToLower();
+            lang = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Language", xnm).ToLower();
             if (lang != "russian" && lang != "english")
                 lang = "russian";
-            protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", "http", xnm).ToLower();
+            protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", xnm).ToLower();
             if (protocol != "http" && protocol != "https")
                 protocol = "http";
 
@@ -207,7 +207,7 @@ namespace CardRoute
 
         private void TimerPin_Elapsed(object sender, ElapsedEventArgs e)
         {
-            timerCentral.Stop();
+            timerPin.Stop();
             Interlocked.Increment(ref threadCount);
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -548,6 +548,10 @@ namespace CardRoute
             Interlocked.Decrement(ref threadCount);
             if (!stopFlag)
                 timerCentral.Start();
+            else
+            {
+                stasHugeLib::HugeLib.LogClass.WriteToLog("Notn central start");
+            }
         }
 
         private void TimerStart_Elapsed(object sender, ElapsedEventArgs e)
