@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Devices;
 
 namespace CardRoute
 {
@@ -12,12 +13,13 @@ namespace CardRoute
         PrepProcess = 2,
         PinWaiting = 3,
         PinProcess = 4,
-        IssueWaiting = 5,
-        IssueProcess = 6,
+        PrintWaiting = 5,
+        PrintProcess = 6,
         ReportWaiting = 7,
         ReportProcess = 8,
         Error = 9,
         Complete = 10,
+        Pause = 11,
         Start = 12,
         Central = 13,
         OperatorPending = 14,
@@ -31,7 +33,8 @@ namespace CardRoute
         None = 0,
         CD800 = 1,
         CE840 = 2,
-        CE870 = 3
+        CE870 = 3,
+        Central = 4
     }
 
     class Card

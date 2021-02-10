@@ -190,7 +190,7 @@ namespace CwHubWebService
                                             SetXmlAttribute(carddata, "Field", "Name", "firstName", "Value", null, printRequest.FirstName);
                                             SetXmlAttribute(carddata, "Field", "Name", "secondName", "Value", null, printRequest.SecondName);
                                             SetXmlAttribute(carddata, "Field", "Name", "division", "Value", null, printRequest.DivisionName);
-                                            SetXmlAttribute(carddata, "Field", "Name", "pinIP", "Value", null, printRequest.PinIP);
+                                            SetXmlAttribute(carddata, "Field", "Name", "PinIP", "Value", null, printRequest.PinIP);
 
                                             comm.CommandText = $"insert into CardsData (CardId, CardData) values ({Convert.ToInt32(cardid)}, '{carddata.InnerXml}')";
                                             comm.ExecuteNonQuery();
@@ -354,8 +354,8 @@ namespace CwHubWebService
                     {
                         comm.CommandText = "delete from cardsdata where CardId=@id";
                         comm.ExecuteNonQuery();
-                        //comm.CommandText = "delete from cards where id=@id";
-                        //comm.ExecuteNonQuery();
+                        comm.CommandText = "delete from cards where CardId=@id";
+                        comm.ExecuteNonQuery();
                         resp.Status = 1;//
                         WriteToLog(1, log, $"close response: {resp.Status}");
                     }
