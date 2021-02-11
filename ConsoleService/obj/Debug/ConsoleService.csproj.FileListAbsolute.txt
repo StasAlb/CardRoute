@@ -91,7 +91,6 @@ d:\work\CardRoute\ConsoleService\bin\Debug\CardRoute.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\CardRoute.exe.config
 d:\work\CardRoute\ConsoleService\bin\Debug\Devices.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\Procard2.0.pdb
-d:\work\CardRoute\ConsoleService\bin\Debug\Procard2.0.xml
 d:\work\CardRoute\ConsoleService\bin\Debug\Procard2.0.exe.config
 d:\work\CardRoute\ConsoleService\bin\Debug\HugeLib.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\DataPrep.pdb

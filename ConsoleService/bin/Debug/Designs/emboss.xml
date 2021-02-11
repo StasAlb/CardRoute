@@ -4,7 +4,7 @@
     <collection>
       <EmbossText2>
         <ID>1</ID>
-        <Name>Pan</Name>
+        <Name>PanE</Name>
         <Side>Front</Side>
         <X>0.401</X>
         <Y>0.843</Y>
@@ -18,7 +18,7 @@
       </EmbossText2>
       <EmbossText2>
         <ID>2</ID>
-        <Name>ExDateEmb</Name>
+        <Name>ExpDateE</Name>
         <Side>Front</Side>
         <X>1.601</X>
         <Y>0.492</Y>
@@ -44,108 +44,6 @@
         <Shablon>XXXXXXXXXXXXXXXXXXXXXXXX</Shablon>
         <Align>Left</Align>
       </EmbossText2>
-      <EmbossText2>
-        <ID>9</ID>
-        <Name>CVV</Name>
-        <Side>Back</Side>
-        <X>1.8426666666666665</X>
-        <Y>1.0311666666666661</Y>
-        <Width>0.20078740157480318</Width>
-        <Height>0.11811023622047245</Height>
-        <InType>None</InType>
-        <InData>Не определено</InData>
-        <Font>MCIndentInvert</Font>
-        <Shablon>XXX</Shablon>
-        <Align>Left</Align>
-      </EmbossText2>
-      <TextField>
-        <ID>10</ID>
-        <Name>Pan</Name>
-        <Side>Front</Side>
-        <X>0.30208333333333331</X>
-        <Y>1.0833333333333333</Y>
-        <Width>2.6875</Width>
-        <Height>0.22916666666666666</Height>
-        <InType>None</InType>
-        <InData>Не определено</InData>
-        <Shablon>**** **** **** ****</Shablon>
-        <Font>
-          <FontName>Farrington-7B-Qiqi</FontName>
-          <FontSize>14.25</FontSize>
-          <FontStyle />
-          <FontWeight />
-          <FontStretch />
-          <Service>001</Service>
-        </Font>
-        <TextColor>
-          <A>255</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-          <ScA>1</ScA>
-          <ScR>0</ScR>
-          <ScG>0</ScG>
-          <ScB>0</ScB>
-        </TextColor>
-        <BackColor>
-          <A>255</A>
-          <R>255</R>
-          <G>255</G>
-          <B>255</B>
-          <ScA>1</ScA>
-          <ScR>1</ScR>
-          <ScG>1</ScG>
-          <ScB>1</ScB>
-        </BackColor>
-        <IsTransparent>true</IsTransparent>
-        <HAlignment>Left</HAlignment>
-        <TextRotate>None</TextRotate>
-        <TextRotateBinding>0</TextRotateBinding>
-      </TextField>
-      <TextField>
-        <ID>11</ID>
-        <Name>Pan</Name>
-        <Side>Front</Side>
-        <X>0.25</X>
-        <Y>1.4479166666666665</Y>
-        <Width>2.5625</Width>
-        <Height>0.34375000000000022</Height>
-        <InType>None</InType>
-        <InData>Не определено</InData>
-        <Shablon>**** **** **** ****</Shablon>
-        <Font>
-          <FontName>Microsoft Sans Serif</FontName>
-          <FontSize>14</FontSize>
-          <FontStyle />
-          <FontWeight />
-          <FontStretch />
-          <Service />
-        </Font>
-        <TextColor>
-          <A>255</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-          <ScA>1</ScA>
-          <ScR>0</ScR>
-          <ScG>0</ScG>
-          <ScB>0</ScB>
-        </TextColor>
-        <BackColor>
-          <A>255</A>
-          <R>255</R>
-          <G>255</G>
-          <B>255</B>
-          <ScA>1</ScA>
-          <ScR>1</ScR>
-          <ScG>1</ScG>
-          <ScB>1</ScB>
-        </BackColor>
-        <IsTransparent>true</IsTransparent>
-        <HAlignment>Left</HAlignment>
-        <TextRotate>None</TextRotate>
-        <TextRotateBinding>0</TextRotateBinding>
-      </TextField>
     </collection>
   </objects>
   <XPSPrinter>
@@ -153,8 +51,8 @@
     <printerName />
     <OnlyPrint>false</OnlyPrint>
     <HopperID>1</HopperID>
-    <NoTopper>true</NoTopper>
-    <GraphicTopper>true</GraphicTopper>
+    <NoTopper>false</NoTopper>
+    <GraphicTopper>false</GraphicTopper>
   </XPSPrinter>
   <X>0</X>
   <Y>0</Y>

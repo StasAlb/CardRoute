@@ -22,20 +22,25 @@
   </Cdp>
   <Issue NextLink="Complete" NeedConfirm1="Admin">
     <Emulation1 Duration="2" ErrorChance="0"/>
-    <Step1 Type="MagRead">	
-      <MakeField Name="ReadTrack" Track="1"/>
-      <MakeField Name="PanFromTrack" Track="2" StartPos="0" Length="16"  SaveToDb="PAN" Function="Enc"/>
-      <MakeField Name="ExpDateRead">
+    <Step Type="MagRead">
+      <MakeField Name="PanE" Track="2" StartPos="0" Length="16"/>
+	  <MakeField Name="PanForDb" SaveToDb="Pan">
+		<MakeField Track="2" StartPos="0" Length="6"/>
+		<MakeField Default="******"/>
+		<MakeField Track="2" StartPos="12" Length="4"/>
+	  </MakeField>
+	  <MakeField Name="PanForDbEnc" Track="2" StartPos="0" Length="16" Function="Enc" SaveToDb="PanEnc"/>
+      <MakeField Name="ExpDateE">
         <MakeField Track="2" StartPos="19" Length="2"/>
         <MakeField Default="/"/>"
         <MakeField Track="2" StartPos="17" Length="2"/>
       </MakeField>
-    </Step1>
+    </Step>
 	<Step Type="WaitStatus" Set="Pause" Good="PrintWaiting" Bad="Error" Timeout="60"/>
     <Step1 Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
-    <Step1 Type="Print" Design="emboss.xml"/>
+    <Step Type="Print" Design="emboss.xml"/>
   </Issue>
   <Report NextLink="Complete">
     <Emulation1 Duration="1" ErrorChance="0"/>

@@ -74,7 +74,9 @@ namespace DpclDevice
             };
 
             dpcl2Client.StartJob3(startJob2In);
-            Pick((uint)HopperID);
+            
+            Pick((HopperID > 0) ? (uint)HopperID : (uint)1);
+            //WaitForActionCompletion();
             return (JobId > 0);
         }
 

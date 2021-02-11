@@ -59,7 +59,6 @@ d:\work\CardRoute\CardRoute\bin\Debug\HugeLib.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\Common.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\Devices.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\Procard2.0.pdb
-d:\work\CardRoute\CardRoute\bin\Debug\Procard2.0.xml
 d:\work\CardRoute\CardRoute\bin\Debug\Procard2.0.exe.config
 d:\work\CardRoute\CardRoute\bin\Debug\DataPrep.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\DpclDevice.pdb

@@ -143,7 +143,7 @@ namespace CardRoute
                 lang = "russian";
             protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", xnm).ToLower();
             if (protocol != "http" && protocol != "https")
-                protocol = "http";
+                protocol = "https";
 
 
             //хэш таблица для выпуска карт
@@ -1078,7 +1078,7 @@ namespace CardRoute
                         {
                             string[] tracks = null;
                             if (realwork)
-                                device.GetMagstripe();
+                                tracks = device.GetMagstripe();
                             else
                             {
                                 tracks = new string[]
@@ -1087,6 +1087,8 @@ namespace CardRoute
                                     "1000000000824113=23052012323231303233303230343", ""
                                 };
                             }
+                            if (tracks == null)
+                                throw new Exception("MagRead: no track data");
 
                             int fcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(step, "MakeField", xnm);
                             for (int t = 0; t < fcnt; t++)
@@ -1121,10 +1123,12 @@ namespace CardRoute
                                         PaddingMode.Zeros);
                                 }
 
-                                XmlElement xe = cardData.CreateElement("Field");
-                                xe.SetAttribute("Name", fieldName);
-                                xe.SetAttribute("Value", res);
-                                cardData.DocumentElement?.AppendChild(xe);
+                                stasHugeLib::HugeLib.XmlClass.SetXmlAttribute(cardData, "Field", "Name", fieldName, "Value", xnm, res);
+                                //XmlElement xe = cardData.CreateElement("Field");
+                                //xe.SetAttribute("Name", fieldName);
+                                //xe.SetAttribute("Value", res);
+                                //cardData.DocumentElement?.AppendChild(xe);
+                                
                                 needSaveData = true;
                                 if (!String.IsNullOrEmpty(saveToDb))
                                 {
@@ -1180,9 +1184,9 @@ namespace CardRoute
                             Task<CardStatus> taskWait =
                                 AsyncWaitForStatusChange(conn, c.cardId, csSet, 5000, iTimeout * 1000);
 
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"before wait {csSet}");
+                            //stasHugeLib::HugeLib.LogClass.WriteToLog($"before wait {csSet}");
                             CardStatus newStatus = await taskWait;
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"after wait {newStatus}");
+                            //stasHugeLib::HugeLib.LogClass.WriteToLog($"after wait {newStatus}");
 
                             //если новый статус плохой, то ошибку поднял сервис киосков, должен был записать ошибку, оставляем ее. Выкидывает карту, выходим из цикла шагов
                             if (newStatus == csBad)
