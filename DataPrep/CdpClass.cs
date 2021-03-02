@@ -26,10 +26,11 @@ namespace DataPrep
         public static string iniName;
         
 
-        public static bool RunCdp(string data, string inF, string iniF, out string outdata, out string error)
+        public static bool RunCdp(string data, string inF, string iniF, out string outdata, out string outpin, out string error)
         {
             error = "";
             outdata = "";
+            outpin = "";
             
             using (StreamWriter sw = new StreamWriter((String.IsNullOrEmpty(inF)) ? inFile : inF, false,
                 Encoding.GetEncoding(1251)))
@@ -41,7 +42,10 @@ namespace DataPrep
             string ini = String.IsNullOrEmpty(iniF) ? iniName : iniF;
             StringBuilder sb = new StringBuilder(255);
             HugeLib.IniFile.GetPrivateProfileString("Proekt", "OutFileName", "", sb, 255, ini);
-            string outCdp = sb.ToString();
+            string embCdp = sb.ToString();
+
+            HugeLib.IniFile.GetPrivateProfileString("Proekt", "OutFilePinName", "", sb, 255, ini);
+            string pinCdp = sb.ToString();
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -50,7 +54,8 @@ namespace DataPrep
             startInfo.Arguments = String.Format("{0}{1}{0}", (char)0x22, ini);
 
             File.Delete(cdpError);
-            File.Delete(outCdp);
+            File.Delete(embCdp);
+            File.Delete(pinCdp);
             using (Process pr = Process.Start(startInfo))
             {
                 pr.WaitForExit();
@@ -65,15 +70,25 @@ namespace DataPrep
                     }
                 }
 
-                if (File.Exists(outCdp))
+                if (File.Exists(embCdp))
                 {
-                    using (StreamReader sr = new StreamReader(outCdp, Encoding.GetEncoding(1251)))
+                    using (StreamReader sr = new StreamReader(embCdp, Encoding.GetEncoding(1251)))
                     {
                         sr.BaseStream.Seek(0, SeekOrigin.Begin);
                         outdata = sr.ReadLine();
                         sr.Close();
                     }
                 }
+                if (File.Exists(pinCdp))
+                {
+                    using (StreamReader sr = new StreamReader(pinCdp, Encoding.GetEncoding(1251)))
+                    {
+                        sr.BaseStream.Seek(0, SeekOrigin.Begin);
+                        outpin = sr.ReadLine();
+                        sr.Close();
+                    }
+                }
+
             }
             return String.IsNullOrEmpty(error);
         }

@@ -22,14 +22,14 @@
   </Cdp>
   <Issue NextLink="Complete" NeedConfirm1="Admin">
     <Emulation1 Duration="2" ErrorChance="0"/>
-    <Step Type="MagRead">
+    <Step Type="MagRead" SaveData="Read">
       <MakeField Name="PanE" Track="2" StartPos="0" Length="16"/>
 	  <MakeField Name="PanForDb" SaveToDb="Pan">
 		<MakeField Track="2" StartPos="0" Length="6"/>
 		<MakeField Default="******"/>
 		<MakeField Track="2" StartPos="12" Length="4"/>
 	  </MakeField>
-	  <MakeField Name="PanForDbEnc" Track="2" StartPos="0" Length="16" Function="Enc" SaveToDb="PanEnc"/>
+	  <MakeField Name="PanForDbEnc" Track="2" StartPos="0" Length="16" Function="Enc_" SaveToDb="Pan"/>
       <MakeField Name="ExpDateE">
         <MakeField Track="2" StartPos="19" Length="2"/>
         <MakeField Default="/"/>"
