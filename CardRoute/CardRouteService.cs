@@ -1789,6 +1789,7 @@ namespace CardRoute
                     wasProccess = cards.Count > 0;
                     foreach (Card c in cards)
                     {
+                        stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step starting: CardId = {c.cardId}, ProductChain = {c.productLink}");
                         XmlDocument chain = new XmlDocument();
                         string f =
                             $"{Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Chains")}\\{c.productLink}.xml";
@@ -1796,11 +1797,11 @@ namespace CardRoute
                         {
                             chain.Load(f);
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             c.message = "Ошибка загрузки файла цепочки продукта";
                             SetCardStatus(c, CardStatus.Error, conn);
-                            stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = 'Chain load error {ex.Message}'");
                             continue;
                         }
                         SetCardStatus(c, CardStatus.PrepProcess, conn);
@@ -1814,6 +1815,7 @@ namespace CardRoute
                         catch {}
                         if (emulationDuration > 0)
                         {
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step emulation: CardId = {c.cardId}, ProductChain = {c.productLink}");
                             string emChance = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp/Emulation", "ErrorChance", "0", xnm);
                             int emulationChance = 0;
                             try
@@ -1827,11 +1829,13 @@ namespace CardRoute
                             {
                                 c.message = "Ошибка при эмуляции подготовки данных";
                                 SetCardStatus(c, CardStatus.Error, conn);
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = 'Scheduled emulation error'");
                             }
                             else
                             {
                                 string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp", "NextLink", xnm);
                                 SetCardStatus(c, next, conn);
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = {next}");
                             }
                             continue;
                         }
@@ -1879,6 +1883,7 @@ namespace CardRoute
                         bool cdpres = false;
                         try
                         {
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step: CardId = {c.cardId}, ProductChain = {c.productLink}, IniFile = {iniName}");
                             cdpres = CdpClass.RunCdp(inputString, inFile, iniName, out outdata, out outpin, out err);
                             if (!cdpres)
                                 throw new Exception(err);
@@ -1898,7 +1903,6 @@ namespace CardRoute
                                 string fieldDefault = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Default", xnm);
                                 stasHugeLib::HugeLib.XmlClass.SetXmlAttribute(cardData, "Field", "Name", fieldName, "Value", xnm, (strs.Length >= i) ? strs[i] : "");
                             }
-
                             if (!String.IsNullOrEmpty(outpin))
                             {
                                 delimiter = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp/OutputPinStream",
@@ -1924,24 +1928,30 @@ namespace CardRoute
                                         "Value", xnm, (strs.Length >= i) ? strs[i] : "");
                                 }
                             }
-                            
                             SetCardData(c, cardData.InnerXml, conn);
                             string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp", "NextLink", xnm);
                             if (nextIsCentral.ToLower() == "true")
+                            {
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = Central");
                                 SetCardStatus(c, CardStatus.Central, conn);
+                            }
                             else
+                            {
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = {next}");
                                 SetCardStatus(c, next, conn);
+                            }
                         }
                         catch (Exception exception)
                         {
                             c.message = exception.ToString();
                             SetCardStatus(c, CardStatus.Error, conn);
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = '{exception.Message}'");
                         }
                     }
                 }
                 catch (Exception exc)
                 {
-                    stasHugeLib::HugeLib.LogClass.WriteToLog($"Cdp proccess error: {exc.ToString()}");
+                    stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp proccess error: {exc.ToString()}");
                 }
                 finally
                 {
