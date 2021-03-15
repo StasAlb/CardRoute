@@ -80,7 +80,7 @@ namespace CardRoute
 #if DEBUG
             stasHugeLib::HugeLib.LogClass.ToConsole = true;
 #endif
-            
+            stasHugeLib::HugeLib.LogClass.AddThread = true;
             System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("ru-Ru");
             System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("ru-Ru");
             //stasHugeLib::HugeLib.LogClass.WriteToLog(100,  resourceManager.GetString("StartService"));

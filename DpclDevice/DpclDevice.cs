@@ -44,7 +44,9 @@ namespace DpclDevice
         
         public override bool StartJob()
         {
+            LogClass.WriteToLog($"Dpcl starting: CardId = {cardId}, Printer = {printerName}, Https = {Https}");
             dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected");
             //проверяем что устройство доступно
             //return (GetPrinterStatus() == PrinterStatus.Ready);
             return true;
@@ -55,6 +57,7 @@ namespace DpclDevice
             if (JobId > 0)
                 WaitForCompletion();
             dpcl2Client?.Close();
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Stop Job {JobId}");
             return true;
         }
 
@@ -65,6 +68,7 @@ namespace DpclDevice
             if (GetPrinterStatus() != PrinterStatus.Ready)
                 throw new Exception("Printer not ready");
             JobId = GetNewJobID();
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Start Job {JobId}, Hopper {HopperID}");
             var startJob2In = new StartJob2Input
             {
                 client = ClientId,
@@ -125,7 +129,7 @@ namespace DpclDevice
                 if (!String.IsNullOrEmpty(magstripe[0]) || !String.IsNullOrEmpty(magstripe[1]) ||
                     !String.IsNullOrEmpty(magstripe[2]))
                 {
-                    LogClass.WriteToLog($"Encode t1: {magstripe[0]}, t2: {magstripe[1]}, t3: {magstripe[2]}");
+                    //LogClass.WriteToLog($"Encode t1: {magstripe[0]}, t2: {magstripe[1]}, t3: {magstripe[2]}");
                     EncodeMagstripe(2, magstripe[0].ToUpper(), magstripe[1], magstripe[2]);
                 }
 
@@ -597,32 +601,40 @@ namespace DpclDevice
 
             };
             //Task<SubmitActionResponse> sa = dpcl2Client.SubmitActionAsync(submitActionIn);
-            
+
             //var submitActionOut = sa.Result.output;
+            string logstr = $"Client {submitActionIn.client}, Job {submitActionIn.jobId}, ActionId {submitActionIn.actionId}, Type {submitActionIn.type}, Parameters [";
+            for (int i=0;i<submitActionIn.parameter?.Length;i++)
+                logstr += $"[{submitActionIn.parameter[i].name}: {submitActionIn.parameter[i].value}] ";
+            logstr = logstr.Trim() + "]";
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, SubmitActionIn: {logstr}");
+
             var submitActionOut = dpcl2Client.SubmitAction(submitActionIn);
-            var parametersStringBuilder = new StringBuilder();
-            if (parameters != null && parameters.Length > 0)
-            {
-                parametersStringBuilder.Append('(');
-                var isFirst = true;
-                foreach (var p in parameters)
-                {
-                    if (isFirst)
-                    {
-                        isFirst = false;
-                    }
-                    else
-                    {
-                        parametersStringBuilder.Append(", ");
-                    }
 
-                    parametersStringBuilder.Append(p.name);
-                    parametersStringBuilder.Append('=');
-                    parametersStringBuilder.Append(p.value);
-                }
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, SubmitActionOut: Check {submitActionOut.checkStatus}, Success {submitActionOut.success}");
+            //var parametersStringBuilder = new StringBuilder();
+            //if (parameters != null && parameters.Length > 0)
+            //{
+            //    parametersStringBuilder.Append('(');
+            //    var isFirst = true;
+            //    foreach (var p in parameters)
+            //    {
+            //        if (isFirst)
+            //        {
+            //            isFirst = false;
+            //        }
+            //        else
+            //        {
+            //            parametersStringBuilder.Append(", ");
+            //        }
 
-                parametersStringBuilder.Append(')');
-            }
+            //        parametersStringBuilder.Append(p.name);
+            //        parametersStringBuilder.Append('=');
+            //        parametersStringBuilder.Append(p.value);
+            //    }
+
+            //    parametersStringBuilder.Append(')');
+            //}
 
             // If there is an error detected, we need to wait for the completion of the action
             if (!submitActionOut.success)
