@@ -873,7 +873,8 @@ namespace CardRoute
                         dr.Close();
                     }
                     foreach (Card c in cards)
-                    { 
+                    {
+                        stasHugeLib::HugeLib.LogClass.WriteToLog($"Issue step starting: CardId = {c.cardId}, ProductChain = {c.productLink}, Device = {c.deviceLink}");
                         // проверяем на требуемость подтверждения. Если надо, то переводим в ожидание подтверждения, если нет, то добавляем в массив на выпуск
                         XmlDocument chain = new XmlDocument();
                         string f =
@@ -886,7 +887,7 @@ namespace CardRoute
                         {
                             c.message = "Ошибка загрузки файла цепочки продукта";
                             SetCardStatus(c, CardStatus.Error, conn);
-                            stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                            //stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
                             htIssue[c.deviceId] = false;
                             continue;
                         }
@@ -958,7 +959,7 @@ namespace CardRoute
                     {
                         c.message = $"{resourceManager.GetString("ErrorIssue")}: {e.Message}";
                         SetCardStatus(c, CardStatus.Error, conn);
-                        stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                        //stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
                         htIssue[c.deviceId] = false;
                         conn.Close();
                         Interlocked.Decrement(ref threadCount);
@@ -978,7 +979,7 @@ namespace CardRoute
                 {
                     c.message = "Ошибка загрузки файла цепочки продукта";
                     SetCardStatus(c, CardStatus.Error, conn);
-                    stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                    //stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
                     htIssue[c.deviceId] = false;
                     conn.Close();
                     Interlocked.Decrement(ref threadCount);
@@ -1433,7 +1434,7 @@ namespace CardRoute
                     }
 
                     SetCardStatus(c, CardStatus.Error, conn);
-                    stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                    //stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
                 }
                 finally
                 {
@@ -1683,6 +1684,7 @@ namespace CardRoute
                 upd.Parameters.Add("@logtype", SqlDbType.Int).Value = 200 + (int)status;
                 upd.Parameters.Add("@logmessage", SqlDbType.NVarChar, 1024).Value = $"{resourceManager.GetString("LogSetStatus")}: {GetStatusName(status)}";
                 object obj = upd.ExecuteScalar();
+                stasHugeLib::HugeLib.LogClass.WriteToLog($"StatusChange: CardId = {c.cardId}, Status = {status}, Message = {c.message}");
                 int logid = Convert.ToInt32(obj);
                 upd.Parameters.Clear();
                 upd.CommandText = $"insert into LogCard (LogRecordId, CardId) values ({logid}, {c.cardId})\r\n";
