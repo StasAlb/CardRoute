@@ -145,4 +145,3 @@ C:\Work\CardRoute\ConsoleService\obj\Debug\ConsoleService.exe
 C:\Work\CardRoute\ConsoleService\obj\Debug\ConsoleService.pdb
 C:\Work\CardRoute\ConsoleService\bin\Debug\PinDictionary.xml
 D:\Work\CardRoute\ConsoleService\bin\Debug\PinDictionary.xml
-D:\Work\CardRoute\ConsoleService\bin\Debug\Procard2.0.xml

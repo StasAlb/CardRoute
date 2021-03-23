@@ -107,4 +107,3 @@ C:\Work\CardRoute\CardRoute\obj\Debug\ru-Ru\CardRoute.resources.dll
 C:\Work\CardRoute\CardRoute\obj\Debug\CardRoute.csproj.CopyComplete
 C:\Work\CardRoute\CardRoute\obj\Debug\CardRoute.exe
 C:\Work\CardRoute\CardRoute\obj\Debug\CardRoute.pdb
-D:\Work\CardRoute\CardRoute\bin\Debug\Procard2.0.xml

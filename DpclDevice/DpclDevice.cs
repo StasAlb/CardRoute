@@ -781,7 +781,7 @@ namespace DpclDevice
                         return;
                     }
 
-                    switch (c.severity)
+                    switch (c.severity) 
                     {
                         case ConditionSeverity.Notice:
                             break;

@@ -1333,7 +1333,6 @@ namespace CardRoute
 
                                     device.SetMagstripe(new string[] {track1, track2, track3});
                                 }
-
                                 if (dsO.OType == ProcardWPF.ObjectType.EmbossText2)
                                 {
                                     string textToEmboss = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData,
@@ -1356,7 +1355,6 @@ namespace CardRoute
                                     if (posInOld > 0) //если мы хоть раз зашли в обработку по спецсимволу
                                         textToEmboss = formattedText;
                                     dsO.SetText(textToEmboss);
-
                                     ((Dpcl) device).AddEmboss(new EmbossString()
                                     {
                                         font = (int) ((EmbossText2) dsO).Font,
@@ -1365,6 +1363,7 @@ namespace CardRoute
                                         y = Convert.ToInt32(1000 * ((EmbossText2) dsO).Y)
                                     });
                                 }
+                                if (dsO.OType == ProcardWPF.ObjectType.)
                             }
 
                             if (procard.HasImage())
@@ -1572,6 +1571,10 @@ namespace CardRoute
                         procard.objects[t].SetText(textToPrint);
                         procard.objects[t].Draw(dc, Regim.ToPrinter, false, 0);
                         col++;
+                    }
+                    if (procard.objects[t].OType == ObjectType.ImageField)
+                    {
+                        procard.objects[t].Draw(dc, Regim.ToPrinter, false, 0);
                     }
                 }
             }
