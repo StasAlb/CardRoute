@@ -53,9 +53,12 @@ namespace DataPrep
             startInfo.FileName = cdpExe;
             startInfo.Arguments = String.Format("{0}{1}{0}", (char)0x22, ini);
 
-            File.Delete(cdpError);
-            File.Delete(embCdp);
-            File.Delete(pinCdp);
+            if (File.Exists(cdpError))
+                File.Delete(cdpError);
+            if (File.Exists(embCdp))
+                File.Delete(embCdp);
+            if (File.Exists(pinCdp))
+                File.Delete(pinCdp);
             using (Process pr = Process.Start(startInfo))
             {
                 pr.WaitForExit();

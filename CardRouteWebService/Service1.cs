@@ -134,18 +134,28 @@ namespace CwHubWebService
                             }
                             using (SqlCommand comm = conn.CreateCommand())
                             {
-                                comm.CommandText = "select CardId from Cards where pan=@pan";
-                                comm.Parameters.AddWithValue("pan", printRequest.Pan + printRequest.SeqNum.ToString()); //в таблицу cards в пан записываем сразу с psn                    
-                                object o = comm.ExecuteScalar();
-                                if (o != null)
+                                comm.CommandText = "select CardId, CardStatusId, LastStatusId from Cards where pan=@pan";
+                                comm.Parameters.AddWithValue("pan", printRequest.Pan + printRequest.SeqNum);
+                                //object o = comm.ExecuteScalar();
+                                int cid = 0, statusid = 0, laststatusid = 0;
+                                using (SqlDataReader dr = comm.ExecuteReader())
+                                {
+                                    if (dr.Read())
+                                    {
+                                        cid = Convert.ToInt32(dr["CardId"]);
+                                        statusid = Convert.ToInt32(dr["CardStatusId"]);
+                                        laststatusid = Convert.ToInt32(dr["LastStatusId"]);
+                                    }
+                                    dr.Close();
+                                }
+                                if (cid > 0)
                                 {
                                     comm.Parameters.Clear();
-                                    //comm.Parameters.AddWithValue("@id", o.ToString());
-                                    //comm.CommandText = "select count(*) from carddata where id=@id";
-                                    //o = comm.ExecuteScalar();
-                                    comm.CommandText = "update cards set CardStatusId=1, lastactiondatetime=getdate() where CardId="+Convert.ToInt32(o);
+                                    //если карта уже complete, то печатаем пин еще раз, если ошибка - то на тот шаг, где была ошибка
+                                    int newstatus = (statusid == (int)CardStatus.Complete) ? (int) CardStatus.PinWaiting : laststatusid;
+                                    comm.CommandText = $"update cards set CardStatusId={newstatus}, lastactiondatetime=getdate() where CardId={cid}";
 
-                                    resp.uIID = o.ToString();
+                                    resp.uIID = cid.ToString();
                                     // resp.Status = (Convert.ToInt32(o) > 0) ? (int)CardStatus.WaitingPin : (int)CardStatus.WaitingProcessing;
                                     resp.Status = 1;
                                     //comm.Parameters["@status"].Value = resp.Status;
