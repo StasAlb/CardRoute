@@ -41,7 +41,7 @@
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
     <Step1 Type="Print" Design="emboss.xml"/>
-    <Step Type="Print" Design="print.xml"/>
+    <Step1 Type="Print" Design="print.xml"/>
   </Issue>
   <Report NextLink="Complete">
     <Emulation1 Duration="1" ErrorChance="0"/>

@@ -766,7 +766,7 @@ namespace DpclDevice
                 if (startConditionMarker == null)
                     startConditionMarker = currentConditionMarker;
                 //LogClass.WriteToLog($"{currentConditionMarker}");
-                if ((currentConditionMarker - startConditionMarker) >= 6)
+                if (isKiosk && (currentConditionMarker - startConditionMarker) >= 6)
                     SendMessage(MessageType.CompleteStep, $"dispense:{cardId}");
 
                 if (output.status.condition == null)

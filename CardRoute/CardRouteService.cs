@@ -1363,7 +1363,7 @@ namespace CardRoute
                                         y = Convert.ToInt32(1000 * ((EmbossText2) dsO).Y)
                                     });
                                 }
-                                if (dsO.OType == ProcardWPF.ObjectType.)
+                                
                             }
 
                             if (procard.HasImage())

@@ -14,6 +14,11 @@
 *.userprefs
 
 # Build results
+CardRoute/bin/Debug/*
+CardRoute/obj/Debug/*
+ConsoleService/bin/Debug
+ConsoleService/obj/Debug
+obj/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
