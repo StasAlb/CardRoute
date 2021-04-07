@@ -46,7 +46,7 @@ namespace DpclDevice
         {
             LogClass.WriteToLog($"Dpcl starting: CardId = {cardId}, Printer = {printerName}, Https = {Https}");
             dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
-            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected");
+            //LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected"); //это еще ни о чем не значит
             //проверяем что устройство доступно
             //return (GetPrinterStatus() == PrinterStatus.Ready);
             return true;

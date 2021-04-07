@@ -1053,7 +1053,7 @@ namespace CardRoute
 
                 bool needSaveData = false;
                 device.printerName = c.deviceLink;
-                bool realwork = true;
+                bool realwork = false;
                 try
                 {
                     device.eventPassMessage += Device_eventPassMessage;
@@ -1363,13 +1363,29 @@ namespace CardRoute
                                         y = Convert.ToInt32(1000 * ((EmbossText2) dsO).Y)
                                     });
                                 }
-                                
+
+                                if (dsO.OType == ProcardWPF.ObjectType.ImageField)
+                                {
+                                    string fileToDraw = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData,
+                                        "Field", "Name",
+                                        dsO.Name,
+                                        "Value", xnm);
+                                    if (dsO.InType == InTypes.File)
+                                        dsO.SetText(dsO.InData);
+                                    else
+                                        dsO.SetText(fileToDraw);
+                                }
                             }
 
                             if (procard.HasImage())
                             {
                                 Bitmap front = MakeImage(procard, cardData, SideType.Front);
                                 Bitmap back = MakeImage(procard, cardData, SideType.Back);
+                                front?.Save(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Test_Front.bmp"), ImageFormat.Bmp);
+                                back?.Save(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Test_Back.bmp"), ImageFormat.Bmp);
+                                //File.WriteAllBytes(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Test22_Front.bmp"), stream.GetBuffer());
+                                //front?.Save(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Test22_Front.bmp"), ImageFormat.Bmp);
+
                                 ((Dpcl) device).SetImageForPrint(front, back);
                             }
 
@@ -1584,16 +1600,12 @@ namespace CardRoute
                 RenderTargetBitmap bitmap = new RenderTargetBitmap(
                     ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width),
                     ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 300, 300, Media.PixelFormats.Default);
-
                 bitmap.Render(dv);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    BitmapEncoder be = new BmpBitmapEncoder();
-                    be.Frames.Add(BitmapFrame.Create(bitmap));
-                    be.Save(ms);
-                    res = new Bitmap(ms);
-                    res.Save($"Test_{side}.png", ImageFormat.Png);
-                }
+                MemoryStream ms = new MemoryStream();
+                BitmapEncoder be = new BmpBitmapEncoder();
+                be.Frames.Add(BitmapFrame.Create(bitmap));
+                be.Save(ms);
+                res = (Bitmap)Image.FromStream(ms); //убрал отсюда использования using для memorystream, поскольку при выходе из scope происходит dispose для ms и Image становит инвалидным
             }
             return res;
         }
