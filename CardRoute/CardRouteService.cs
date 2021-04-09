@@ -1458,6 +1458,16 @@ namespace CardRoute
                                         y = Convert.ToInt32(1000 * ((EmbossText2) dsO).Y)
                                     });
                                 }
+                                if (dsO.OType == ObjectType.ImageField)
+                                {
+                                    if (dsO.InType == InTypes.Db)
+                                        dsO.SetText(stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData,
+                                        "Field", "Name",
+                                        ((EmbossText2)dsO).Name,
+                                        "Value", xnm));
+                                    else
+                                        dsO.SetText(dsO.InData);
+                                }
                                 
                             }
 
@@ -1681,14 +1691,14 @@ namespace CardRoute
                     ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 300, 300, Media.PixelFormats.Default);
 
                 bitmap.Render(dv);
-                using (MemoryStream ms = new MemoryStream())
-                {
+                MemoryStream ms = new MemoryStream();
+                
                     BitmapEncoder be = new BmpBitmapEncoder();
                     be.Frames.Add(BitmapFrame.Create(bitmap));
                     be.Save(ms);
                     res = new Bitmap(ms);
                     res.Save($"Test_{side}.png", ImageFormat.Png);
-                }
+                
             }
             return res;
         }

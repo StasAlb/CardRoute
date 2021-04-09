@@ -37,13 +37,13 @@
       </MakeField>
     </Step1>
     <Step1 Type="WaitStatus" Set="Pause" Good="PrintWaiting" Bad="Error" Timeout="60"/>
-    <Step1 Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
+    <Step Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
     <Step1 Type="ReadChip" Tag="5A" Protocol="Contact" Log="On"/>
     <Step1 Type="ReadChip" Tag="5F24" Protocol="Contact" Log="On"/>
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
     <Step1 Type="Print" Design="emboss.xml"/>
-    <Step Type="Print" Design="print.xml"/>
+    <Step1 Type="Print" Design="print.xml"/>
   </Issue>
   <Report NextLink="Complete">
     <Emulation1 Duration="1" ErrorChance="0"/>

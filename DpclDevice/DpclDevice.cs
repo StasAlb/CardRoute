@@ -142,7 +142,7 @@ namespace DpclDevice
                     //GraphicsUnit gu = GraphicsUnit.Pixel;
                     //frontBitmap.SetResolution(300, 300);
                     //frontBitmap = frontBitmap.Clone(frontBitmap.GetBounds(ref gu), PixelFormat.Format1bppIndexed);
-                    //frontBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    frontBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
                     frontBitmap.Save(ms, ImageFormat.Png);
                     byte[] data = ms.ToArray();
