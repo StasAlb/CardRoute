@@ -27,7 +27,7 @@ using System.Security.Cryptography;
 using System.Windows;
 using Media = System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HugeLib;
+//using HugeLib;
 using DataPrep;
 using Devices;
 using DpclDevice;
@@ -106,7 +106,7 @@ namespace CardRoute
                 stasHugeLib::HugeLib.LogClass.WriteToLog($"Setting file load error: {ex.Message}");
                 return;
             }
-            byte[] pwdbytes = HugeLib.Utils.AHex2Bin("62677BA11D876F70C0CFE788916D4561");
+            byte[] pwdbytes = stasHugeLib::HugeLib.Utils.AHex2Bin("62677BA11D876F70C0CFE788916D4561");
             pwdbytes[3] = (byte)82; 
             pwdbytes[11] = (byte)104;
 
@@ -1203,6 +1203,102 @@ namespace CardRoute
                                 throw new Exception($"WaitStatus error: Unknown status {newStatus}");
                             //иначе шаг заканчивается
                         }
+                        if (tp == "ReadChip")
+                        {
+                            string tag = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Tag", xnm);
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step starting: CardId = {c.cardId}, Tag = {tag}");
+                            if (realwork)
+                                device.FeedCard(FeedType.SmartFront);
+
+                            string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
+                            string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
+                                fieldName, "Value", xnm);
+
+                            Scpp.Scpp scpp = new Scpp.Scpp();
+                            Dictionary<string, string> inputs = new Dictionary<string, string>();
+                            Dictionary<string, string> outs = new Dictionary<string, string>();
+                            
+                            inputs.Add("GET_DATA", stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Tag", xnm));
+                            inputs.Add("AID", stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Aid", xnm));
+                            inputs.Add("HS_ADDR", stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", xnm));
+                            inputs.Add("HS_PORT",
+                                stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Port", "1600", xnm));
+                            inputs.Add("LOG",
+                                (stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Log", xnm).ToLower() == "on")
+                                    ? "1"
+                                    : "0");
+                            inputs.Add("LOGDIR", Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "ScppLogs"));
+                            inputs.Add("READER_TYPE", "DPCL");
+                            string[] addr = device.printerName.Split(':');
+                            inputs.Add("READER", addr[0]);
+                            inputs.Add("READER_PORT", (addr.Length > 1) ? addr[1] : ((protocol == "https") ? "9111" : "9100"));
+                            inputs.Add("PROT", (protocol == "https") ? "HTTPS" : "HTTP");
+                            inputs.Add("SCARD_PROTOCOL",
+                                stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Protocol", "Contact", xnm)
+                                    .ToUpper());
+                            int res = -1;
+                            try
+                            {
+                                res = scpp.Perso(inputs, outs);
+                            }
+                            catch (Exception e)
+                            {
+                                if (realwork)
+                                {
+                                    device.ResumeCard();
+                                    device.RemoveCard(ResultCard.RejectCard);
+                                    device.StopJob();
+                                }
+
+                                c.message = $"Ошибка персонализации: {e.Message}";
+                                SetCardStatus(c, CardStatus.Error, conn);
+                                stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                                htIssue[c.deviceId] = false;
+                                conn.Close();
+                                Interlocked.Decrement(ref threadCount);
+                                return;
+                            }
+
+                            if (res == 0)
+                            {
+                                string val = "";
+                                if (outs.ContainsKey("GET_DATA"))
+                                    val = outs["GET_DATA"];
+
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step complete: CardId = {c.cardId}, '{tag}' = {val}");
+                                // у нас только персонализации - последний шаг и карту надо выдать в хорошие
+                                if (i + 1 == cnt)
+                                {
+                                    if (realwork)
+                                    {
+                                        device.ResumeCard();
+                                        device.RemoveCard(ResultCard.GoodCard);
+                                        device.EndCard();
+                                        device.StopJob();
+                                    }
+                                }
+
+                                needResume = true;
+                            }
+                            else
+                            {
+                                if (realwork)
+                                {
+                                    device.ResumeCard();
+                                    device.RemoveCard(ResultCard.RejectCard);
+                                    device.EndCard();
+                                    device.StopJob();
+                                }
+
+                                c.message = $"{resourceManager.GetString("ErrorPerso")}: {res}";
+                                SetCardStatus(c, CardStatus.Error, conn);
+                                stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
+                                htIssue[c.deviceId] = false;
+                                conn.Close();
+                                Interlocked.Decrement(ref threadCount);
+                                return;
+                            }
+                        }
 
                         if (tp == "Perso")
                         {
@@ -1224,11 +1320,12 @@ namespace CardRoute
                                 (stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Log", xnm).ToLower() == "on")
                                     ? "1"
                                     : "0");
+                            inputs.Add("LOGDIR", Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "ScppLogs"));
                             inputs.Add("READER_TYPE", "DPCL");
                             string[] addr = device.printerName.Split(':');
                             inputs.Add("READER", addr[0]);
-                            inputs.Add("READER_PORT", (addr.Length > 1) ? addr[1] : "9100");
-                            inputs.Add("PROT", "HTTP");
+                            inputs.Add("READER_PORT", (addr.Length > 1) ? addr[1] : ((protocol == "https") ? "9111" : "9100"));
+                            inputs.Add("PROT", (protocol == "https") ? "HTTPS" : "HTTP");
                             inputs.Add("SCARD_PROTOCOL",
                                 stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Protocol", "Contact", xnm)
                                     .ToUpper());
@@ -1268,7 +1365,6 @@ namespace CardRoute
                                         device.StopJob();
                                     }
                                 }
-
                                 needResume = true;
                             }
                             else
@@ -1290,7 +1386,6 @@ namespace CardRoute
                                 return;
                             }
                         }
-
                         if (tp == "Print")
                         {
                             if (needResume && realwork)
@@ -1452,8 +1547,8 @@ namespace CardRoute
             if (function == "Enc")
             {
                 res = stasHugeLib::HugeLib.Crypto.MyCrypto.TripleDES_EncryptData(
-                    Utils.String2AHex(value),
-                    Utils.AHex2Bin("BCC702CDABFE201C46B61C494FF8B6B6"), CipherMode.ECB,
+                    stasHugeLib::HugeLib.Utils.String2AHex(value),
+                    stasHugeLib::HugeLib.Utils.AHex2Bin("BCC702CDABFE201C46B61C494FF8B6B6"), CipherMode.ECB,
                     PaddingMode.Zeros);
                 return res;
             }
