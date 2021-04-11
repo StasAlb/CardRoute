@@ -1,0 +1,5 @@
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.exe.config
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.exe
+d:\work\CardRoute\SomeTests\bin\Debug\SomeTests.pdb
+d:\work\CardRoute\SomeTests\obj\Debug\SomeTests.exe
+d:\work\CardRoute\SomeTests\obj\Debug\SomeTests.pdb

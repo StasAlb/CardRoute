@@ -2,13 +2,15 @@
 <Settings>
   <Common>
     <Timeout>2</Timeout>
+    <Language>Russian</Language>
+    <Protocol>https</Protocol>
   </Common>
   <Database>
     <providerName>System.Data.SqlClient</providerName>
-    <server>ALBER-10\MSSQL_2019</server>
-    <name>CardRoute</name>
+    <server>STAS10\SQL2019</server>
+    <name>CardRoute_Default</name>
     <uid>sa</uid>
-    <password>123</password>
+    <password>DA2D3080343FCB16C71E36CA136CC76B</password>
   </Database>
   <Cdp DeleteResult="false">
     <IniFolder>c:\ostcard\cdp\Ini\</IniFolder>
@@ -16,6 +18,5 @@
     <InFile>..\Input\cubes_cdp.txt</InFile>
     <CdpIni>..\Dummy.ini</CdpIni>
   </Cdp>
-  <HS Ip="127.0.0.1" Port="1600"></HS>
-  <HS1 Ip="192.168.1.193" Port="1600"></HS1>
+  <HS Ip="127.0.0.1" Port="1600"></HS>  
 </Settings>

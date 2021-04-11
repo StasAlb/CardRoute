@@ -46,7 +46,7 @@ namespace DpclDevice
         {
             LogClass.WriteToLog($"Dpcl starting: CardId = {cardId}, Printer = {printerName}, Https = {Https}");
             dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
-            //LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected"); //это еще ни о чем не значит
+            //LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected");
             //проверяем что устройство доступно
             //return (GetPrinterStatus() == PrinterStatus.Ready);
             return true;
@@ -135,10 +135,13 @@ namespace DpclDevice
 
                 if (frontBitmap != null)
                 {
-                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
-                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
-                    GraphicsUnit gu = GraphicsUnit.Pixel;
-                    frontBitmap = frontBitmap.Clone(frontBitmap.GetBounds(ref gu), PixelFormat.Format1bppIndexed);
+                    SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintColorResolution", value="300x300" }});
+//                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+//                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+
+                    //GraphicsUnit gu = GraphicsUnit.Pixel;
+                    //frontBitmap.SetResolution(300, 300);
+                    //frontBitmap = frontBitmap.Clone(frontBitmap.GetBounds(ref gu), PixelFormat.Format1bppIndexed);
                     frontBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
                     frontBitmap.Save(ms, ImageFormat.Png);
@@ -149,12 +152,15 @@ namespace DpclDevice
                     parameters.Add(new Parameter { name = "ImageContent", value = "Graphics" });
                     parameters.Add(new Parameter { name = "XOrigin", value = "0" });
                     parameters.Add(new Parameter { name = "YOrigin", value = "0" });
+                    File.WriteAllBytes("111.png", data);
                     SubmitData("image/png", data, parameters.ToArray());
                 }
                 if (backBitmap != null)
                 {
-                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
-                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintColorResolution", value="300x300" }});
+//                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+//                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+
                     backBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
                     backBitmap.Save(ms, ImageFormat.Png);
