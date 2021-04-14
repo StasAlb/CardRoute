@@ -187,6 +187,7 @@ namespace CardRouteControl
                 settings.Load("CardRoute.xml");
                 myCommon.timeout = XmlClass.GetDataXml(settings, "Common/Timeout", null);
                 myCommon.language = XmlClass.GetDataXml(settings, "Common/Language", null);
+                myCommon.protocol = XmlClass.GetDataXml(settings, "Common/Protocol", null);
                 
                 mySqlServer.serverName = XmlClass.GetDataXml(settings, "Database/server", null);
                 mySqlServer.DbName = XmlClass.GetDataXml(settings, "Database/name", null);
@@ -286,6 +287,7 @@ namespace CardRouteControl
             w.WriteStartElement("Common");
             w.WriteElementString("Timeout", $"{myCommon.timeout}");
             w.WriteElementString("Language", $"{myCommon.language}");
+            w.WriteElementString("Protocol", $"{myCommon.protocol}");
             w.WriteEndElement();
             w.WriteStartElement("Database");
             w.WriteElementString("providerName", $"System.Data.SqlClient");

@@ -49,6 +49,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="34"/>
                             <RowDefinition Height="34"/>
+                            <RowDefinition Height="34"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -63,6 +64,11 @@
                         <ComboBox x:Name="cbLanguage" Grid.Row="1" Grid.Column="1" Margin="5" Width="160" HorizontalAlignment="Left" Text="{Binding language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="cbLanguage_OnSelectionChanged">
                             <ComboBoxItem>Russian</ComboBoxItem>
                             <ComboBoxItem>English</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Common_Protocol}"  TextWrapping="WrapWithOverflow" VerticalAlignment="Center"></TextBlock>
+                        <ComboBox x:Name="cbProtocol" Grid.Row="2" Grid.Column="1" Margin="5" Width="160" HorizontalAlignment="Left" Text="{Binding protocol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem>http</ComboBoxItem>
+                            <ComboBoxItem>https</ComboBoxItem>
                         </ComboBox>
                     </Grid>
                 </TabItem.Content>

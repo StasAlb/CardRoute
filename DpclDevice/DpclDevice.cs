@@ -31,6 +31,7 @@ namespace DpclDevice
         public bool Https = false;
         private int cardId = 0; // id карты для возврата при поднятии события Dispense
         private System.Drawing.Bitmap frontBitmap, backBitmap;
+        
         public int CardId
         {
             set { cardId = value; }

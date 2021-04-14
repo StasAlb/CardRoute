@@ -12,6 +12,7 @@
 
     <system:String x:Key="Common_Timeout">Таймаут (сек.)</system:String>
     <system:String x:Key="Common_Lang">Язык</system:String>
+    <system:String x:Key="Common_Protocol">Протокол</system:String>
 
     <system:String x:Key="Db_Server">Сервер</system:String>
     <system:String x:Key="Db_Name">База данных</system:String>

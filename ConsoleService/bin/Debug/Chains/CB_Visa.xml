@@ -22,24 +22,34 @@
   </Cdp>
   <Issue NextLink="Complete" NeedConfirm1="Admin">
     <Emulation1 Duration="2" ErrorChance="0"/>
-    <Step1 Type="MagRead" SaveData="Read">
+    <Step Type="MagRead" SaveData="Read">
+	  <MakeField Name="Track1" Track="1" Function="MSChangeName" NewName="NewName"/>
+	  <MakeField Name="Track2" Track="2"/>
       <MakeField Name="PanE" Track="2" StartPos="0" Length="16"/>
 	  <MakeField Name="PanForDb" SaveToDb="Pan">
 		<MakeField Track="2" StartPos="0" Length="6"/>
 		<MakeField Default="******"/>
 		<MakeField Track="2" StartPos="12" Length="4"/>
 	  </MakeField>
-	  <MakeField Name="PanForDbEnc" Track="2" StartPos="0" Length="16" Function="Enc_" SaveToDb="Pan"/>
+	  <MakeField Name="PanForDbEnc" Track="2" StartPos="0" Length="16" Function="Enc" SaveToDb="PanEnc"/>
       <MakeField Name="ExpDateE">
         <MakeField Track="2" StartPos="19" Length="2"/>
         <MakeField Default="/"/>"
         <MakeField Track="2" StartPos="17" Length="2"/>
       </MakeField>
-    </Step1>
+    </Step>
     <Step1 Type="WaitStatus" Set="Pause" Good="PrintWaiting" Bad="Error" Timeout="60"/>
-    <Step Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
-    <Step1 Type="ReadChip" Tag="5A" Protocol="Contact" Log="On"/>
-    <Step1 Type="ReadChip" Tag="5F24" Protocol="Contact" Log="On"/>
+    <Step1 Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
+    <Step1 Type="ChipRead" Tag="5A" Protocol="Contact" Log="On" SaveData="Read">
+		<MakeField Name="PanFromChip"/>
+	</Step1>
+    <Step1 Type="ChipRead" Tag="5F24" Protocol="Contact" Log="On" SaveData="Read">
+	   <MakeField Name="ExpDateFromChip">
+        <MakeField StartPos="2" Length="2"/>
+        <MakeField Default="/"/>"
+        <MakeField StartPos="0" Length="2"/>
+      </MakeField>
+	</Step1>
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
     <Step1 Type="Print" Design="emboss.xml"/>

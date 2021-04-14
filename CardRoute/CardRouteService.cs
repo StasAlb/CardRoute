@@ -1081,12 +1081,15 @@ namespace CardRoute
                     }
 
                     bool needResume = false;
+                    FeedType currentFeed = FeedType.NotDefine;
                     for (int i = 0; i < cnt; i++)
                     {
                         XmlDocument step = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Issue/Step", i, xnm);
                         string tp = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Type", xnm);
                         if (tp == "MagRead")
                         {
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"MagRead step starting: CardId = {c.cardId}");
+                            currentFeed = FeedType.Magstripe;
                             string[] tracks = null;
                             if (realwork)
                                 tracks = device.GetMagstripe();
@@ -1098,11 +1101,20 @@ namespace CardRoute
                                     "8880000000824113=21022012323231303233303230343", ""
                                 };
                             }
+                            int readlength = 0;
                             if (tracks == null)
                                 throw new Exception("MagRead: no track data");
+                            else
+                            {
+                                int t1 = (tracks.Length > 0) ? tracks[0].Length : 0;
+                                int t2 = (tracks.Length > 1) ? tracks[1].Length : 0;
+                                int t3 = (tracks.Length > 2) ? tracks[2].Length : 0;
+                                readlength = t1 + t2 + t3;
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"MagRead step complete: CardId = {c.cardId}, track1 {t1} chars, track2 {t2} chars, track3 {t3} chars");
+                            }
                             string saveCardData = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "SaveData", xnm);
                             int fcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(step, "MakeField", xnm);
-                            for (int t = 0; t < fcnt; t++)
+                            for (int t = 0; t < fcnt && readlength > 0; t++)
                             {
                                 XmlDocument makefield =
                                     stasHugeLib::HugeLib.XmlClass.GetXmlNode(step, "MakeField", t, xnm);
@@ -1112,8 +1124,6 @@ namespace CardRoute
                                 int mkcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(makefield, "MakeField", xnm);
                                 string saveToDb =
                                     stasHugeLib::HugeLib.XmlClass.GetAttribute(makefield, "", "SaveToDb", xnm);
-                                string function =
-                                    stasHugeLib::HugeLib.XmlClass.GetAttribute(makefield, "", "Function", xnm);
                                 if (mkcnt == 0)
                                     res = CombineMakeField(makefield, tracks);
                                 else
@@ -1125,17 +1135,11 @@ namespace CardRoute
                                         res += CombineMakeField(x, tracks);
                                     }
                                 }
-
-                                if (!String.IsNullOrEmpty(function))
-                                    res = ApplyFunction(res, makefield);
+                                res = ApplyFunction(res, makefield, cardData);
 
                                 stasHugeLib::HugeLib.XmlClass.SetXmlAttribute(cardData, "Field", "Name", fieldName, "Value", xnm, res);
-                                //XmlElement xe = cardData.CreateElement("Field");
-                                //xe.SetAttribute("Name", fieldName);
-                                //xe.SetAttribute("Value", res);
-                                //cardData.DocumentElement?.AppendChild(xe);
                                 needSaveData = (saveCardData.ToLower() == "complete");
-                                if (!String.IsNullOrEmpty(saveToDb))
+                                if (!String.IsNullOrEmpty(saveToDb) && !String.IsNullOrEmpty(res))
                                 {
                                     using (SqlCommand comm = conn.CreateCommand())
                                     {
@@ -1153,7 +1157,7 @@ namespace CardRoute
                                     }
                                 }
                             }
-                            if (saveCardData.ToLower() == "read")
+                            if (readlength > 0 && saveCardData.ToLower() == "read")
                                 SetCardData(c, cardData.InnerXml, conn);
 
                             if (i + 1 == cnt)
@@ -1169,13 +1173,15 @@ namespace CardRoute
 
                             needResume = true;
                         }
-
                         if (tp == "WaitStatus")
                         {
+                            
                             string set = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Set", xnm);
                             string good = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Good", xnm);
                             string bad = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Bad", xnm);
                             string timeout = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Timeout", xnm);
+                            
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Wait step starting: CardId = {c.cardId}, waitfor = {good}");
 
                             CardStatus csSet = (CardStatus) Enum.Parse(typeof(CardStatus), set, false);
                             CardStatus csGood = (CardStatus) Enum.Parse(typeof(CardStatus), good, false);
@@ -1195,6 +1201,8 @@ namespace CardRoute
                             CardStatus newStatus = await taskWait;
                             //stasHugeLib::HugeLib.LogClass.WriteToLog($"after wait {newStatus}");
 
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Wait step status changed: CardId = {c.cardId}, newstatus = {newStatus}");
+
                             //если новый статус плохой, то ошибку поднял сервис киосков, должен был записать ошибку, оставляем ее. Выкидывает карту, выходим из цикла шагов
                             if (newStatus == csBad)
                                 throw new stasHugeLib::HugeLib.MyException();
@@ -1203,22 +1211,22 @@ namespace CardRoute
                                 throw new Exception($"WaitStatus error: Unknown status {newStatus}");
                             //иначе шаг заканчивается
                         }
-                        if (tp == "ReadChip")
+                        if (tp == "ChipRead")
                         {
                             string tag = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Tag", xnm);
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step starting: CardId = {c.cardId}, Tag = {tag}");
-                            if (realwork)
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"ChipRead step starting: CardId = {c.cardId}, Tag = {tag}");
+                            if (realwork && currentFeed != FeedType.SmartFront)
                                 device.FeedCard(FeedType.SmartFront);
+                            currentFeed = FeedType.SmartFront;
 
-                            string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
-                            string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
-                                fieldName, "Value", xnm);
+//                            string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
+                            //string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
+                            //    fieldName, "Value", xnm);
 
                             Scpp.Scpp scpp = new Scpp.Scpp();
                             Dictionary<string, string> inputs = new Dictionary<string, string>();
                             Dictionary<string, string> outs = new Dictionary<string, string>();
-                            
-                            inputs.Add("GET_DATA", stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Tag", xnm));
+                            inputs.Add("GET_DATA", tag);
                             inputs.Add("AID", stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Aid", xnm));
                             inputs.Add("HS_ADDR", stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", xnm));
                             inputs.Add("HS_PORT",
@@ -1239,7 +1247,16 @@ namespace CardRoute
                             int res = -1;
                             try
                             {
-                                res = scpp.Perso(inputs, outs);
+                                if (realwork)
+                                    res = scpp.Perso(inputs, outs);
+                                else
+                                {
+                                    res = 0;
+                                    if (tag == "5A")
+                                        outs.Add("GET_DATA", "6382984362718463");
+                                    if (tag == "5F24")
+                                        outs.Add("GET_DATA", "220731");
+                                }
                             }
                             catch (Exception e)
                             {
@@ -1266,7 +1283,56 @@ namespace CardRoute
                                     val = outs["GET_DATA"];
 
                                 stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step complete: CardId = {c.cardId}, '{tag}' = {val}");
-                                // у нас только персонализации - последний шаг и карту надо выдать в хорошие
+
+                                string saveCardData = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "SaveData", xnm);
+                                int fcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(step, "MakeField", xnm);
+                                for (int t = 0; t < fcnt; t++)
+                                {
+                                    XmlDocument makefield =
+                                        stasHugeLib::HugeLib.XmlClass.GetXmlNode(step, "MakeField", t, xnm);
+                                    string fieldName =
+                                        stasHugeLib::HugeLib.XmlClass.GetAttribute(makefield, "", "Name", xnm);
+                                    string resString = "";
+                                    int mkcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(makefield, "MakeField", xnm);
+                                    string saveToDb =
+                                        stasHugeLib::HugeLib.XmlClass.GetAttribute(makefield, "", "SaveToDb", xnm);
+                                    if (mkcnt == 0)
+                                        resString = CombineMakeField(makefield, new string[] { val });
+                                    else
+                                    {
+                                        for (int y = 0; y < mkcnt; y++)
+                                        {
+                                            XmlDocument x =
+                                                stasHugeLib::HugeLib.XmlClass.GetXmlNode(makefield, "MakeField", y, xnm);
+                                            resString += CombineMakeField(x, new string[] { val });
+                                        }
+                                    }
+                                    resString = ApplyFunction(resString, makefield);
+                                    stasHugeLib::HugeLib.XmlClass.SetXmlAttribute(cardData, "Field", "Name", fieldName, "Value", xnm, resString);
+                                    needSaveData = (saveCardData.ToLower() == "complete");
+                                    if (!String.IsNullOrEmpty(saveToDb))
+                                    {
+                                        using (SqlCommand comm = conn.CreateCommand())
+                                        {
+                                            comm.CommandText =
+                                                $"update cards set {saveToDb}='{res}' where CardId={c.cardId}";
+                                            try
+                                            {
+                                                comm.ExecuteNonQuery();
+                                            }
+                                            catch (Exception uEx)
+                                            {
+                                                stasHugeLib::HugeLib.LogClass.WriteToLog(
+                                                    $"ChipRead SaveToDb error: {uEx.Message}");
+                                            }
+                                        }
+                                    }
+                                }
+                                if (saveCardData.ToLower() == "read")
+                                    SetCardData(c, cardData.InnerXml, conn);
+
+
+                                // у нас только чтение - последний шаг и карту надо выдать в хорошие
                                 if (i + 1 == cnt)
                                 {
                                     if (realwork)
@@ -1299,11 +1365,11 @@ namespace CardRoute
                                 return;
                             }
                         }
-
                         if (tp == "Perso")
                         {
-                            if (realwork)
+                            if (realwork && currentFeed != FeedType.SmartFront)
                                 device.FeedCard(FeedType.SmartFront);
+                            currentFeed = FeedType.SmartFront;
 
                             string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
                             string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
@@ -1332,7 +1398,10 @@ namespace CardRoute
                             int res = -1;
                             try
                             {
-                                res = scpp.Perso(inputs, null);
+                                if (realwork)
+                                    res = scpp.Perso(inputs, null);
+                                else
+                                    res = 0;
                             }
                             catch (Exception e)
                             {
@@ -1489,7 +1558,7 @@ namespace CardRoute
                                 device.StopJob();
                             }
                             catch (Exception e)
-                            {
+                            { 
                                 if (realwork)
                                 {
                                     device.RemoveCard(ResultCard.RejectCard);
@@ -1549,12 +1618,12 @@ namespace CardRoute
             }
         }
 
-        private string ApplyFunction(string value, XmlDocument node)
+        private string ApplyFunction(string value, XmlDocument node, XmlDocument cardData = null)
         {
-            string res = "";
+            string res = value;
             string function =
-                stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Function", xnm);
-            if (function == "Enc")
+                stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Function", xnm).ToLower();
+            if (function == "enc")
             {
                 res = stasHugeLib::HugeLib.Crypto.MyCrypto.TripleDES_EncryptData(
                     stasHugeLib::HugeLib.Utils.String2AHex(value),
@@ -1563,7 +1632,7 @@ namespace CardRoute
                 return res;
             }
 
-            if (function == "Substring")
+            if (function == "substring")
             {
                 string sStart = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Start", xnm);
                 string sLength = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Length", xnm);
@@ -1582,6 +1651,14 @@ namespace CardRoute
                 }
                 return "";
             }
+            if (function == "mschangename")
+            {
+                string newname = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "NewName", xnm);
+                string[] parts = value.Split('^');
+                if (parts.Length > 1)
+                    parts[1] = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", newname, "Value", xnm);
+                return String.Join("^", parts);
+            }
             return res;
         }
         private async Task<CardStatus> AsyncWaitForStatusChange(SqlConnection conn, int cardId, CardStatus currentCardStatus, int frequency = 1000, int timeout = -1)
@@ -1595,7 +1672,7 @@ namespace CardRoute
                 }
             });
             if (waitTask != await Task.WhenAny(waitTask, Task.Delay(timeout)))
-                throw new Exception("activation timeout error");
+                throw new Exception($"Wait step timeout error: CardId={cardId}");
             return res;
         }
         private CardStatus GetCurrentCardStatus(SqlConnection conn, int cardId)
@@ -1720,16 +1797,26 @@ namespace CardRoute
                 }
             }
         }
-
-        private string CombineMakeField(XmlDocument x, string[] tracks)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="data">если мы составляем из дорожек, то здесь три дорожки, если просто данные - то в они будут в 0-м элементе</param>
+        /// <returns></returns>
+        private string CombineMakeField(XmlDocument x, string[] data)
         {
             string start = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "StartPos", "0", xnm);
             string length = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Length", "-1", xnm);
             string ntrack = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Track", xnm);
+            string def = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Default", xnm);
             string res = "";
             int itrack = -1;
-            if (Int32.TryParse(ntrack, out itrack) && itrack > 0 && itrack <= tracks.Length)
-                res = tracks[itrack - 1];
+            if (Int32.TryParse(ntrack, out itrack) && itrack > 0 && itrack <= data.Length)
+                res = data[itrack - 1];
+            if (itrack == 0 && data.Length == 1)
+                res = data[0];
+            if (!String.IsNullOrEmpty(def))
+                res = def;
             try
             {
                 int ilen = -1;
@@ -1742,8 +1829,6 @@ namespace CardRoute
             catch 
             {
             }
-            if (res.Length == 0)
-                res = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Default", xnm);
             return res;
         }
         private void SetCardStatus(Card c, CardStatus status, SqlConnection conn)

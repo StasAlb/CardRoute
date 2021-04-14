@@ -12,6 +12,7 @@
 
     <system:String x:Key="Common_Timeout">Timeout (sec.)</system:String>
     <system:String x:Key="Common_Lang">Language</system:String>
+    <system:String x:Key="Common_Protocol">Protocol</system:String>
 
     <system:String x:Key="Db_Server">Server</system:String>
     <system:String x:Key="Db_Name">Database</system:String>
