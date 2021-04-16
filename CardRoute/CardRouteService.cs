@@ -1106,9 +1106,9 @@ namespace CardRoute
                                 throw new Exception("MagRead: no track data");
                             else
                             {
-                                int t1 = (tracks.Length > 0) ? tracks[0].Length : 0;
-                                int t2 = (tracks.Length > 1) ? tracks[1].Length : 0;
-                                int t3 = (tracks.Length > 2) ? tracks[2].Length : 0;
+                                int t1 = (tracks.Length > 0 && tracks[0] != null) ? tracks[0].Length : 0;
+                                int t2 = (tracks.Length > 1 && tracks[1] != null) ? tracks[1].Length : 0;
+                                int t3 = (tracks.Length > 2 && tracks[2] != null) ? tracks[2].Length : 0;
                                 readlength = t1 + t2 + t3;
                                 stasHugeLib::HugeLib.LogClass.WriteToLog($"MagRead step complete: CardId = {c.cardId}, track1 {t1} chars, track2 {t2} chars, track3 {t3} chars");
                             }
@@ -1315,7 +1315,7 @@ namespace CardRoute
                                         using (SqlCommand comm = conn.CreateCommand())
                                         {
                                             comm.CommandText =
-                                                $"update cards set {saveToDb}='{res}' where CardId={c.cardId}";
+                                                $"update cards set {saveToDb}='{resString}' where CardId={c.cardId}";
                                             try
                                             {
                                                 comm.ExecuteNonQuery();

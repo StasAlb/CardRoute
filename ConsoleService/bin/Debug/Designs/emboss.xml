@@ -44,6 +44,27 @@
         <Shablon>XXXXXXXXXXXXXXXXXXXXXXXX</Shablon>
         <Align>Left</Align>
       </EmbossText2>
+      <MagStripe>
+        <ID>4</ID>
+        <Name>Магнитная полоса 1</Name>
+        <Side>Back</Side>
+        <X>0</X>
+        <Y>1.45</Y>
+        <Width>3.375</Width>
+        <Height>0.51</Height>
+        <InType xsi:nil="true" />
+        <InTypeM>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+          <InTypes>None</InTypes>
+        </InTypeM>
+        <InDataM>
+          <string />
+          <string />
+          <string />
+        </InDataM>
+        <Feedback>false</Feedback>
+      </MagStripe>
     </collection>
   </objects>
   <XPSPrinter>
@@ -51,8 +72,6 @@
     <printerName />
     <OnlyPrint>false</OnlyPrint>
     <HopperID>1</HopperID>
-    <NoTopper>false</NoTopper>
-    <GraphicTopper>false</GraphicTopper>
   </XPSPrinter>
   <X>0</X>
   <Y>0</Y>

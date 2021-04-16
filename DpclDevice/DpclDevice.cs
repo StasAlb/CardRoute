@@ -118,6 +118,8 @@ namespace DpclDevice
         }
         public override bool ResumeCard()
         {
+            //SubmitAction("101", null);
+            //dpcl2Client.ResumeJob(new ResumeJobInput() { client = ClientId, jobId = JobId });
             dpcl2Client.RestartJob(new RestartJobInput() {client=ClientId, jobId = JobId});
             return true;
         }
@@ -553,15 +555,15 @@ namespace DpclDevice
         public override string[] GetMagstripe()
         {
             string[] res = new string[3];
-            SubmitAction("MagStripeRead", new[] { new Parameter { name = "PageNumber", value = "2" } });
-            RetrieveDataOutput resp = dpcl2Client.RetrieveData(new RetrieveDataInput()
-            {
-                client = ClientId,
-                jobId = JobId,
-                actionId = LastAction
-            });
             try
             {
+                SubmitAction("MagStripeRead", new[] { new Parameter { name = "PageNumber", value = "2" } });
+                RetrieveDataOutput resp = dpcl2Client.RetrieveData(new RetrieveDataInput()
+                {
+                    client = ClientId,
+                    jobId = JobId,
+                    actionId = LastAction
+                });
                 XmlDocument answer = new XmlDocument();
                 answer.LoadXml(Encoding.Default.GetString((byte[]) resp.attachment.Item));
                 for (int i = 0; i < 3; i++)
@@ -598,6 +600,8 @@ namespace DpclDevice
         /// <param name="parameters">The parameters of the action.</param>
         private void SubmitAction(string action, Parameter[] parameters)
         {
+            if (action.ToLower() == "magstriperead")
+                action = action;
             var submitActionIn = new SubmitActionInput
             {
                 client = ClientId,
@@ -618,7 +622,7 @@ namespace DpclDevice
 
             var submitActionOut = dpcl2Client.SubmitAction(submitActionIn);
 
-            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, SubmitActionOut: Check {submitActionOut.checkStatus}, Success {submitActionOut.success}");
+            LogClass.WriteToLog($"Dpcl: CardId = {cardId}, SubmitActionOut: Check {submitActionOut?.checkStatus}, Success {submitActionOut?.success}");
             //var parametersStringBuilder = new StringBuilder();
             //if (parameters != null && parameters.Length > 0)
             //{
@@ -793,6 +797,7 @@ namespace DpclDevice
                         case ConditionSeverity.Notice:
                             break;
                         default:
+                            //break;
                             throw new Exception(GetErrorMessage(c.code));
                     }
                 }
