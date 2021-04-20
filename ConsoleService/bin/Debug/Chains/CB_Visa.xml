@@ -22,7 +22,7 @@
   </Cdp>
   <Issue NextLink="Complete" NeedConfirm1="Admin">
     <Emulation1 Duration="2" ErrorChance="0"/>
-    <Step Type="MagRead" SaveData="Read">
+    <Step1 Type="MagRead" SaveData="Read">
 	  <MakeField Name="Track1" Track="1" Function="MSChangeName" NewName="NewName"/>
 	  <MakeField Name="Track2" Track="2"/>
       <MakeField Name="PanE" Track="2" StartPos="0" Length="16"/>
@@ -37,9 +37,9 @@
         <MakeField Default="/"/>"
         <MakeField Track="2" StartPos="17" Length="2"/>
       </MakeField>
-    </Step>
+    </Step1>
     <Step1 Type="WaitStatus" Set="Pause" Good="PrintWaiting" Bad="Error" Timeout="60"/>
-    <Step1 Type="Perso" Script="readcplc.000" Protocol="Contact" Log="On"/>
+    <Step1 Type="Perso" Script="Eastcompis_auth.000" Protocol="Contact" Log="On"/>
     <Step1 Type="ChipRead" Tag="5A" Protocol="Contact" Log="On" SaveData="Read">
 		<MakeField Name="PanFromChip"/>
 	</Step1>
@@ -53,7 +53,7 @@
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
     <Step1 Type="Print" Design="emboss.xml"/>
-    <Step1 Type="Print" Design="print.xml"/>
+    <Step Type="Print" Design="print.xml" Color="false"/>
   </Issue>
   <Report NextLink="Complete">
     <Emulation1 Duration="1" ErrorChance="0"/>

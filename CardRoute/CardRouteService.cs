@@ -1370,7 +1370,7 @@ namespace CardRoute
                             if (realwork && currentFeed != FeedType.SmartFront)
                                 device.FeedCard(FeedType.SmartFront);
                             currentFeed = FeedType.SmartFront;
-
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Perso step starting: CardId = {c.cardId}");
                             string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
                             string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
                                 fieldName, "Value", xnm);
@@ -1420,9 +1420,10 @@ namespace CardRoute
                                 Interlocked.Decrement(ref threadCount);
                                 return;
                             }
-
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Perso step complete: CardId = {c.cardId}, result = {res}");
                             if (res == 0)
                             {
+                                
                                 // у нас только персонализации - последний шаг и карту надо выдать в хорошие
                                 if (i + 1 == cnt)
                                 {
@@ -1445,7 +1446,6 @@ namespace CardRoute
                                     device.EndCard();
                                     device.StopJob();
                                 }
-
                                 c.message = $"{resourceManager.GetString("ErrorPerso")}: {res}";
                                 SetCardStatus(c, CardStatus.Error, conn);
                                 stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
@@ -1460,6 +1460,8 @@ namespace CardRoute
                             if (needResume && realwork)
                                 device.ResumeCard();
                             string design = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Design", xnm);
+                            string color = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Color", "mono", xnm);
+                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Print step starting: CardId = {c.cardId}, Design = {design}");
                             design = $"{AppDomain.CurrentDomain.BaseDirectory}\\Designs\\{design}";
 
                             XmlSerializer ser = new XmlSerializer(typeof(ProcardWPF.Card));
@@ -1544,7 +1546,8 @@ namespace CardRoute
                             {
                                 Bitmap front = MakeImage(procard, cardData, SideType.Front);
                                 Bitmap back = MakeImage(procard, cardData, SideType.Back);
-                                ((Dpcl) device).SetImageForPrint(front, back);
+                                ((Dpcl)device).SetImageForPrint(front, back);
+                                ((Dpcl)device).Color = (color == "color" || color == "true");
                             }
 
                             try
@@ -1554,17 +1557,17 @@ namespace CardRoute
                                     device.PrintCard();
                                     device.EndCard();
                                 }
-
                                 device.StopJob();
+                                stasHugeLib::HugeLib.LogClass.WriteToLog($"Print step complete: CardId = {c.cardId}");
+
                             }
                             catch (Exception e)
                             { 
                                 if (realwork)
                                 {
                                     device.RemoveCard(ResultCard.RejectCard);
-                                }
-
-                                device.StopJob();
+                                    device.StopJob();
+                                }                                
                                 c.message = $"{resourceManager.GetString("ErrorIssue")}: {e.Message}";
                                 SetCardStatus(c, CardStatus.Error, conn);
                                 stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
@@ -1757,6 +1760,7 @@ namespace CardRoute
                     if (procard.objects[t].OType == ObjectType.ImageField)
                     {
                         procard.objects[t].Draw(dc, Regim.ToPrinter, false, 0);
+                        col++;
                     }
                 }
             }
@@ -1774,7 +1778,7 @@ namespace CardRoute
                     be.Frames.Add(BitmapFrame.Create(bitmap));
                     be.Save(ms);
                     res = new Bitmap(ms);
-                    res.Save($"Test_{side}.png", ImageFormat.Png);
+                    //res.Save($"Test_{side}.png", ImageFormat.Png);
                 
             }
             return res;

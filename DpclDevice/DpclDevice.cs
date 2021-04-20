@@ -29,6 +29,7 @@ namespace DpclDevice
         private bool isKiosk = false;
         List<EmbossString> embossData = new List<EmbossString>();
         public bool Https = false;
+        public bool Color = true;
         private int cardId = 0; // id карты для возврата при поднятии события Dispense
         private System.Drawing.Bitmap frontBitmap, backBitmap;
         
@@ -66,7 +67,8 @@ namespace DpclDevice
         {
             frontBitmap = null;
             backBitmap = null;
-            if (GetPrinterStatus() != PrinterStatus.Ready)
+            PrinterStatus ps = GetPrinterStatus();
+            if (ps != PrinterStatus.Ready)
                 throw new Exception("Printer not ready");
             JobId = GetNewJobID();
             LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Start Job {JobId}, Hopper {HopperID}");
@@ -138,9 +140,11 @@ namespace DpclDevice
 
                 if (frontBitmap != null)
                 {
-                    SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintColorResolution", value="300x300" }});
-//                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
-//                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    if (Color)
+                        SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintColorResolution", value="300x300" }});
+                    else
+                        SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "1"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+                            new Parameter {name="MonochromePanelSelect", value="Custom1" }});
 
                     //GraphicsUnit gu = GraphicsUnit.Pixel;
                     //frontBitmap.SetResolution(300, 300);
@@ -155,14 +159,16 @@ namespace DpclDevice
                     parameters.Add(new Parameter { name = "ImageContent", value = "Graphics" });
                     parameters.Add(new Parameter { name = "XOrigin", value = "0" });
                     parameters.Add(new Parameter { name = "YOrigin", value = "0" });
-                    File.WriteAllBytes("111.png", data);
+                    //File.WriteAllBytes("111.png", data);
                     SubmitData("image/png", data, parameters.ToArray());
                 }
                 if (backBitmap != null)
                 {
-                    SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintColorResolution", value="300x300" }});
-//                    SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
-//                        new Parameter {name="MonochromePanelSelect", value="Custom1" }});
+                    if (Color)
+                        SubmitAction("Color", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintColorResolution", value="300x300" }});
+                    else
+                        SubmitAction("Monochrome", new[] {new Parameter {name = "PageNumber", value = "2"}, new Parameter {name="PrintMonoResolution", value="300x300" },
+                            new Parameter {name="MonochromePanelSelect", value="Custom1" }});
 
                     backBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     MemoryStream ms = new MemoryStream();
