@@ -1,4 +1,5 @@
-﻿using System;
+﻿extern alias stasHugeLib;
+using System;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Claims;
 using System.Xml;
@@ -32,6 +34,7 @@ using DataPrep;
 using Devices;
 using DpclDevice;
 using ProcardWPF;
+using stasHugeLib::HugeLib;
 using Brushes = System.Drawing.Brushes;
 using Timer = System.Timers.Timer;
 
@@ -65,6 +68,8 @@ namespace CardRoute
         private int timerInterval = 5000;
         private string lang = "russian";
         private string protocol = "https";
+
+        private string serviceKey = "BCC702CDABFE201C46B61C494FF8B6B6";
 
         private DbProviderFactory factory = null;
 
@@ -322,9 +327,9 @@ namespace CardRoute
                                 string name = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Name", xnm);
                                 string sendas = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "SendAs", xnm);
                                 string value = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", name,"Value", xnm);
-                                string function = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Function", xnm);
-                                if (!String.IsNullOrEmpty(function))
-                                    value = ApplyFunction(value, x);
+                                //string function = stasHugeLib::HugeLib.XmlClass.GetAttribute(x, "", "Function", xnm);
+                                //if (!String.IsNullOrEmpty(function))
+                                value = ApplyFunction(value, x);
                                 if (String.IsNullOrEmpty(sendas))
                                     sendas = name;
                                 pindata += part.Replace("##FIELD##", sendas).Replace("##DATA##", value);
@@ -1621,7 +1626,7 @@ namespace CardRoute
             }
         }
 
-        private string ApplyFunction(string value, XmlDocument node, XmlDocument cardData = null)
+        private string ApplyFunction(string value, XmlDocument node, XmlDocument cardData = null, int cardId = -1)
         {
             string res = value;
             string function =
@@ -1630,7 +1635,7 @@ namespace CardRoute
             {
                 res = stasHugeLib::HugeLib.Crypto.MyCrypto.TripleDES_EncryptData(
                     stasHugeLib::HugeLib.Utils.String2AHex(value),
-                    stasHugeLib::HugeLib.Utils.AHex2Bin("BCC702CDABFE201C46B61C494FF8B6B6"), CipherMode.ECB,
+                    stasHugeLib::HugeLib.Utils.AHex2Bin(serviceKey), CipherMode.ECB,
                     PaddingMode.Zeros);
                 return res;
             }
@@ -1662,7 +1667,78 @@ namespace CardRoute
                     parts[1] = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", newname, "Value", xnm);
                 return String.Join("^", parts);
             }
+            if (function == "pb_recryptorgen")
+            {
+                string pinBlock = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "PbName", "Value", xnm);
+                string pin = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Pin", xnm);
+                string pek = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Pek", xnm);
+                string hsip = stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", "127.0.0.1", xnm);
+                string hsport = stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Port", "1600", xnm);
+                
+                TcpClient tcpClient = new TcpClient();
+                IPAddress ipAddress = IPAddress.Parse(hsip);
+                tcpClient.Connect(ipAddress, Convert.ToInt32(hsport));
+                NetworkStream ns = tcpClient.GetStream();
+                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} PB_RecryptOrGet HS connect");
+                byte[] readBytes = new byte[tcpClient.ReceiveBufferSize];
+                int cnt = ns.Read(readBytes, 0, tcpClient.ReceiveBufferSize);
+                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {Utils.Bin2String(readBytes, 0, cnt)}");
+                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.CONN00F4IVK.............00000000FFFFFFFF");
+                string answer = SendTcp(ns,"VH.CONN00F4IVK.............00000000FFFFFFFF", tcpClient.ReceiveBufferSize);
+                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+                if (!String.IsNullOrEmpty(pinBlock))
+                {
+                    //пинблок пришел, делаем перешифровку
+                }
+                else
+                {
+                    string pan = "";
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        using (SqlCommand comm = conn.CreateCommand())
+                        {
+                            comm.CommandText = $"select PanEnc from cards where CardId={cardId}";
+                            pan = (string)comm.ExecuteScalar();
+                        }
+                        conn.Close();
+                    }
+                    pan = stasHugeLib::HugeLib.Crypto.MyCrypto.TripleDES_DecryptData(
+                        stasHugeLib::HugeLib.Utils.AHex2Bin(pan),
+                        stasHugeLib::HugeLib.Utils.AHex2Bin(serviceKey), CipherMode.ECB,
+                        PaddingMode.Zeros);
+                    pan = stasHugeLib::HugeLib.Utils.AHex2String(pan);
+                    if (String.IsNullOrEmpty(pin))
+                    {
+                        //генерация пина
+                        string len = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "PinLength", "4", xnm);
+                        int l = Int32.Parse(len);
+                        LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF");
+                        answer = SendTcp(ns, $"VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF", tcpClient.ReceiveBufferSize);
+                        LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+                    }
+                    else
+                    {
+                        //создание пинблока с фиксированным пином
+                    }
+                }
+                tcpClient.Close();
+            }
             return res;
+        }
+
+        private string SendTcp(NetworkStream ns, string sendData, int ReceiveBufferSize)
+        {
+            string res = "";
+            byte[] bytesToSend = stasHugeLib::HugeLib.Utils.String2Bin(sendData);
+            ns.Write(bytesToSend, 0, bytesToSend.Length);
+            do
+            {
+                byte[] readBytes = new byte[ReceiveBufferSize];
+                int cnt = ns.Read(readBytes, 0, ReceiveBufferSize);
+                res += stasHugeLib::HugeLib.Utils.Bin2AHex(readBytes, cnt);
+            } while (ns.DataAvailable);
+            return stasHugeLib::HugeLib.Utils.AHex2String(res);
         }
         private async Task<CardStatus> AsyncWaitForStatusChange(SqlConnection conn, int cardId, CardStatus currentCardStatus, int frequency = 1000, int timeout = -1)
         {
@@ -2075,6 +2151,7 @@ namespace CardRoute
                             int len = 0;
                             if (Int32.TryParse(fieldLength, out len))
                                 val = val.PadRight(len);
+                            val = ApplyFunction(val, x, cardData, c.cardId);
                             inputString += $"{val}{delimiter}";
                         }
 
