@@ -35,6 +35,7 @@ using Devices;
 using DpclDevice;
 using ProcardWPF;
 using stasHugeLib::HugeLib;
+using stasHugeLib::HugeLib.Crypto;
 using Brushes = System.Drawing.Brushes;
 using Timer = System.Timers.Timer;
 
@@ -1669,7 +1670,8 @@ namespace CardRoute
             }
             if (function == "pb_recryptorgen")
             {
-                string pinBlock = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "PbName", "Value", xnm);
+                string pb_name = XmlClass.GetAttribute(node, "", "PbName", xnm);
+                string pinBlock = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", pb_name, "Value", xnm);
                 string pin = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Pin", xnm);
                 string pek = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "Pek", xnm);
                 string hsip = stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", "127.0.0.1", xnm);
@@ -1689,6 +1691,21 @@ namespace CardRoute
                 if (!String.IsNullOrEmpty(pinBlock))
                 {
                     //пинблок пришел, делаем перешифровку
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        using (SqlCommand comm = conn.CreateCommand())
+                        {
+                            comm.CommandText = $"select TPK from Kiosks k inner join cards c on c.DeviceId=k.DeviceId where c.CardId={cardId}";
+                            object obj = comm.ExecuteScalar();
+                            if (obj == null || obj == DBNull.Value || String.IsNullOrEmpty((string)obj))
+                                throw new Exception("PinBlock recryption error. Not found TPK");
+                            LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.SI040123{(string)obj}0123{pek}0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0008{pinBlock}");
+                            answer = SendTcp(ns, $"VH.SI040123{(string)obj}0123{pek}0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0008{pinBlock}", tcpClient.ReceiveBufferSize);
+                            LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+                        }
+                        conn.Close();
+                    }
                 }
                 else
                 {
@@ -1703,11 +1720,8 @@ namespace CardRoute
                         }
                         conn.Close();
                     }
-                    pan = stasHugeLib::HugeLib.Crypto.MyCrypto.TripleDES_DecryptData(
-                        stasHugeLib::HugeLib.Utils.AHex2Bin(pan),
-                        stasHugeLib::HugeLib.Utils.AHex2Bin(serviceKey), CipherMode.ECB,
-                        PaddingMode.Zeros);
-                    pan = stasHugeLib::HugeLib.Utils.AHex2String(pan);
+                    pan = MyCrypto.TripleDES_DecryptData(Utils.AHex2Bin(pan), Utils.AHex2Bin(serviceKey), CipherMode.ECB, PaddingMode.Zeros);
+                    pan = Utils.AHex2String(pan);
                     if (String.IsNullOrEmpty(pin))
                     {
                         //генерация пина
@@ -1720,6 +1734,14 @@ namespace CardRoute
                     else
                     {
                         //создание пинблока с фиксированным пином
+                        string pb = $"0{pin.Length}{pin}";
+                        pb = pb.PadRight(16, 'F');
+                        pb = MyCrypto.Xor(pb, $"0000{pan.Substring(pan.Length - 13, 12)}");
+                        LogClass.WriteToLog(
+                            $"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.DCRP0123{pek}1003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000{pb}");
+                        answer = SendTcp(ns, $"VH.DCRP0123{pek}1003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000{pb}", tcpClient.ReceiveBufferSize);
+                        LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+
                     }
                 }
                 tcpClient.Close();
