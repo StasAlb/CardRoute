@@ -96,6 +96,13 @@ namespace CardRoute
             {
                 FileInfo fi = new FileInfo(proc.MainModule.FileName);
             }
+            //проверка директорий
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Chains")))
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Chains"));
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Designs")))
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Designs"));
+            if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs")))
+                Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"));
 
             string xmlname =
                 $"{System.AppDomain.CurrentDomain.BaseDirectory}{Assembly.GetEntryAssembly()?.GetName().Name}.xml";
@@ -150,6 +157,41 @@ namespace CardRoute
             protocol = stasHugeLib::HugeLib.XmlClass.GetDataXml(xmlDoc, "Common/Protocol", xnm).ToLower();
             if (protocol != "http" && protocol != "https")
                 protocol = "https";
+
+            //запуск HS
+            string hs_exe = XmlClass.GetDataXml(xmlDoc, "HS/Application", xnm);
+            if (!String.IsNullOrEmpty(hs_exe))
+            {
+                string hsip = stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", "127.0.0.1", xnm);
+                string hsport = stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Port", "1600", xnm);
+                TcpClient tcpClient = new TcpClient();
+                IPAddress ipAddress = IPAddress.Parse(hsip);
+                NetworkStream ns = null;
+                try
+                {
+                    tcpClient.Connect(ipAddress, Convert.ToInt32(hsport));
+                    ns = tcpClient.GetStream();
+                    LogClass.WriteToLog("HS already running");
+                }
+                catch
+                {
+                    //не подцепились к HS, надо его запустить
+                    try
+                    {
+                        Process.Start(hs_exe);
+                        LogClass.WriteToLog("HS starting..... OK");
+                    }
+                    catch (Exception ex)
+                    {
+                        LogClass.WriteToLog($"HS starting error: {ex.Message}");
+                    }
+                }
+                finally
+                {
+                    ns?.Close();
+                }
+            }
+
 
 
             //хэш таблица для выпуска карт
@@ -1703,6 +1745,7 @@ namespace CardRoute
                             LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.SI040123{(string)obj}0123{pek}0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0008{pinBlock}");
                             answer = SendTcp(ns, $"VH.SI040123{(string)obj}0123{pek}0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0008{pinBlock}", tcpClient.ReceiveBufferSize);
                             LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+                            res = Utils.Substring(answer, "VH.SI04", "#");
                         }
                         conn.Close();
                     }
@@ -1730,6 +1773,7 @@ namespace CardRoute
                         LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF");
                         answer = SendTcp(ns, $"VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF", tcpClient.ReceiveBufferSize);
                         LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
+                        res = Utils.Substring(answer, "VH.GPBL", "#");
                     }
                     else
                     {
@@ -1741,7 +1785,7 @@ namespace CardRoute
                             $"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.DCRP0123{pek}1003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000{pb}");
                         answer = SendTcp(ns, $"VH.DCRP0123{pek}1003000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000{pb}", tcpClient.ReceiveBufferSize);
                         LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
-
+                        res = Utils.Substring(answer, "VH.DCRP", "#");
                     }
                 }
                 tcpClient.Close();

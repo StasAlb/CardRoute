@@ -170,3 +170,11 @@
    logfile = D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.InstallLog
    assemblypath = D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.exe
 Восстанавливается исходное состояние журнала событий для источника CardRoute.
+Выполняется удаление сборки 'D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.InstallLog
+   assemblypath = D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.exe
+Выполняется удаление источника EventLog CardRoute.
+Выполняется удаление службы CardRoute из системы...
+Служба CardRoute успешно удалена из системы.
