@@ -1,3 +1,3 @@
-net stop "CwHub service"
+net stop "CardRoute"
 ;installutil.exe /u CwHubService.exe 
-sc delete "CwHub Service"
+sc delete "CardRoute"

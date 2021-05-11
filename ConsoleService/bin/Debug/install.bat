@@ -1,2 +1,2 @@
-installutil.exe "CwHubService .exe"
-net start "CwHubService 2.0"
+installutil.exe "CardRoute.exe"
+net start "CardRoute"
