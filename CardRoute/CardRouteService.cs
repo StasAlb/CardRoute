@@ -1722,18 +1722,18 @@ namespace CardRoute
                     }
                     pan = MyCrypto.TripleDES_DecryptData(Utils.AHex2Bin(pan), Utils.AHex2Bin(serviceKey), CipherMode.ECB, PaddingMode.Zeros);
                     pan = Utils.AHex2String(pan);
-                    //генерация пина
                     if (String.IsNullOrEmpty(pin))
-                    {                        
+                    {
+                        //генерация пина
                         string len = stasHugeLib::HugeLib.XmlClass.GetAttribute(node, "", "PinLength", "4", xnm);
                         int l = Int32.Parse(len);
                         LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} >> VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF");
                         answer = SendTcp(ns, $"VH.GPBL0123{pek}00{l:00}{pan}FFFFFFFFFFFFFFFF", tcpClient.ReceiveBufferSize);
                         LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} << {answer}");
                     }
-                    //создание пинблока с фиксированным пином
                     else
-                    {                        
+                    {
+                        //создание пинблока с фиксированным пином
                         string pb = $"0{pin.Length}{pin}";
                         pb = pb.PadRight(16, 'F');
                         pb = MyCrypto.Xor(pb, $"0000{pan.Substring(pan.Length - 13, 12)}");
