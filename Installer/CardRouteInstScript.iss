@@ -46,6 +46,8 @@ Source: "D:\Work\CardRoute\CardRoute\bin\Debug\Procard2.0.xml"; DestDir: "{app}"
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\Scpp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\SmartModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\Xceed.Wpf.Toolkit.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Work\CardRoute\CardRoute\bin\Debug\RestSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Work\CardRoute\CardRoute\bin\Debug\RestSharp.xml"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\ru-Ru\CardRoute.resources.dll"; DestDir: "{app}\ru-Ru"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\ru-Ru\DpclDevice.resources.dll"; DestDir: "{app}\ru-Ru"; Flags: ignoreversion
 

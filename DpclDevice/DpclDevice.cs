@@ -32,7 +32,8 @@ namespace DpclDevice
         public bool Color = true;
         private int cardId = 0; // id карты для возврата при поднятии события Dispense
         private System.Drawing.Bitmap frontBitmap, backBitmap;
-        
+        public SecurityProtocolType SecurityProtocolTypeCurrent = SecurityProtocolType.Tls12;
+
         public int CardId
         {
             set { cardId = value; }
@@ -277,7 +278,7 @@ namespace DpclDevice
             if (!isHttp)
             {
                 // Don't do that, here we're ignoring printer certificate validation...
-                ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+                ServicePointManager.SecurityProtocol = SecurityProtocolTypeCurrent;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, policyError) => true;
 
             }

@@ -38,6 +38,8 @@ using stasHugeLib::HugeLib;
 using stasHugeLib::HugeLib.Crypto;
 using Brushes = System.Drawing.Brushes;
 using Timer = System.Timers.Timer;
+using RestSharp;
+
 
 
 
@@ -821,7 +823,7 @@ namespace CardRoute
 
                         XmlDocument cardData = new XmlDocument();
                         cardData.LoadXml(c.cardData);
-
+                        #region стандартные текстовые файлы
                         int cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Report/Report", xnm);
                         for (int i = 0; i < cnt; i++)
                         {
@@ -861,8 +863,36 @@ namespace CardRoute
                                 sw.Close();
                             }
                         }
+                        #endregion
+                        #region infin - сообщение в rest-service
+                        string infinurl = XmlClass.GetAttribute(chain, "Report/Infin", "Uri", xnm);
+                        if (!String.IsNullOrEmpty(infinurl))
+                        {
+                            try
+                            {
+                                string infinIdField = XmlClass.GetAttribute(chain, "Report/Infin", "IdField", xnm);
+                                string val = XmlClass.GetXmlAttribute(cardData, "Field", "Name", infinIdField, "Value", xnm);
+                                var client = new RestClient(infinurl);
+                                client.Timeout = -1;
+                                var request = new RestRequest(Method.POST);
+                                request.AddHeader("Content-Type", "text/plain");
+                                request.AddParameter("text/plain",
+                                    "{application_id: \"" + val + "\", status: 0, message: \"\"}",
+                                    ParameterType.RequestBody);
+                                IRestResponse response = client.Execute(request);
+                                if (response.ResponseStatus == ResponseStatus.Error)
+                                    throw new Exception(response.ErrorMessage);
+                            }
+                            catch (Exception ex)
+                            {
+                                c.message = $"Infin report service error: {ex.Message}";
+                                SetCardStatus(c, CardStatus.Error, conn);
+                                LogClass.WriteToLog(c.message);
+                                continue;
+                            }
+                        }
+                        #endregion
                         SetCardStatus(c, next, conn);
-                        
                     }
                 }
                 catch (Exception ex)
@@ -1107,8 +1137,25 @@ namespace CardRoute
                     device.eventPassMessage += Device_eventPassMessage;
                     ((Dpcl) device).Https = (protocol == "https");
                     ((Dpcl) device).CardId = c.cardId;
-                    if (!device.StartJob())
-                        throw new Exception("startjob error");
+                    try
+                    {
+                        if (!device.StartJob())
+                            throw new Exception("startjob error");
+                        ((Dpcl)device).GetPrinterStatus();
+                    }
+                    catch (Exception e)
+                    {
+                        if (((Dpcl)device).Https)
+                        {
+                            ((Dpcl)device).SecurityProtocolTypeCurrent = SecurityProtocolType.Tls;
+                            if (!device.StartJob())
+                                throw new Exception("startjob error");
+                        }
+                        else
+                        {
+                            throw e;
+                        }
+                    }
                     // подбираем лоток
                     try
                     {
@@ -1440,6 +1487,7 @@ namespace CardRoute
                             inputs.Add("READER", addr[0]);
                             inputs.Add("READER_PORT", (addr.Length > 1) ? addr[1] : ((protocol == "https") ? "9111" : "9100"));
                             inputs.Add("PROT", (protocol == "https") ? "HTTPS" : "HTTP");
+                            inputs.Add("PROT_TLS", $"{(int)((Dpcl) device).SecurityProtocolTypeCurrent}");
                             inputs.Add("SCARD_PROTOCOL",
                                 stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Protocol", "Contact", xnm)
                                     .ToUpper());
@@ -2031,7 +2079,7 @@ namespace CardRoute
                 if (c.productId > 0)
                 {
                     upd.CommandText = 
-                        $"insert into LogProduct(LogRecordId, ProductId) values({ logid}, { c.productId})\r\n";
+                        $"insert into LogProduct(LogRecordId, ProductId) values({logid}, {c.productId})\r\n";
                     upd.ExecuteNonQuery();
                 }
                 if (c.deviceId > 0)
