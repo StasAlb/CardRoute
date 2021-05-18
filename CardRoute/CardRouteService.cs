@@ -1336,6 +1336,7 @@ namespace CardRoute
                             inputs.Add("READER", addr[0]);
                             inputs.Add("READER_PORT", (addr.Length > 1) ? addr[1] : ((protocol == "https") ? "9111" : "9100"));
                             inputs.Add("PROT", (protocol == "https") ? "HTTPS" : "HTTP");
+                            inputs.Add("PROT_TLS", $"{(int)((Dpcl)device).SecurityProtocolTypeCurrent}");
                             inputs.Add("SCARD_PROTOCOL",
                                 stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Protocol", "Contact", xnm)
                                     .ToUpper());
@@ -2273,7 +2274,7 @@ namespace CardRoute
                         bool cdpres = false;
                         try
                         {
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step: CardId = {c.cardId}, ProductChain = {c.productLink}, IniFile = {iniName}");
+                            LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step: CardId = {c.cardId}, ProductChain = {c.productLink}, IniFile = {iniName}");
                             cdpres = CdpClass.RunCdp(inputString, inFile, iniName, out outdata, out outpin, out err);
                             if (!cdpres)
                                 throw new Exception(err);
