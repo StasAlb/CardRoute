@@ -148,3 +148,4 @@ d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.exe
 d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.pdb
 D:\Work\CardRoute\ConsoleService\bin\Debug\RestSharp.dll
 D:\Work\CardRoute\ConsoleService\bin\Debug\RestSharp.xml
+D:\Work\CardRoute\ConsoleService\bin\Debug\Procard2.0.xml

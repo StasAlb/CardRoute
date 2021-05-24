@@ -2070,7 +2070,12 @@ namespace CardRoute
                     upd.Parameters.Add("@message", SqlDbType.NVarChar, 255).Value = c.message;
                 upd.Parameters.Add("@cardid", SqlDbType.Int).Value = c.cardId;
                 upd.Parameters.Add("@logtype", SqlDbType.Int).Value = 200 + (int)status;
-                upd.Parameters.Add("@logmessage", SqlDbType.NVarChar, 1024).Value = $"{resourceManager.GetString("LogSetStatus")}: {GetStatusName(status)}";
+                string error_desc = (String.IsNullOrEmpty(c.message)) ? "" : $" ({c.message})";
+                error_desc = $"{resourceManager.GetString("LogSetStatus")}: {GetStatusName(status)}" + error_desc;
+                if (error_desc.Length > 1024)
+                    error_desc = error_desc.Substring(0, 1024);
+                upd.Parameters.Add("@logmessage", SqlDbType.NVarChar, 1024).Value = error_desc;
+                    
                 object obj = upd.ExecuteScalar();
                 stasHugeLib::HugeLib.LogClass.WriteToLog($"StatusChange: CardId = {c.cardId}, Status = {status}, Message = {c.message}");
                 int logid = Convert.ToInt32(obj);
@@ -2241,7 +2246,8 @@ namespace CardRoute
                         int cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Cdp/InputStream/Field", xnm);
                         string inputString = "";
                         string delimiter = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp/InputStream", "Delimiter", xnm);
-                        string nextIsCentral = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "NextIsCentral", "Value", xnm); 
+                        string nextIsCentral = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name", "NextIsCentral", "Value", xnm);
+                        bool waserror = false;
                         for (int i = 0; i < cnt; i++)
                         {
                             XmlDocument x = stasHugeLib::HugeLib.XmlClass.GetXmlNode(chain, "Cdp/InputStream/Field", i, xnm);
@@ -2266,9 +2272,24 @@ namespace CardRoute
                             int len = 0;
                             if (Int32.TryParse(fieldLength, out len))
                                 val = val.PadRight(len);
-                            val = ApplyFunction(val, x, cardData, c.cardId);
+                            waserror = false;
+                            try
+                            {
+                                val = ApplyFunction(val, x, cardData, c.cardId);
+                            }
+                            catch (Exception exception)
+                            {
+                                waserror = true;
+                                c.message = exception.Message;
+                                SetCardStatus(c, CardStatus.Error, conn);
+                                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = '{exception.Message}'");
+                                break;
+                            }
                             inputString += $"{val}{delimiter}";
                         }
+
+                        if (waserror)
+                            continue;
 
                         string err = "", outdata = "", outpin = "";
                         bool cdpres = false;
@@ -2278,6 +2299,8 @@ namespace CardRoute
                             cdpres = CdpClass.RunCdp(inputString, inFile, iniName, out outdata, out outpin, out err);
                             if (!cdpres)
                                 throw new Exception(err);
+                            if (String.IsNullOrEmpty(outdata))
+                                throw new Exception("cdp out file is empty");
                             // данные
                             delimiter = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp/OutputStream", "Delimiter", xnm);
                             cnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(chain, "Cdp/OutputStream/Field", xnm);
@@ -2323,20 +2346,21 @@ namespace CardRoute
                             string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Cdp", "NextLink", xnm);
                             if (nextIsCentral.ToLower() == "true")
                             {
-                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = Central");
+                                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = Central");
                                 SetCardStatus(c, CardStatus.Central, conn);
                             }
                             else
                             {
-                                stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = {next}");
+                                LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step complete: CardId = {c.cardId}, ProductChain = {c.productLink}, NextStep = {next}");
                                 SetCardStatus(c, next, conn);
                             }
                         }
                         catch (Exception exception)
                         {
-                            c.message = exception.ToString();
+                            c.message = exception.Message;
                             SetCardStatus(c, CardStatus.Error, conn);
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = '{exception.Message}'");
+                            LogClass.WriteToLog($"{System.Threading.Thread.CurrentThread.ManagedThreadId:000000} Cdp step error: CardId = {c.cardId}, ProductChain = {c.productLink}, Error = '{exception.Message}'");
+                            continue;
                         }
                     }
                 }
