@@ -53,7 +53,12 @@
     <Step1 Type="Perso" Script="Upi_dual.000" Protocol="Contact" Log="On" Field="SmartData"/>
     <Step1 Type="Print" Design="onlymag.xml"/>
     <Step1 Type="Print" Design="emboss.xml"/>
-    <Step Type="Print" Design="print.xml" Color="false"/>
+	<Step Type="ChipRead" Tag="CPLC" Protocol="Contact" Log="On">
+	   <MakeField Name="CPLC" Length="10"/>
+	   <MakeField Name="Product" Default="Mastercard"/>
+	</Step>
+	<Step Type="Perso" FindScript="CPLC,ATR,Product" Protocol="Contact" Log="On" Field="SmartData"/>
+    <Step1 Type="Print" Design="print_fin.xml" Color="false"/>
   </Issue>
   <Report NextLink="Complete">
     <Emulation1 Duration="1" ErrorChance="0"/>

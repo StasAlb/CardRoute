@@ -1352,6 +1352,11 @@ namespace CardRoute
                                         outs.Add("GET_DATA", "6382984362718463");
                                     if (tag == "5F24")
                                         outs.Add("GET_DATA", "220731");
+                                    if (tag == "CPLC")
+                                    {
+                                        outs.Add("GET_DATA", "32243234345345345345345345345345");
+                                        outs.Add("ATR", "234324234234234234234");
+                                    }
                                 }
                             }
                             catch (Exception e)
@@ -1362,7 +1367,6 @@ namespace CardRoute
                                     device.RemoveCard(ResultCard.RejectCard);
                                     device.StopJob();
                                 }
-
                                 c.message = $"Ошибка персонализации: {e.Message}";
                                 SetCardStatus(c, CardStatus.Error, conn);
                                 stasHugeLib::HugeLib.LogClass.WriteToLog(c.message);
@@ -1377,6 +1381,8 @@ namespace CardRoute
                                 string val = "";
                                 if (outs.ContainsKey("GET_DATA"))
                                     val = outs["GET_DATA"];
+                                if (outs.ContainsKey("ATR"))
+                                    XmlClass.SetXmlAttribute(cardData, "Field", "Name", "ATR", "Value", xnm, outs["ATR"]);
 
                                 stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step complete: CardId = {c.cardId}, '{tag}' = {val}");
 
@@ -1470,11 +1476,44 @@ namespace CardRoute
                             string fieldName = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Field", xnm);
                             string data = stasHugeLib::HugeLib.XmlClass.GetXmlAttribute(cardData, "Field", "Name",
                                 fieldName, "Value", xnm);
+                            string script = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Script", xnm);
+                            string findscript = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "FindScript", xnm);
+                            if (!String.IsNullOrEmpty(findscript))
+                            {
+                                string[] flds = findscript.Split(',');
+                                XmlDocument scriptDic = new XmlDocument();
+                                string fname1 = $"{System.AppDomain.CurrentDomain.BaseDirectory}\\ScriptDictionary.xml";
+                                scriptDic.Load(fname1);
+                                XmlNodeList xnl = scriptDic.DocumentElement.SelectNodes("CardScript", xnm);
+                                if (xnl == null)
+                                    throw new Exception("no script found");
+                                foreach (XmlNode xn in xnl)
+                                {
+                                    for (int t = 0; t < xn.ChildNodes.Count; t++)
+                                    {
+                                        bool scriptfound = true;
+                                        foreach (string fld in flds)
+                                        {
+                                            string fld_val = XmlClass.GetXmlAttribute(cardData, "Field", "Name", fld, "Value", xnm);
+                                            if (xn.ChildNodes[t].Attributes[fld].Value != fld_val)
+                                            {
+                                                scriptfound = false;
+                                                break;
+                                            }
+                                        }
+                                        if (scriptfound)
+                                        {
+                                            script = xn.ChildNodes[t].Attributes["Script"].Value;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
 
                             Scpp.Scpp scpp = new Scpp.Scpp();
                             Dictionary<string, string> inputs = new Dictionary<string, string>();
                             inputs.Add("DATA", data);
-                            inputs.Add("SCRIPT", stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "Script", xnm));
+                            inputs.Add("SCRIPT", script);
                             inputs.Add("HS_ADDR", stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Ip", xnm));
                             inputs.Add("HS_PORT",
                                 stasHugeLib::HugeLib.XmlClass.GetAttribute(xmlDoc, "HS", "Port", "1600", xnm));
@@ -1689,6 +1728,7 @@ namespace CardRoute
                         device.RemoveCard(ResultCard.RejectCard);
                         device.StopJob();
                     }
+                    SetCardStatus(c, CardStatus.Error, conn);
                 }
                 catch (Exception e)
                 {
@@ -1939,7 +1979,6 @@ namespace CardRoute
                                 formattedText = formattedText.Remove(posInNew, 1);
                             posInNew = formattedText.IndexOf('*');
                         }
-
                         if (posInOld > 0) //если мы хоть раз зашли в обработку по спецсимволу
                             textToPrint = formattedText;
 
@@ -1958,9 +1997,12 @@ namespace CardRoute
             if (col > 0)
             {
                 procard.SetMas(300);
+//                RenderTargetBitmap bitmap = new RenderTargetBitmap(
+//                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width),
+//                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 300, 300, Media.PixelFormats.Default);
                 RenderTargetBitmap bitmap = new RenderTargetBitmap(
-                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Width),
-                    ProcardWPF.Card.ClientToScreen(ProcardWPF.Card.Height), 300, 300, Media.PixelFormats.Default);
+                    1013, 638,
+                    300, 300, Media.PixelFormats.Default);
 
                 bitmap.Render(dv);
                 MemoryStream ms = new MemoryStream();
@@ -1969,7 +2011,7 @@ namespace CardRoute
                     be.Frames.Add(BitmapFrame.Create(bitmap));
                     be.Save(ms);
                     res = new Bitmap(ms);
-                    //res.Save($"Test_{side}.png", ImageFormat.Png);
+                    res.Save($"Test_{side}.png", ImageFormat.Png);
                 
             }
             return res;
