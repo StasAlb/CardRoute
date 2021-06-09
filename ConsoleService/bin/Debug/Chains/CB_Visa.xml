@@ -74,7 +74,10 @@
   </Report>
   <Central>
 	<PersoFile File="c:\temp\111.txt" Delimiter="|">
-		<Field Name="SmartData" Mandatory="true"/>
+		<Field Name="Pan"/>
+		<Field Name="ExpDate"/>
+		<Field Name="Cardholder"/>
+		<Field Name="ServiceCode"/>
    	</PersoFile>
   </Central>
   <Pin Type="KKB" NextLink="Complete">

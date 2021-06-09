@@ -531,7 +531,7 @@ namespace DpclDevice
                 {
                     doc.WriteStartElement("track");
                     doc.WriteAttributeString("number", "1");
-                    doc.WriteElementString("stringData", track1);
+                    doc.WriteElementString("stringData", track1.Replace("%","").Replace("?",""));
                     doc.WriteEndElement();
                 }
 
@@ -539,7 +539,7 @@ namespace DpclDevice
                 {
                     doc.WriteStartElement("track");
                     doc.WriteAttributeString("number", "2");
-                    doc.WriteElementString("stringData", track2);
+                    doc.WriteElementString("stringData", track2.Replace(";","").Replace("?",""));
                     doc.WriteEndElement();
                 }
 
@@ -547,7 +547,7 @@ namespace DpclDevice
                 {
                     doc.WriteStartElement("track");
                     doc.WriteAttributeString("number", "3");
-                    doc.WriteElementString("stringData", track3);
+                    doc.WriteElementString("stringData", track3.Replace("_;","").Replace("?",""));
                     doc.WriteEndElement();
                 }
 

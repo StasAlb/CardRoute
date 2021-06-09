@@ -17,15 +17,15 @@ namespace CreateStream
             // имена брал с https://www.briandunning.com/sample-data/
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = @"Server=DESKTOP-CLAHLP8\SQL2019;Database=CardRoute_Default;Uid=sa;Pwd=123;";
+                conn.ConnectionString = @"Server=ALBER-10\MSSQL_2019;Database=CardRoute_Default;Uid=sa;Pwd=123;";
                 conn.Open();
-                int indexbank = 1; // 0 - iberia, 1 - albion
+                int indexbank = 0; // 0 - iberia, 1 - albion
                 string[] bankname = new[] {"iberia", "albion"};
-                int[] bankid = new[] {1, 2};
-                string[] bins = new string[] {"486878", "512321"};
-                int[] product = new[] {1, 2};
-                int[] branch = new[] {1, 6};
-                int[] device = new[] {25, 30};
+                int[] bankid = new[] {1};
+                string[] bins = new string[] {"486878"};
+                int[] product = new[] {23};
+                int[] branch = new[] {1};
+                int[] device = new[] {1};
 
                 //int deviceCnt = 10;
                 Random r = new Random(DateTime.Now.Millisecond);
@@ -77,7 +77,7 @@ namespace CreateStream
                             "<?xml version='1.0' encoding='utf-16'?><Data><Field Name='Pan' Value='##PAN##'/>" +
                             "<Field Name='ExpDate' Value='##DATE##'/><Field Name='Cardholder' Value='##NAME##'/>" +
                             "<Field Name='ServiceCode' Value='201'/></Data>";
-                        for (int i = 0; i < 20; i++)
+                        for (int i = 0; i < 500; i++)
                         {
                             int p = r.Next(1, 999999999);
                             string pan = $"{bins[indexbank]}{p:0000000000}";

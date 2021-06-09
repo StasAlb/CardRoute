@@ -477,14 +477,12 @@ namespace CardRoute
                 conn.Open();
                 List<Card> cards = new List<Card>();
                 SqlCommand sel = conn.CreateCommand();
-                sel.CommandText = $"select x.* from ( " +
-                                    "select c.cardid, CardPriorityId, c.DeviceId, cd.CardData, p.Link, p.ProductName, " +
+                sel.CommandText = $"select c.cardid, CardPriorityId, c.DeviceId, cd.CardData, p.Link, p.ProductName, " +
                                     "rank() over(partition by c.deviceid order by cardpriorityid desc, c.cardid) num " +
                                     "from cards c " +
                                     "inner join Products p on c.ProductId = p.ProductId " +
                                     "inner join CardsData cd on c.CardId = cd.CardId " +
-                                    "where c.CardStatusId = @status " +
-                                    ") x where x.num = 1 order by CardPriorityId";
+                                    "where c.CardStatusId = @status order by CardPriorityId";
                 sel.Parameters.Add("@status", SqlDbType.Int).Value = (int) CardStatus.Central;
                 using (SqlDataReader dr = sel.ExecuteReader())
                 {
@@ -522,7 +520,7 @@ namespace CardRoute
                     {
                         string next = stasHugeLib::HugeLib.XmlClass.GetAttribute(chain, "Central", "NextLink", xnm);
                         if (String.IsNullOrEmpty(next))
-                            next = "Complete";
+                            next = "CompleteCentral";
 
                         #region эмуляция
 
@@ -2170,8 +2168,8 @@ namespace CardRoute
                 case "Issue":
                     SetCardStatus(c, CardStatus.PrintWaiting, conn);
                     break;
-                case "CentralComplete":
-                    SetCardStatus(c, CardStatus.CentralComplete, conn);
+                case "CompleteCentral":
+                    SetCardStatus(c, CardStatus.CompleteCentral, conn);
                     break;
                 case "Pin":
                     SetCardStatus(c, CardStatus.PinWaiting, conn);
