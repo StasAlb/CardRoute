@@ -101,7 +101,6 @@ d:\work\CardRoute\CardRoute\bin\Debug\Procard2.0.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\Procard2.0.exe.config
 d:\work\CardRoute\CardRoute\bin\Debug\DataPrep.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\DpclDevice.pdb
-d:\work\CardRoute\CardRoute\bin\Debug\JSrv2.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\SmartModule.pdb
 d:\work\CardRoute\CardRoute\bin\Debug\ru-Ru\DpclDevice.resources.dll
 d:\work\CardRoute\CardRoute\obj\Debug\ru-Ru\CardRoute.resources.dll
@@ -110,4 +109,3 @@ d:\work\CardRoute\CardRoute\obj\Debug\CardRoute.exe
 d:\work\CardRoute\CardRoute\obj\Debug\CardRoute.pdb
 D:\Work\CardRoute\CardRoute\bin\Debug\RestSharp.dll
 D:\Work\CardRoute\CardRoute\bin\Debug\RestSharp.xml
-D:\Work\CardRoute\CardRoute\bin\Debug\Procard2.0.xml

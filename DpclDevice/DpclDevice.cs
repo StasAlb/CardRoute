@@ -48,7 +48,21 @@ namespace DpclDevice
         public override bool StartJob()
         {
             LogClass.WriteToLog($"Dpcl starting: CardId = {cardId}, Printer = {printerName}, Https = {Https}");
-            dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
+            try
+            {
+                dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
+                GetPrinterStatus();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                return true;
+            }
+            catch (Exception e)
+            {
+                SecurityProtocolTypeCurrent = SecurityProtocolType.Tls;
+                LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} trying tls protocol");
+                dpcl2Client = CreateDPCL2Client(printerName, !Https, false, 30);
+            }
             //LogClass.WriteToLog($"Dpcl: CardId = {cardId}, Printer = {printerName} connected");
             //проверяем что устройство доступно
             //return (GetPrinterStatus() == PrinterStatus.Ready);
@@ -302,7 +316,7 @@ namespace DpclDevice
                         includeSupplies = false,
                         includeTunnels = false
                     });
-                if (status.status.jobQueueState.Name == "Suspended")
+                if (status.status.jobQueueState.Name == "Suspended" || status.status.lockState?.Name == "Unlocked")
                     return PrinterStatus.Suspended;
                 if (status.status.state == PrinterState.Idle)
                     return PrinterStatus.Ready;

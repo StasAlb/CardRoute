@@ -52,7 +52,6 @@ d:\work\CardRoute\DpclDevice\bin\Debug\JSrv2.dll
 d:\work\CardRoute\DpclDevice\bin\Debug\HugeLib.pdb
 d:\work\CardRoute\DpclDevice\bin\Debug\Common.pdb
 d:\work\CardRoute\DpclDevice\bin\Debug\Devices.pdb
-d:\work\CardRoute\DpclDevice\bin\Debug\JSrv2.pdb
 d:\work\CardRoute\DpclDevice\obj\Debug\ru-Ru\DpclDevice.resources.dll
 d:\work\CardRoute\DpclDevice\obj\Debug\DpclDevice.csproj.CopyComplete
 d:\work\CardRoute\DpclDevice\obj\Debug\DpclDevice.dll

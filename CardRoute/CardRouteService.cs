@@ -918,7 +918,7 @@ namespace CardRoute
                     List<Card> cards = new List<Card>();
                     SqlCommand sel = conn.CreateCommand();
                     sel.CommandText = $"select x.* from ( " +
-                                      "select c.cardid, CardPriorityId, c.DeviceId, cd.CardData, c.ProductId, c.BranchId, c.LastStatusId, " +
+                                      "select c.cardid, CardPriorityId, c.DeviceId, c.Message, cd.CardData, c.ProductId, c.BranchId, c.LastStatusId, " +
                                       "p.Link as ProductLink, p.ProductName, d.Link as DeviceLink, " +
                                       "rank() over(partition by c.deviceid order by cardpriorityid desc, c.cardid) num " +
                                       "from cards c " +
@@ -942,7 +942,8 @@ namespace CardRoute
                                     deviceLink = dr["DeviceLink"].ToString().Trim(),
                                     deviceId = Convert.ToInt32(dr["DeviceId"]),
                                     branchid = Convert.ToInt32(dr["branchId"]),
-                                    lastStatusId =  Convert.ToInt32(dr["LastStatusId"])
+                                    lastStatusId =  Convert.ToInt32(dr["LastStatusId"]),
+                                    message = Convert.ToString(dr["Message"])
                                 });
                         }
 
@@ -950,7 +951,8 @@ namespace CardRoute
                     }
                     foreach (Card c in cards)
                     {
-                        stasHugeLib::HugeLib.LogClass.WriteToLog($"Issue step starting: CardId = {c.cardId}, ProductChain = {c.productLink}, Device = {c.deviceLink}");
+                        if (String.IsNullOrEmpty(c.message))
+                            LogClass.WriteToLog($"Issue step starting: CardId = {c.cardId}, ProductChain = {c.productLink}, Device = {c.deviceLink}");
                         // проверяем на требуемость подтверждения. Если надо, то переводим в ожидание подтверждения, если нет, то добавляем в массив на выпуск
                         XmlDocument chain = new XmlDocument();
                         string f =
@@ -1135,25 +1137,53 @@ namespace CardRoute
                     device.eventPassMessage += Device_eventPassMessage;
                     ((Dpcl) device).Https = (protocol == "https");
                     ((Dpcl) device).CardId = c.cardId;
-                    try
-                    {
+                    //try
+                    //{
                         if (!device.StartJob())
                             throw new Exception("startjob error");
-                        ((Dpcl)device).GetPrinterStatus();
-                    }
-                    catch (Exception e)
-                    {
-                        if (((Dpcl)device).Https)
+                        PrinterStatus status = ((Dpcl)device).GetPrinterStatus();
+                        //if (status == PrinterStatus.Off || status == PrinterStatus.Suspended)
+                        if (status != PrinterStatus.Ready)
                         {
-                            ((Dpcl)device).SecurityProtocolTypeCurrent = SecurityProtocolType.Tls;
-                            if (!device.StartJob())
-                                throw new Exception("startjob error");
+                            //в первый раз делаем стандартно, с заполнением всех логов, потом только возвращаем статус в printWaiting
+                            if (String.IsNullOrEmpty(c.message))
+                            {
+                                c.message = $"Printer is not ready ({status})";
+                                SetCardStatus(c, CardStatus.PrintWaiting, conn);
+                            }
+                            else
+                            {
+                                using (SqlCommand upd = conn.CreateCommand())
+                                {
+                                    upd.CommandText =
+                                        $"update Cards set CardStatusId=@newstatus, LastActionDateTime=@lasttime where CardId=@cardid \n\r";
+                                    upd.Parameters.Add("@newstatus", SqlDbType.Int).Value = (int)CardStatus.PrintWaiting;
+                                    upd.Parameters.Add("@lasttime", SqlDbType.DateTime).Value = DateTime.Now;
+                                    upd.Parameters.Add("@cardid", SqlDbType.Int).Value = c.cardId;
+                                    upd.ExecuteNonQuery();
+                                    LogClass.WriteToLog($"StatusChange: CardId = {c.cardId}, Status = {CardStatus.PrintWaiting}, Message = {c.message}");
+                                }
+
+                            }
+                            htIssue[c.deviceId] = false;
+                            conn.Close();
+                            Interlocked.Decrement(ref threadCount);
+                            return;
                         }
-                        else
-                        {
-                            throw e;
-                        }
-                    }
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    if (((Dpcl)device).Https)
+                    //    {
+                    //        ((Dpcl)device).SecurityProtocolTypeCurrent = SecurityProtocolType.Tls;
+                    //        if (!device.StartJob())
+                    //            throw new Exception("startjob error");
+                    //    }
+                    //    else
+                    //    {
+                    //        throw e;
+                    //    }
+                    //}
                     // подбираем лоток
                     try
                     {
@@ -2086,6 +2116,16 @@ namespace CardRoute
                 //SqlTransaction trans = conn.BeginTransaction();
             using (SqlCommand upd = conn.CreateCommand())
             {
+                //если мы сюда по повторным попыткам подключиться к эмбоссеру, пока он недоступен, то только меняем статус, без логов
+                if (status == CardStatus.PrintProcess && !String.IsNullOrEmpty(c.message))
+                {
+                    upd.CommandText = $"update Cards set CardStatusId=@newstatus, LastActionDateTime=@lasttime where CardId=@cardid";
+                    upd.Parameters.Add("@newstatus", SqlDbType.Int).Value = (int)status;
+                    upd.Parameters.Add("@lasttime", SqlDbType.DateTime).Value = DateTime.Now;
+                    upd.Parameters.Add("@cardid", SqlDbType.Int).Value = c.cardId;
+                    upd.ExecuteNonQuery();
+                    return;
+                }
                 //upd.Transaction = trans;
                 if (waitingStatus)
                 {

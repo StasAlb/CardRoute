@@ -140,7 +140,6 @@ d:\work\CardRoute\ConsoleService\bin\Debug\DataPrep.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\DpclDevice.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\SmartModule.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\dxp01sdk.pdb
-d:\work\CardRoute\ConsoleService\bin\Debug\JSrv2.pdb
 d:\work\CardRoute\ConsoleService\bin\Debug\ru-Ru\CardRoute.resources.dll
 d:\work\CardRoute\ConsoleService\bin\Debug\ru-Ru\DpclDevice.resources.dll
 d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.csproj.CopyComplete
@@ -148,4 +147,3 @@ d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.exe
 d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.pdb
 D:\Work\CardRoute\ConsoleService\bin\Debug\RestSharp.dll
 D:\Work\CardRoute\ConsoleService\bin\Debug\RestSharp.xml
-D:\Work\CardRoute\ConsoleService\bin\Debug\Procard2.0.xml
