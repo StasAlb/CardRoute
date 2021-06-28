@@ -1139,9 +1139,13 @@ namespace CardRoute
                     ((Dpcl) device).CardId = c.cardId;
                     //try
                     //{
-                        if (!device.StartJob())
+                        if (realwork && !device.StartJob())
                             throw new Exception("startjob error");
-                        PrinterStatus status = ((Dpcl)device).GetPrinterStatus();
+                        PrinterStatus status = PrinterStatus.Unknown;
+                        if (realwork)
+                            status = ((Dpcl) device).GetPrinterStatus();
+                        else
+                            status = PrinterStatus.Ready;
                         //if (status == PrinterStatus.Off || status == PrinterStatus.Suspended)
                         if (status != PrinterStatus.Ready)
                         {
@@ -1406,13 +1410,18 @@ namespace CardRoute
 
                             if (res == 0)
                             {
-                                string val = "";
+                                string val = "", atrstring = "";
                                 if (outs.ContainsKey("GET_DATA"))
                                     val = outs["GET_DATA"];
                                 if (outs.ContainsKey("ATR"))
-                                    XmlClass.SetXmlAttribute(cardData, "Field", "Name", "ATR", "Value", xnm, outs["ATR"]);
+                                {
+                                    if (tag == "CPLC")
+                                        atrstring = $", 'ATR' = {outs["ATR"]}";
+                                    XmlClass.SetXmlAttribute(cardData, "Field", "Name", "ATR", "Value", xnm,
+                                        outs["ATR"]);
+                                }
 
-                                stasHugeLib::HugeLib.LogClass.WriteToLog($"ReadChip step complete: CardId = {c.cardId}, '{tag}' = {val}");
+                                LogClass.WriteToLog($"ReadChip step complete: CardId = {c.cardId}, '{tag}' = {val}" + atrstring);
 
                                 string saveCardData = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "SaveData", xnm);
                                 int fcnt = stasHugeLib::HugeLib.XmlClass.GetXmlNodeCount(step, "MakeField", xnm);
@@ -1508,34 +1517,46 @@ namespace CardRoute
                             string findscript = stasHugeLib::HugeLib.XmlClass.GetAttribute(step, "", "FindScript", xnm);
                             if (!String.IsNullOrEmpty(findscript))
                             {
+                                script = "";
                                 string[] flds = findscript.Split(',');
+                                string searchdata = "";
+                                foreach (string fld in flds)
+                                {
+                                    string fld_val = XmlClass.GetXmlAttribute(cardData, "Field", "Name", fld, "Value", xnm);
+                                    searchdata += $"'{fld}' = {fld_val}, ";
+                                }
+
+                                if (searchdata.Length > 0)
+                                    searchdata = searchdata.Trim().Substring(0, searchdata.Trim().Length - 1);
+                                LogClass.WriteToLog($"SearchScript start: {searchdata}");
                                 XmlDocument scriptDic = new XmlDocument();
                                 string fname1 = $"{System.AppDomain.CurrentDomain.BaseDirectory}\\ScriptDictionary.xml";
                                 scriptDic.Load(fname1);
-                                XmlNodeList xnl = scriptDic.DocumentElement.SelectNodes("CardScript", xnm);
-                                if (xnl == null)
-                                    throw new Exception("no script found");
-                                foreach (XmlNode xn in xnl)
+                                int scr_cnt = XmlClass.GetXmlNodeCount(scriptDic, "CardScript", xnm);
+                                for (int j = 0; j < scr_cnt; j++)
                                 {
-                                    for (int t = 0; t < xn.ChildNodes.Count; t++)
+                                    XmlDocument xn = XmlClass.GetXmlNode(scriptDic, "CardScript", j, xnm);
+                                    bool scriptfound = true;
+                                    foreach (string fld in flds)
                                     {
-                                        bool scriptfound = true;
-                                        foreach (string fld in flds)
+                                        string fld_val = XmlClass.GetXmlAttribute(cardData, "Field", "Name", fld, "Value", xnm);
+                                        if (XmlClass.GetAttribute(xn, "", fld, xnm) != fld_val)
                                         {
-                                            string fld_val = XmlClass.GetXmlAttribute(cardData, "Field", "Name", fld, "Value", xnm);
-                                            if (xn.ChildNodes[t].Attributes[fld].Value != fld_val)
-                                            {
-                                                scriptfound = false;
-                                                break;
-                                            }
-                                        }
-                                        if (scriptfound)
-                                        {
-                                            script = xn.ChildNodes[t].Attributes["Script"].Value;
+                                            scriptfound = false;
                                             break;
                                         }
                                     }
+                                    if (scriptfound)
+                                    {
+                                        script = XmlClass.GetAttribute(xn, "", "Script", xnm);
+                                        break;
+                                    }
                                 }
+                                if (String.IsNullOrEmpty(script))
+                                    throw new Exception("no script found");
+                                else
+                                    LogClass.WriteToLog($"SearchScript complete: script = '{script}'");
+
                             }
 
                             Scpp.Scpp scpp = new Scpp.Scpp();
@@ -1584,10 +1605,31 @@ namespace CardRoute
                                 Interlocked.Decrement(ref threadCount);
                                 return;
                             }
-                            stasHugeLib::HugeLib.LogClass.WriteToLog($"Perso step complete: CardId = {c.cardId}, result = {res}");
+                            LogClass.WriteToLog($"Perso step complete: CardId = {c.cardId}, result = {res}");
                             if (res == 0)
                             {
-                                
+                                //сохраняем событие perso если script не пустой
+                                if (!String.IsNullOrEmpty(script))
+                                {
+                                    using (SqlCommand comm = conn.CreateCommand())
+                                    {
+                                        comm.CommandText =
+                                            "insert into LogJournal (LogTypeId, LogDateTime, LogMessage) values (@logtype, @lasttime, @logmessage) \n\r"
+                                            + "select @@identity";
+                                        comm.Parameters.Add("@logtype", SqlDbType.Int).Value = 300;
+                                        comm.Parameters.Add("@lasttime", SqlDbType.DateTime).Value = DateTime.Now;
+                                        comm.Parameters.Add("@logmessage", SqlDbType.NVarChar, 1024).Value = script;
+
+                                        object obj = comm.ExecuteScalar();
+                                        int logid = Convert.ToInt32(obj);
+                                        comm.CommandText =
+                                            $"insert into LogCard (LogRecordId, CardId) values ({logid}, {c.cardId})\r\n" +
+                                            $"insert into LogProduct(LogRecordId, ProductId) values({logid}, {c.productId})\r\n" +
+                                            $"insert into LogDevice (LogRecordId, DeviceId) values ({logid}, {c.deviceId})\r\n" +
+                                            $"insert into LogBranch (LogRecordId, BranchId) values ({logid}, {c.branchid})";
+                                        comm.ExecuteNonQuery();
+                                    }
+                                }
                                 // у нас только персонализации - последний шаг и карту надо выдать в хорошие
                                 if (i + 1 == cnt)
                                 {

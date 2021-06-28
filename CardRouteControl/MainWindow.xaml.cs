@@ -201,6 +201,7 @@ namespace CardRouteControl
                 myPerso.Ip = XmlClass.GetAttribute(settings, "HS", "Ip", "", null);
                 myPerso.Port = XmlClass.GetAttribute(settings, "HS", "Port", "", null);
                 myPerso.Log = XmlClass.GetAttribute(settings, "HS", "Log", "", null);
+                myPerso.Path = XmlClass.GetDataXml(settings, "HS/Application", null);
 
                 //пароль последним, на случай ошибки
                 mySqlServer.Pwd = Utils.AHex2String(MyCrypto.TripleDES_DecryptData(XmlClass.GetDataXml(settings, "Database/password", null), pwd, CipherMode.ECB, PaddingMode.Zeros));
@@ -306,6 +307,8 @@ namespace CardRouteControl
             w.WriteAttributeString("Ip", $"{myPerso.Ip}");
             w.WriteAttributeString("Port", $"{myPerso.Port}");
             w.WriteAttributeString("Log", $"{myPerso.Log}");
+            if (!String.IsNullOrEmpty(myPerso.Path))
+                w.WriteElementString("Application", $"{myPerso.Path}");
             w.WriteEndElement();
             w.WriteEndElement();
             w.Flush();
@@ -330,6 +333,14 @@ namespace CardRouteControl
             var e1 = e.AddedItems?[0];
             SetLanguage(((ComboBoxItem)e1).Content.ToString());
 
+        }
+
+        private void bHS_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog oFile = new OpenFileDialog();
+            oFile.Filter = $"exe files|*.exe|{(string)this.FindResource("AllFiles")}|*.*";
+            if (oFile.ShowDialog() == true)
+                myPerso.Path = oFile.FileName;
         }
     }
     public enum Lang

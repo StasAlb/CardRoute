@@ -31,3 +31,4 @@ d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.csprojAssemblyReference.cache
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.csproj.CopyComplete
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.dll
 d:\work\CardRoute\DataPrep\obj\Debug\DataPrep.pdb
+D:\Work\CardRoute\DataPrep\bin\Debug\JSrv2.pdb

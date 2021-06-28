@@ -32,6 +32,16 @@ namespace CardRouteControl.ViewModel
             set { log = value; RaisePropertyChanged("log"); }
         }
 
+        private string path;
+
+        public string Path
+        {
+            get { return path; }
+            set { path = value; RaisePropertyChanged("Path"); }
+
+        }
+
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)

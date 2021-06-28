@@ -27,6 +27,7 @@
 
     <system:String x:Key="Hs_port">HS порт</system:String>
     <system:String x:Key="Hs_log">Логи</system:String>
+    <system:String x:Key="Hs_Run">Запускать HS при старте</system:String>
 
     
     <system:String x:Key="AllFiles">Все файлы</system:String>
