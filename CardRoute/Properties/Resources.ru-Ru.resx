@@ -144,11 +144,17 @@
   <data name="StatusAdminPending" xml:space="preserve">
     <value>Ожидание подтверждения администратором</value>
   </data>
+  <data name="StatusArchive" xml:space="preserve">
+    <value>Архив</value>
+  </data>
   <data name="StatusCentral" xml:space="preserve">
     <value>Ожидание выгрузки на центральный выпуск</value>
   </data>
   <data name="StatusComplete" xml:space="preserve">
     <value>Завершено</value>
+  </data>
+  <data name="StatusCompleteFinal" xml:space="preserve">
+    <value>Выдано</value>
   </data>
   <data name="StatusError" xml:space="preserve">
     <value>Ошибка</value>

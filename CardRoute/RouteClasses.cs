@@ -26,7 +26,9 @@ namespace CardRoute
         AdminPending = 15,
         IssueDispensing = 16, //вылезла из киоска и ждет пока ее возьмут
         CompleteCentral = 17,
-        Cancel = 18 //у меня нигде не используется
+        Cancel = 18, //у меня нигде не используется
+        CompleteFinal = 19,
+        Archive = 20
     }
 
     enum DeviceType : int

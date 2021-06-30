@@ -67,8 +67,10 @@ namespace CardRoute
         private Timer timerReport = null;
         private Timer timerCentral = null;
         private Timer timerPin = null;
+        private Timer timerStatus = null;
 
         private int timerInterval = 5000;
+        private int periodFinal, periodArchive;
         private string lang = "russian";
         private string protocol = "https";
 
@@ -160,6 +162,12 @@ namespace CardRoute
             if (protocol != "http" && protocol != "https")
                 protocol = "https";
 
+            string sPeriodFinal = XmlClass.GetAttribute(xmlDoc, "Common/CardUpdates", "FinalMinutes", "0", xnm);
+            string sPeriodArchive = XmlClass.GetAttribute(xmlDoc, "Common/CardUpdates", "ArchiveDays", "0", xnm);
+            Int32.TryParse(sPeriodFinal, out periodFinal);
+            Int32.TryParse(sPeriodArchive, out periodArchive);
+
+
             //запуск HS
             string hs_exe = XmlClass.GetDataXml(xmlDoc, "HS/Application", xnm);
             if (!String.IsNullOrEmpty(hs_exe))
@@ -246,6 +254,10 @@ namespace CardRoute
             timerPin = new Timer();
             timerPin.Interval = timerInterval;
             timerPin.Elapsed += TimerPin_Elapsed;
+
+            timerStatus = new Timer();
+            timerStatus.Interval = timerInterval;
+            timerStatus.Elapsed += TimerStatus_Elapsed; 
             
             timerStart.Start();
             timerCdp.Start();
@@ -253,6 +265,83 @@ namespace CardRoute
             timerReport.Start();
             timerCentral.Start();
             timerPin.Start();
+            if (periodFinal > 0 || periodArchive > 0)
+                timerStatus.Start();
+        }
+
+        private void TimerStatus_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            timerStatus.Stop();
+            Interlocked.Increment(ref threadCount);
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                List<Card> cards = new List<Card>();
+                try
+                {
+                    using (SqlCommand comm = conn.CreateCommand())
+                    {
+                        //перевод из Complete в CompleteFinal
+                        if (periodFinal > 0)
+                        {
+                            comm.CommandText =
+                                "select CardId from Cards where CardStatusId=@status and LastActionDateTime<@dt";
+                            comm.Parameters.Add("@status", SqlDbType.Int).Value = (int) CardStatus.Complete;
+                            comm.Parameters.Add("@dt", SqlDbType.DateTime).Value =
+                                DateTime.Now.AddMinutes(-periodFinal);
+                            ;
+                            using (SqlDataReader dr = comm.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    cards.Add(new Card()
+                                    {
+                                        cardId = Convert.ToInt32(dr["CardId"])
+                                    });
+                                }
+                                dr.Close();
+                            }
+
+                            foreach (Card c in cards)
+                                SetCardStatus(c, CardStatus.CompleteFinal, conn);
+                        }
+                        comm.Parameters.Clear();
+                        cards.Clear();
+                        //перевод в архив
+                        if (periodArchive > 0)
+                        {
+                            comm.CommandText =
+                                "select CardId from Cards where CardStatusId in (@statusA, @statusB) and LastActionDateTime<@dt";
+                            comm.Parameters.Add("@statusA", SqlDbType.Int).Value = (int) CardStatus.Complete;
+                            comm.Parameters.Add("@statusB", SqlDbType.Int).Value = (int) CardStatus.CompleteFinal;
+                            comm.Parameters.Add("@dt", SqlDbType.DateTime).Value = DateTime.Now.AddDays(-periodArchive);
+                            using (SqlDataReader dr = comm.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    cards.Add(new Card()
+                                    {
+                                        cardId = Convert.ToInt32(dr["cardid"])
+                                    });
+                                }
+                                dr.Close();
+                            }
+
+                            foreach (Card c in cards)
+                                SetCardStatus(c, CardStatus.Archive, conn);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClass.WriteToLog(ex.Message);
+                }
+
+                conn.Close();
+            }
+            Interlocked.Decrement(ref threadCount);
+            if (!stopFlag)
+                timerStatus.Start();
         }
 
         private void TimerPin_Elapsed(object sender, ElapsedEventArgs e)
@@ -2149,6 +2238,8 @@ namespace CardRoute
                 case CardStatus.OperatorPending:
                 case CardStatus.AdminPending:
                 case CardStatus.PinWaiting:
+                case CardStatus.CompleteFinal:
+                case CardStatus.Archive:
                 case CardStatus.Pause: // паузу ставлю так, чтобы последний статус тоже в нее устанавливал, в движке пауза ставится только если это картомат и мы ждем пока Паша его изменит
                 {
                     waitingStatus = true;
@@ -2168,6 +2259,13 @@ namespace CardRoute
                     upd.ExecuteNonQuery();
                     return;
                 }
+                //если это перевод в архивный статус, то чистим таблицу CardsData
+                if (status == CardStatus.Archive)
+                {
+                    upd.CommandText = $"delete from CardsData where CardId={c.cardId}";
+                    upd.ExecuteNonQuery();
+                }
+
                 //upd.Transaction = trans;
                 if (waitingStatus)
                 {
@@ -2555,6 +2653,11 @@ namespace CardRoute
                     return resourceManager.GetString("StatusComplete");
                 case CardStatus.Central:
                     return resourceManager.GetString("StatusCentral");
+                case CardStatus.CompleteFinal:
+                    return resourceManager.GetString("StatusCompleteFinal");
+                case CardStatus.Archive:
+                    return resourceManager.GetString("StatusArchive");
+
             }
             return "";
         }

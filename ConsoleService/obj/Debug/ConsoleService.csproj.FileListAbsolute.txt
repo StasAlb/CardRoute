@@ -108,7 +108,6 @@ C:\Work\CardRoute\ConsoleService\obj\Debug\ConsoleService.pdb
 C:\Work\CardRoute\ConsoleService\bin\Debug\PinDictionary.xml
 d:\work\CardRoute\ConsoleService\obj\Debug\ConsoleService.csprojAssemblyReference.cache
 d:\work\CardRoute\ConsoleService\bin\Debug\CardRoute.xml
-d:\work\CardRoute\ConsoleService\bin\Debug\ConsoleService.xml
 d:\work\CardRoute\ConsoleService\bin\Debug\Chains\FirstChain.xml
 d:\work\CardRoute\ConsoleService\bin\Debug\PinDictionary.xml
 d:\work\CardRoute\ConsoleService\bin\Debug\ConsoleService.exe.config
