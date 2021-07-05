@@ -53,7 +53,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="90"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="40"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
@@ -70,6 +70,22 @@
                             <ComboBoxItem>http</ComboBoxItem>
                             <ComboBoxItem>https</ComboBoxItem>
                         </ComboBox>
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Common_StatusFinal}"  TextWrapping="WrapWithOverflow" VerticalAlignment="Center" FontSize="11"></TextBlock>
+                            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" Width="60" Height="24" HorizontalAlignment="Left"
+                                     Text="{Binding updateFinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{DynamicResource Common_StatusArchive}"  TextWrapping="WrapWithOverflow" VerticalAlignment="Center" FontSize="11"></TextBlock>
+                            <TextBox Grid.Row="0" Grid.Column="3" Margin="5" VerticalContentAlignment="Center" Width="60" Height="24" HorizontalAlignment="Left"
+                                     Text="{Binding updateArchive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                        </Grid>
                     </Grid>
                 </TabItem.Content>
             </TabItem>

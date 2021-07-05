@@ -12,6 +12,8 @@ namespace CardRouteControl.ViewModel
         public string timeout { get; set; }
         public string language { get; set; }
         public string protocol { get; set; }
+        public string updateFinal { get; set; }
+        public string updateArchive { get; set; }
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)

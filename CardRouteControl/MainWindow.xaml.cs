@@ -188,7 +188,9 @@ namespace CardRouteControl
                 myCommon.timeout = XmlClass.GetDataXml(settings, "Common/Timeout", null);
                 myCommon.language = XmlClass.GetDataXml(settings, "Common/Language", null);
                 myCommon.protocol = XmlClass.GetDataXml(settings, "Common/Protocol", null);
-                
+                myCommon.updateFinal = XmlClass.GetAttribute(settings, "Common/CardUpdates", "FinalMinutes", "0", null);
+                myCommon.updateArchive = XmlClass.GetAttribute(settings, "Common/CardUpdates", "ArchiveDays", "0", null);
+
                 mySqlServer.serverName = XmlClass.GetDataXml(settings, "Database/server", null);
                 mySqlServer.DbName = XmlClass.GetDataXml(settings, "Database/name", null);
                 mySqlServer.Uid = XmlClass.GetDataXml(settings, "Database/uid", null);
@@ -280,6 +282,9 @@ namespace CardRouteControl
 
         private void bSave_OnClick(object sender, RoutedEventArgs e)
         {
+            int final = 0, archive = 0;
+            Int32.TryParse(myCommon.updateFinal, out final);
+            Int32.TryParse(myCommon.updateArchive, out archive);
             FileStream fs = new FileStream("CardRoute.xml", FileMode.Create);
             XmlTextWriter w = new XmlTextWriter(fs, Encoding.UTF8);
             w.Formatting = Formatting.Indented; 
@@ -289,6 +294,13 @@ namespace CardRouteControl
             w.WriteElementString("Timeout", $"{myCommon.timeout}");
             w.WriteElementString("Language", $"{myCommon.language}");
             w.WriteElementString("Protocol", $"{myCommon.protocol}");
+            if (final > 0 || archive > 0)
+            {
+                w.WriteStartElement("CardUpdates");
+                w.WriteAttributeString("FinalMinutes", $"{final}");
+                w.WriteAttributeString("ArchiveDays", $"{archive}");
+                w.WriteEndElement();
+            }
             w.WriteEndElement();
             w.WriteStartElement("Database");
             w.WriteElementString("providerName", $"System.Data.SqlClient");

@@ -31,7 +31,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\CardRoute.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\BouncyCastle.Crypto.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Work\CardRoute\CardRoute\bin\Debug\CardRouteControl.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Work\CardRoute\CardRouteControl\bin\Debug\CardRouteControl.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\CommonLibrary.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Work\CardRoute\CardRoute\bin\Debug\DataPrep.dll"; DestDir: "{app}"; Flags: ignoreversion
